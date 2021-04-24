@@ -19,10 +19,10 @@
         <h3>Employee Sign-In</h3>
         <form #empRef="ngForm" (ngSubmit)="emp_admin_signin(empRef.value)">
             <label>Username:</label>
-            <input type="text" name="e_username" /><br />
+            <input type="text" name="e_username" ngModel /><br />
 
             <label>Password:</label>
-            <input type="text" name="e_password" /><br />
+            <input type="text" name="e_password" ngModel /><br />
 
             <input type="submit" value="Sign-in" />
             <input type="reset" value="Reset" /><br />
