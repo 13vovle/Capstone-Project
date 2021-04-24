@@ -1,0 +1,35 @@
+<div class="flex-container">
+
+    <div class="flex-child">
+        <form #userRef = "ngForm" (ngSubmit) = "user_signin(userRef.value)">
+            <h3>Customer Sign-In</h3>
+            <label>Email:</label>
+            <input type = "text" name = "c_email" ngModel/><br/>
+
+            <label>Password:</label>
+            <input type = "text" name = "c_password" ngModel/><br/>
+
+            <input type ="submit" value ="Sign-in"/>
+            <input type ="reset" value = "Reset"/><br/>
+            
+        </form>
+        
+        <input type = "button" value = "Sign-up" (click) = "reroute_signup()"/>
+
+    </div>
+    
+    <div class="flex-child">
+        <h3>Employee Sign-In</h3>
+        <form #empRef = "ngForm" (ngSubmit) = "emp_admin_signin(empRef.value)">
+            <label>Username:</label>
+            <input type = "text" name = "e_username"/><br/>
+    
+            <label>Password:</label>
+            <input type = "text" name = "e_password"/><br/>
+    
+            <input type ="submit" value ="Sign-in"/>
+            <input type ="reset" value = "Reset"/><br/>
+        </form>
+    </div>
+    
+  </div>
