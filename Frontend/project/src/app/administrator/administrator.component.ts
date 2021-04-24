@@ -20,7 +20,10 @@ export class AdministratorComponent implements OnInit {
 
   addEmployee(empRef: any) {
     empRef.pass = "NewPass123";
-    console.log(empRef);
     this.empSer.addEmployee(empRef);
+  }
+
+  deleteEmployee(empRef: any) {
+    this.empSer.deleteEmployee(empRef.empID);
   }
 }

@@ -4,7 +4,7 @@
 
     <div id="addEmp">
         <h3>Add New Employee</h3>
-        <form #empRef="ngForm" (ngSubmit)="addEmployee(empRef.value)">
+        <form #addEmpRef="ngForm" (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
             <label>First Name:</label>
             <input type="text" name="fName" ngModel /><br />
 
@@ -15,6 +15,17 @@
             <input type="email" name="email" ngModel /><br />
 
             <input type="submit" value="Add Employee" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
+
+    <div id="removeEmp">
+        <h3>Remove Employee Record</h3>
+        <form #delEmpRef="ngForm" (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm()">
+            <label>Employee ID:</label>
+            <input type="text" name="empID" ngModel /><br />
+
+            <input type="submit" value="Remove Employee Record" />
             <input type="reset" value="Reset" />
         </form>
     </div>
