@@ -1,18 +1,19 @@
-.flex-container {
-    display: flex;
-}
-
-.flex-child {
-    margin:auto;
-    border: 2px solid black;
+#Customer {
+    float: left;
+    width: 45%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid black;
     border-radius: 25px;
     background: lightgrey;
+}
+
+#Employee {
+    float: right;
+    width: 45%;
+    margin: auto;
     padding: 20px;
-    height: 150px;
-    width:75pxs;
-}  
-
-.flex-child:first-child {
-    margin-right: 20px;
-
-} 
+    border: 1px solid black;
+    border-radius: 25px;
+    background: lightgrey;
+}
