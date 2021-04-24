@@ -23,7 +23,7 @@ mongoose.connect(url,mongooseDbOption);   //ready to connect
 mongoose.connection
 
 //link to router module like a import concept. 
-var User = require("./router/general_router.js");
+var User = require("./router/user.router.js");
 
 app.use("/user", User);
 
