@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
 import { User } from './user.model'
+import { Employee } from './employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,10 @@ export class SignInService {
 
   incrementNumOfTries(user:any):any{
     return this.http.put("http://localhost:9090/user/incrementNumOfTries", user, {responseType: 'text'});
+  }
+
+  loadAllEmpDetails():Observable<Employee[]>{
+    return this.http.get<Employee[]>("http://localhost:9090/emp/getAllEmpDetails");
+    
   }
 }

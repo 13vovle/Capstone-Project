@@ -1,5 +1,11 @@
 const employeeModel = require("../model/employee.model.js");
 
+let getAllEmpDetails = (req,res) =>{
+    employeeModel.find({}, (err, result) =>{
+        if(!err){ res.json(result); }
+    });
+}
+
 let addEmployee = (req, res) => {
     let employee = new employeeModel({
         hashedPassword: req.body.pass,
@@ -32,4 +38,4 @@ let deleteEmployeeByID = (req, res) => {
     });
 };
 
-module.exports = {addEmployee, deleteEmployeeByID};
+module.exports = {getAllEmpDetails, addEmployee, deleteEmployeeByID};
