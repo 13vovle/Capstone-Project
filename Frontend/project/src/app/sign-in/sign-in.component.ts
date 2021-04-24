@@ -10,17 +10,25 @@ import { SignInService } from '../sign-in.service';
 export class SignInComponent implements OnInit {
 
   allUsers:Array<User>=[];
+  msg:string = "";
   constructor(public router:Router, public ser:SignInService) { }
   
   ngOnInit(): void {
+    this.ser.loadAllUsersDetails().subscribe(result => this.allUsers = result, error => console.log(error));
   }
   user_signin(userRef:any){
-    this.ser.loadAllUsersDetails().subscribe(result => this.allUsers = result, error => console.log(error));
-    console.log(userRef.c_email)
+    
+  
     for(var user of this.allUsers){
-      if(user.email === userRef.c_email && user.hashedPassword === userRef.c_password)
-      {
+      if(user.email == userRef.c_email && user.hashedPassword == userRef.c_password){
         console.log("successfully logged in")
+      }
+      else if(user.email == userRef.c_email && user.hashedPassword != userRef.c_password){
+        console.log("unsuccessful log in");
+        this.ser.incrementNumOfTries(user).subscribe((result:string) => {
+          this.msg = result;
+        });
+
       }
     }
   }

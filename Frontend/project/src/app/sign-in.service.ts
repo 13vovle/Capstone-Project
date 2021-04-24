@@ -12,11 +12,15 @@ export class SignInService {
 
   loadAllUsersDetails():Observable<User[]>{
     return this.http.get<User[]>("http://localhost:9090/user/getAllUserDetails");
+    
   }
 
   storeUserDetails(newUser:any){
     this.http.post("http://localhost:9090/user/storeUserDetails", newUser, {responseType: "text"}).
     subscribe(result => console.log(result), error => console.log(error));
   }
-  
+
+  incrementNumOfTries(user:any):any{
+    return this.http.put("http://localhost:9090/user/incrementNumOfTries", user, {responseType: 'text'});
+  }
 }
