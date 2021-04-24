@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     address:{type:String},
     email:{type:String, required: true},
     hashedPassword: { type: String, required: true },
-    funds: { type: Number, required: true },
+    funds: { type: Number, required: 0 },
     cart: {type:Array, default: []},
     orders: {type:Array, default: []},
     isLockedOut: {type:Boolean, default:false},
@@ -20,4 +20,5 @@ const UserSchema = new mongoose.Schema({
 }); 
 
 module.exports =mongoose.model('user',UserSchema);
+
 
