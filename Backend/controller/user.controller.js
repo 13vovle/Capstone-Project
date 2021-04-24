@@ -8,7 +8,7 @@ let getAllUserDetails = (req,res) =>{
 
 let storeUserDetails = (req,res) =>{
     let user = new UserModel({
-    _id: 0,
+    // _id: 0,
     firstName:  req.body.fname,
     lastName:   req.body.lname,
     birthday:   req.body.dob,
