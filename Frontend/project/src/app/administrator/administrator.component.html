@@ -1,4 +1,21 @@
 <div>
     <h2>Admin Page</h2>
     <input type="button" value="Logout" (click)="logout()" />
+
+    <div id="addEmp">
+        <h3>Add New Employee</h3>
+        <form #empRef="ngForm" (ngSubmit)="addEmployee(empRef.value)">
+            <label>First Name:</label>
+            <input type="text" name="fName" ngModel /><br />
+
+            <label>Last Name:</label>
+            <input type="text" name="lName" ngModel /><br />
+
+            <label>Email:</label>
+            <input type="email" name="email" ngModel /><br />
+
+            <input type="submit" value="Add Employee" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
 </div>
