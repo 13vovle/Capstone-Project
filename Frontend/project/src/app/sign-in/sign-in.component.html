@@ -1,35 +1,31 @@
-<div class="flex-container">
-
-    <div class="flex-child">
-        <form #userRef = "ngForm" (ngSubmit) = "user_signin(userRef.value)">
-            <h3>Customer Sign-In</h3>
+<div>
+    <div id="Customer">
+        <h3>Customer Sign-In</h3>
+        <form #userRef="ngForm" (ngSubmit)="user_signin(userRef.value)">
             <label>Email:</label>
-            <input type = "text" name = "c_email" ngModel/><br/>
+            <input type="text" name="c_email" ngModel /><br />
 
             <label>Password:</label>
-            <input type = "text" name = "c_password" ngModel/><br/>
+            <input type="text" name="c_password" ngModel /><br />
 
-            <input type ="submit" value ="Sign-in"/>
-            <input type ="reset" value = "Reset"/><br/>
-            
+            <input type="submit" value="Sign-in" />
+            <input type="reset" value="Reset" />
         </form>
-        
-        <input type = "button" value = "Sign-up" (click) = "reroute_signup()"/>
-
+        <input type="button" value="Sign-up" (click)="reroute_signup()" />
     </div>
-    
-    <div class="flex-child">
+
+    <div id="Employee">
         <h3>Employee Sign-In</h3>
-        <form #empRef = "ngForm" (ngSubmit) = "emp_admin_signin(empRef.value)">
+        <form #empRef="ngForm" (ngSubmit)="emp_admin_signin(empRef.value)">
             <label>Username:</label>
-            <input type = "text" name = "e_username"/><br/>
-    
+            <input type="text" name="e_username" /><br />
+
             <label>Password:</label>
-            <input type = "text" name = "e_password"/><br/>
-    
-            <input type ="submit" value ="Sign-in"/>
-            <input type ="reset" value = "Reset"/><br/>
+            <input type="text" name="e_password" /><br />
+
+            <input type="submit" value="Sign-in" />
+            <input type="reset" value="Reset" /><br />
         </form>
     </div>
-    
-  </div>
+
+</div>
