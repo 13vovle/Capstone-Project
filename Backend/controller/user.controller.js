@@ -11,7 +11,7 @@ let getAllUserDetails = (req,res) =>{
 let id = 0;
 let storeUserDetails = (req,res) =>{
     let user = new UserModel({
-    _id: id,
+    _id: id++,
     firstName:  req.body.fname,
     lastName:   req.body.lname,
     birthday:   req.body.dob,
@@ -29,7 +29,6 @@ let storeUserDetails = (req,res) =>{
     user.save((err,result)=>{
         if(!err){
             res.send(user.firstName + "'s information stored successfully");
-            id++;
         } 
         else res.send("information not stored: " + err);
     });
@@ -42,17 +41,24 @@ let incrementNumOfTries = (req, res) =>{
     UserModel.updateOne({_id: id}, {$inc: {numberOfTries: 1}}, (err1, result) =>{
         if(!err1){
             if(result.nModified > 0){
-                // display the number of attempts made/remaining
                 UserModel.find({_id: id}, {numberOfTries:1, _id:0}, (err2, data)=>{
-                    if(!err2) res.send((5 - data[0].numberOfTries) + " attempts remaing.");
-                    else res.send("error")
+                    if(!err2) {
+                        res.send((5 - data[0].numberOfTries) + " attempts remaining.");
+                    }
+                    else res.send("Error generated: " + err2)
                 }); 
             }
-            else res.send("did not update numberOfTries.");
+            else res.send("Could not update number of tries.");
         }
-        else res.send("Error generated: ");
+        else res.send("Error generated: " + err1);
     })
 }
 
-
-module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries}
+let lockUserOut = (req, res)=>{
+    let id = req.body._id;
+    UserModel.updateOne({_id: id}, {$set: {isLockedOut: true, numberOfTries:0}}, (err, result) =>{
+        if(!err) res.send("You have been locked from the system. A ticket has been automatically raised. Please contact a store associate to resolve this ticket.");
+        else res.send("Could not lock user out.")
+    });
+}
+module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut}

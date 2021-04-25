@@ -3,6 +3,7 @@ import { User } from '../user.model'
 import { Router } from '@angular/router';
 import { SignInService } from '../sign-in.service';
 import { Employee } from '../employee.model';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,6 +14,7 @@ export class SignInComponent implements OnInit {
 
   allUsers: Array<User> = [];
   allEmps: Array<Employee> = [];
+  n:number = 0;
   msg: string = "";
   constructor(public router: Router, public ser: SignInService) { }
 
@@ -22,16 +24,25 @@ export class SignInComponent implements OnInit {
   }
   user_signin(userRef: any) {
 
-
     for (var user of this.allUsers) {
       if (user.email == userRef.c_email && user.hashedPassword == userRef.c_password) {
-        console.log("successfully logged in")
+        console.log("successfully logged in") 
       }
       else if (user.email == userRef.c_email && user.hashedPassword != userRef.c_password) {
+        this.n++;
         console.log("unsuccessful log in");
         this.ser.incrementNumOfTries(user).subscribe((result: string) => {
           this.msg = result;
+        if(this.n >= 5) {
+          this.ser.lockUserOut(user).subscribe((result:string)=>{
+            this.msg = result;
+          });
+          this.ser.createTicket(user);
+          alert("Too many incorrect attempts to login. A ticket has been automatically raised. Please contact the store to have the ticket resolved.");
+          
+        }
         });
+        
 
       }
     }
