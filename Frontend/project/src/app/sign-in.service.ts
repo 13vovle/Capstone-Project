@@ -25,8 +25,16 @@ export class SignInService {
     return this.http.put("http://localhost:9090/user/incrementNumOfTries", user, {responseType: 'text'});
   }
 
+  lockUserOut(user:any):any{
+    return this.http.put("http://localhost:9090/user/lockUserOut", user, {responseType: 'text'});
+  }
+
+  createTicket(user:any){
+    this.http.post("http://localhost:9090/ticket/createTicket", user, {responseType: "text"}).
+    subscribe(result => console.log(result), error => console.log(error));
+  }
+
   loadAllEmpDetails():Observable<Employee[]>{
     return this.http.get<Employee[]>("http://localhost:9090/emp/getAllEmpDetails");
-    
   }
 }
