@@ -20,11 +20,16 @@ export class EmployeeService {
       subscribe(result => console.log(result), error => console.log(error));
   }
 
-  updateEmployee(emp: any) : Observable<Employee> {
-   return this.http.put<Employee>(this.url + "updateEmpDetails", emp)
+  updateEmployee(emp: any): Observable<Employee> {
+    return this.http.put<Employee>(this.url + "updateEmpDetails", emp)
   }
 
-  getEmpById(id: any) : Observable<Employee> {
-    return this.http.get<Employee>(this.url + "getEmpByID"+ id)
-   }
+  getEmpById(id: any): Observable<Employee> {
+    return this.http.get<Employee>(this.url + "getEmpByID" + id)
+  }
+
+  loadAllEmpDetails(): Observable<Employee[]> {
+    return this.http.get<Employee[]>("http://localhost:9090/emp/getAllEmpDetails");
+
+  }
 }
