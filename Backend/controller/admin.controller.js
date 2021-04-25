@@ -28,19 +28,37 @@ module.exports = {
         });
         const createdProduct = await saveSafely(newProduct);
         return createdProduct; 
+    },
+    async getAdminByEmail(email){
+        if(!validators.isValidEmail(email)) throw 'Email address is not valid'
+        return await models.Employee.findOne({$and:[{email: email.toLowerCase()}, {isAdmin:true}]});
     },  
     async updateProduct(id, product){
-
+        if (!validators.isNonEmptyString(id)) throw 'Please provide an product Id';
+        const existingProduct = await models.product.findById(id).exec();
+        if (!existingProduct) throw `There is no product with that given ID: ${id}`;
+        if (product.name){
+            existingProduct.name = product.name
+        }
+        if (product.price){
+            existingProduct.price = product.price
+        }
+        if(product.quantity){
+            existingProduct.quantity = product.quantity
+        }
+        if(product.description){
+            existingProduct.description = product.description
+        }
+        return await saveSafely(existingProduct);
     }, 
     async deleteProduct(id){
-
+            if(!validators.isNonEmptyString(id)) throw 'Please provide an id to delete the product'
+            const deletedProduct = await models.product.findByIdAndDelete(id).exec();
+            return deletedProduct
     }, 
     async viewRequests(){
         return await models.Request.find({}).exec();
     }, 
-
-
-
 };
 
 async function saveSafely(document) {
