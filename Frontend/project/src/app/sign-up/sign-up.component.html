@@ -1,28 +1,31 @@
-<div class = "card">
-    <form #userRef = "ngForm" (ngSubmit) = "user_signup(userRef.value)">
-        <h3>Customer Sign-Up</h3>
+<div class="card">
+    <h3>Customer Sign-Up</h3>
+    <form [formGroup]="signupRef" (ngSubmit)="user_signup(); signupRef.reset()">
         <label>First Name:</label>
-        <input type = "text" name = "fname" ngModel/><br/>
-
+        <input type="text" formControlName="fname"><br />
         <label>Last Name:</label>
-        <input type = "text" name = "lname" ngModel/><br/>
-
+        <input type="text" formControlName="lname"><br />
         <label>Birthday:</label>
-        <input type = "date" name = "dob" ngModel/><br/>
-
-        <label>Phone:</label>
-        <input type = "text" name = "phone" ngModel/><br/>
-
-        <label>Address:</label>
-        <input type = "text" name = "address" ngModel/><br/>
-
+        <input type="date" formControlName="dob"><br />
+        <label>Phone Number:</label>
+        <input type="text" formControlName="phone"><br />
+        <div formGroupName="address">
+            <label>Address Line 1:</label>
+            <input type="text" formControlName="street1"><br />
+            <label>Address Line 2:</label>
+            <input type="text" formControlName="street2"><br />
+            <label>City:</label>
+            <input type="text" formControlName="city"><br />
+            <label>State:</label>
+            <input type="text" formControlName="state"><br />
+            <label>Zip Code:</label>
+            <input type="text" formControlName="zip"><br />
+        </div>
         <label>Email:</label>
-        <input type = "text" name = "email" ngModel/><br/>
-
+        <input type="text" formControlName="email"><br />
         <label>Password:</label>
-        <input type = "text" name = "password" ngModel/><br/>
-
+        <input type="text" formControlName="password"><br />
         <input type ="submit" value ="Register"/>
         <input type ="reset" value = "Reset"/><br/>
-    </form>        
+    </form>
 </div>

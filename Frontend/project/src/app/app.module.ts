@@ -9,12 +9,12 @@ import { EmployeeComponent } from './employee/employee.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { EmployeeRequestComponent } from './employee-request/employee-request.component';
 import { EmployeeUnlockComponent } from './employee-unlock/employee-unlock.component';
-import { EmployeeOrrderComponent } from './employee-orrder/employee-orrder.component';
+import { EmployeeOrderComponent } from './employee-order/employee-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,13 +27,14 @@ import { EmployeeOrrderComponent } from './employee-orrder/employee-orrder.compo
     EmployeeUpdateComponent,
     EmployeeRequestComponent,
     EmployeeUnlockComponent,
-    EmployeeOrrderComponent
+    EmployeeOrderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
