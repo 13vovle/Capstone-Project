@@ -7,7 +7,8 @@ const orderSchema = new mongoose.Schema({
     _id: {type: String, default: uuidv4 },
     product:{type: Array, default:[]},
     userId:{type:String, required:true},
-    status: {type:String, required:true}
+    status: {type:String, required:true},
+    sellDate:{type:Date, required: true}
 }); 
 
 module.exports =mongoose.model('order',orderSchema);
