@@ -11,6 +11,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
+import { EmployeeRequestComponent } from './employee-request/employee-request.component';
+import { EmployeeUnlockComponent } from './employee-unlock/employee-unlock.component';
+import { EmployeeOrrderComponent } from './employee-orrder/employee-orrder.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,11 @@ import { HttpClientModule } from '@angular/common/http';
     EmployeeComponent,
     AdministratorComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    EmployeeUpdateComponent,
+    EmployeeRequestComponent,
+    EmployeeUnlockComponent,
+    EmployeeOrrderComponent
   ],
   imports: [
     BrowserModule,

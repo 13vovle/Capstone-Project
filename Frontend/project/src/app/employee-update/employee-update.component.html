@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>Edit Employee Profile</h1>
+    <form #upd="ngForm" (ngSubmit)="frmData(upd.value)">
+        <div class="pt-3 w-50" >
+            <div class="fieldgroup pt-3">
+                <label for="id" class="font-weight-bold">ID</label>
+                <input type="text" class="form-control" disabled name="id" ngModelplaceholder="ID">
+            </div>
+            <div class="fieldgroup pt-3">
+                <label for="fname" class="font-weight-bold">First Name</label>
+                <input type="text" class="form-control" disabled name="fname" ngModelplaceholder="ID">
+            </div>
+            <div class="fieldgroup pt-3">
+                <label for="lname" class="font-weight-bold">Last Name</label>
+                <input type="text" class="form-control" disabled name="lname" ngModel placeholder="ID">
+            </div>
+            <div class="fieldgroup pt-3">
+                <label for="email" class="font-weight-bold">Email</label>
+                <input type="text" class="form-control" disabled name="email" ngModel placeholder="ID">
+            </div>
+            <div class="fieldgroup pt-3">
+                <label for="pwd" class="font-weight-bold">New Password</label>
+                <input type="text" class="form-control" name="pwd" placeholder="New Password" minlength="8"
+                    #pwd="ngModel" ngModel required>
+            </div>
+            <div class="fieldgroup pt-5">
+                <button type="submit" class="btn btn-primary" [disabled]="!upd.form.valid"><b>submit</b> </button>
+            </div>
+            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="alert alert-danger">
+                <!-- <div *ngIf="pwd.errors.required"> -->
+                Password is required with 8 characters
+                <!-- </div> -->
+            </div>
+        </div>
+    </form>
+</div>
