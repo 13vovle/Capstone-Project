@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { EmployeeRequestComponent } from './employee-request/employee-request.component';
 import { EmployeeUnlockComponent } from './employee-unlock/employee-unlock.component';
-import { EmployeeOrrderComponent } from './employee-orrder/employee-orrder.component';
+import { EmployeeOrderComponent } from './employee-order/employee-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +27,7 @@ import { EmployeeOrrderComponent } from './employee-orrder/employee-orrder.compo
     EmployeeUpdateComponent,
     EmployeeRequestComponent,
     EmployeeUnlockComponent,
-    EmployeeOrrderComponent
+    EmployeeOrderComponent
   ],
   imports: [
     BrowserModule,
