@@ -54,6 +54,14 @@ let incrementNumOfTries = (req, res) =>{
     })
 }
 
+let resetNumOfTries = (req, res) =>{
+    let id = req.body._id;
+    UserModel.updateOne({_id: id}, {$set: {numberOfTries: 0}}, (err, result) =>{
+        if(!err) res.send("Number of attempts is reset to 0");
+        else res.send("Could not reset user's count.")
+    });
+}
+
 let lockUserOut = (req, res)=>{
     let id = req.body._id;
     UserModel.updateOne({_id: id}, {$set: {isLockedOut: true, numberOfTries:0}}, (err, result) =>{
@@ -61,4 +69,4 @@ let lockUserOut = (req, res)=>{
         else res.send("Could not lock user out.")
     });
 }
-module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut}
+module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries}
