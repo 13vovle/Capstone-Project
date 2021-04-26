@@ -15,6 +15,7 @@ import { EmployeeUpdateComponent } from './employee-update/employee-update.compo
 import { EmployeeRequestComponent } from './employee-request/employee-request.component';
 import { EmployeeUnlockComponent } from './employee-unlock/employee-unlock.component';
 import { EmployeeOrderComponent } from './employee-order/employee-order.component';
+import { AdminAuthGuard } from './admin.authguard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,7 @@ import { EmployeeOrderComponent } from './employee-order/employee-order.componen
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

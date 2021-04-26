@@ -25,8 +25,12 @@ mongoose.connection
 //link to router module like a import concept. 
 var User = require("./router/user.router.js");
 var EmpAdmin = require("./router/employee-admin.router");
+var Ticket = require("./router/ticket.router");
+var Product = require("./router/product.router");
 
 app.use("/user", User);
 app.use("/emp", EmpAdmin);
+app.use("/ticket", Ticket);
+app.use("/product", Product)
 
-app.listen(9090, () => console.log("Listening on port 9090..."))
+app.listen(9090, () => console.log("Listening on port 9090..."));

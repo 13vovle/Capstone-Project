@@ -29,10 +29,12 @@ export class AdministratorComponent implements OnInit {
   addEmployee(empRef: any) {
     empRef.pass = "NewPass123";
     this.empSer.addEmployee(empRef);
+    this.loadAllEmployees();
   }
 
   deleteEmployee(empRef: any) {
     this.empSer.deleteEmployee(empRef.empID);
+    this.loadAllEmployees();
   }
 
   loadAllEmployees() {
