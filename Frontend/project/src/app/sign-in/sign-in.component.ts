@@ -25,26 +25,29 @@ export class SignInComponent implements OnInit {
   user_signin(userRef: any) {
 
     for (var user of this.allUsers) {
-      if (user.email == userRef.c_email && user.hashedPassword == userRef.c_password) {
-        console.log("successfully logged in") 
-      }
-      else if (user.email == userRef.c_email && user.hashedPassword != userRef.c_password) {
-        this.n++;
-        console.log("unsuccessful log in");
-        this.ser.incrementNumOfTries(user).subscribe((result: string) => {
-          this.msg = result;
-        if(this.n >= 5) {
-          this.ser.lockUserOut(user).subscribe((result:string)=>{
-            this.msg = result;
-          });
-          this.ser.createTicket(user);
-          alert("Too many incorrect attempts to login. A ticket has been automatically raised. Please contact the store to have the ticket resolved.");
-          
+      if(user.isLockedOut == false){
+        if (user.email == userRef.c_email && user.hashedPassword == userRef.c_password) {
+          console.log("successfully logged in");
+          this.ser.reset(user);
+          this.router.navigate(["\productPage"]);
         }
-        });
-        
-
-      }
+        else if (user.email == userRef.c_email && user.hashedPassword != userRef.c_password){
+          this.n++;
+          console.log("unsuccessful log in");
+          this.ser.incrementNumOfTries(user).subscribe((result: string) => {
+          this.msg = result;
+          if(this.n >= 5) {
+            this.ser.lockUserOut(user).subscribe((result:string)=>{ this.msg = result; });
+            this.ser.createTicket(user);
+            alert("You have made too many incorrect attempts to login. A ticket has been automatically raised. Please contact the store to have the ticket resolved.");
+          }
+          });
+        }
+    }
+    else{
+      alert("You have made too many incorrect attempts to login. A ticket has been automatically raised. Please contact the store to have the ticket resolved.");
+      this.msg = "You have been locked from the system. A ticket has been automatically raised. Please contact a store associate to resolve this ticket.";
+    }
     }
   }
   reroute_signup() {

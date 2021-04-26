@@ -12,8 +12,7 @@ export class SignInService {
   constructor(public http:HttpClient) { }
 
   loadAllUsersDetails():Observable<User[]>{
-    return this.http.get<User[]>("http://localhost:9090/user/getAllUserDetails");
-    
+    return this.http.get<User[]>("http://localhost:9090/user/getAllUserDetails"); 
   }
 
   storeUserDetails(newUser:any){
@@ -29,6 +28,10 @@ export class SignInService {
     return this.http.put("http://localhost:9090/user/lockUserOut", user, {responseType: 'text'});
   }
 
+  reset(user:any){
+    this.http.put("http://localhost:9090/user/reset", user, {responseType: "text"}).
+    subscribe(result => console.log(result), error => console.log(error));
+  }
   createTicket(user:any){
     this.http.post("http://localhost:9090/ticket/createTicket", user, {responseType: "text"}).
     subscribe(result => console.log(result), error => console.log(error));
