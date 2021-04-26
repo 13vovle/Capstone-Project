@@ -15,23 +15,23 @@ router.get("/getEmpByID/:ID", employeeController.getEmpByID);
 
 router.get('/create', async(req,res)=>{
     const hashedPassword = await bcrypt.hash('12345', 10);
-    let admin1 = {
+    let adminA = {
         firstName: 'Jack',
         lastName:'Yang',
-        email : 'jackyyjyang@gmailcom',
+        email : 'jackyyjyang@gmail.com',
         hashedPassword: hashedPassword,
         isAdmin:true
     }
-    const admin1 = await adminData.createAdmin(admin1);
+    const admin1 = await adminData.createAdmin(adminA);
 
-    let admin2 = {
+    let adminB = {
         firstName: 'Jacob',
         lastName:'Taylor',
         email : 'jacobtaylor3197@gmail.com',
         hashedPassword: hashedPassword,
         isAdmin:true
     }
-    const admin2 = await adminData.createAdmin(admin2);
+    const admin2 = await adminData.createAdmin(adminB);
     // email == 'anku127@gmail.com' || email == 'chanukya.cheekati@gmail.com' || email == 'rahulkrishkampati@gmail.com'
     res.send('Admins successfully created!')
 });

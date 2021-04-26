@@ -31,7 +31,7 @@
             <input type="button" class="section-button" value="Add New Employee" (click)="showHideSection('addEmp')">
         </h3>
         <form *ngIf="addEmp" #addEmpRef="ngForm"
-            (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm(); loadAllEmployees()">
+            (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
             <label>First Name:</label>
             <input type="text" name="fName" ngModel /><br />
 
@@ -52,7 +52,7 @@
                 (click)="showHideSection('removeEmp')">
         </h3>
         <form *ngIf="removeEmp" #delEmpRef="ngForm"
-            (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm(); loadAllEmployees()">
+            (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm()">
             <label>Employee ID:</label>
             <input type="text" name="empID" ngModel /><br />
 
