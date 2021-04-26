@@ -6,4 +6,19 @@ let getAllProductDetails = (req,res) =>{
     });
 }
 
-module.exports = {getAllProductDetails};
+let addProduct = (req, res) =>{
+    
+    let product = new productModel({
+        _id: req.body.pid,
+        name: req.body.name,
+        price: req.body.p,
+        quantity: req.body.q,
+        description: req.body.desc
+    });
+
+    product.save((err, result) =>{
+        if(!err) res.send("Product successfully stored.");
+        else res.send("Product could not be stored.");
+    });
+}
+module.exports = {getAllProductDetails, addProduct};
