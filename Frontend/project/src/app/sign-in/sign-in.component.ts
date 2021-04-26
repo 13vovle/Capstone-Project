@@ -56,13 +56,12 @@ export class SignInComponent implements OnInit {
 
   emp_admin_signin(empRef: any) {
     for (var emp of this.allEmps) {
-      console.log(emp);
-      console.log(empRef);
-      if (emp._id == empRef.e_username && emp.hashedPassword == empRef.e_password) {
+      if (emp.email == empRef.e_username && emp.hashedPassword == empRef.e_password) {
         if (emp.isAdmin) {
           sessionStorage.setItem("admin", emp._id);
           this.router.navigate(["\admin"]);
         } else {
+          sessionStorage.setItem("employee", emp._id);
           this.router.navigate(["\employee"]);
         }
       }
