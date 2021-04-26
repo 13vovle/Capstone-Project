@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SignInService } from '../sign-in.service';
 import { Employee } from '../employee.model';
 import { ThisReceiver } from '@angular/compiler';
-
+import * as bcrypt from 'bcryptjs';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -56,7 +56,7 @@ export class SignInComponent implements OnInit {
 
   emp_admin_signin(empRef: any) {
     for (var emp of this.allEmps) {
-      if (emp.email == empRef.e_username && emp.hashedPassword == empRef.e_password) {
+      if (emp.email == empRef.e_username && bcrypt.compare(empRef.e_password, emp.hashedPassword)) {
         if (emp.isAdmin) {
           sessionStorage.setItem("admin", emp._id);
           this.router.navigate(["\admin"]);
