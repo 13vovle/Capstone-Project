@@ -8,8 +8,8 @@ let bodyParser = require("body-parser");
 let url = "mongodb://localhost:27017/StoreDB";
 
 //middleware enable data from post method
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 app.use(cors());            // enable cors policy for cross domin communication
 
 //Database connection without warning 

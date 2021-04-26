@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../employee.model';
@@ -12,8 +13,9 @@ export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
   addEmp = false;
   removeEmp = false;
+  addProduct:boolean = false; 
 
-  constructor(public router: Router, public empSer: EmployeeService) { }
+  constructor(public router: Router, public empSer: EmployeeService ) { }
 
   ngOnInit(): void {
     this.loadAllEmployees();
@@ -37,11 +39,25 @@ export class AdministratorComponent implements OnInit {
     this.empSer.loadAllEmpDetails().subscribe(result => this.allEmps = result, error => console.log(error));
   }
 
+  loadAllAdmins(){
+
+  }
+
+  loadAllProducts(){
+
+  }
+  
+  addProductFunc(productRef:any){
+    console.log(productRef);
+    this.empSer.addProduct(productRef);
+  }
   showHideSection(flag: string) {
     if (flag == "addEmp") {
       this.addEmp = !this.addEmp;
     } else if (flag == "removeEmp") {
       this.removeEmp = !this.removeEmp;
+    } else if(flag == 'addProduct'){
+      this.addProduct = !this.addProduct
     }
   }
 }

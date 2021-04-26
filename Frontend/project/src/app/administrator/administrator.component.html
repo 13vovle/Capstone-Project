@@ -60,4 +60,27 @@
             <input type="reset" value="Reset" />
         </form>
     </div>
+
+    <div id="add Product">
+        <h3>
+            <input type="button" class="section-button" value="Add New Product" (click)="showHideSection('addProduct')">
+        </h3>
+        <form *ngIf="addProduct" #addProductRef="ngForm"
+            (ngSubmit)="addProductFunc(addProductRef.value); addProductRef.resetForm(); loadAllProducts()">
+            <label>Product Name:</label>
+            <input type="text" name="name" ngModel /><br />
+
+            <label>Product Price:</label>
+            <input type="number" name="price" ngModel /><br />
+
+            <label>Quantity:</label>
+            <input type="number" name="quantity" ngModel /><br />
+
+            <label>Description:</label>
+            <input type="text" name="description" ngModel /><br />
+
+            <input type="submit" value="Add Product" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
 </div>

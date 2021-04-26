@@ -18,12 +18,15 @@ router.get('/create', async(req,res)=>{
     let admin1 = {
         firstName: 'Jack',
         lastName:'Yang',
-        email : 'jackyyjyang@gmailcom',
+        email : 'jackyyjyang@gmail.com',
         hashedPassword: hashedPassword,
         isAdmin:true
     }
-    const admin1 = await adminData.createAdmin(admin1);
-
+    try{
+        const adminOne = await adminData.createAdmin(admin1);
+    }catch(err){
+        res.status(400).send(err)
+    }
     let admin2 = {
         firstName: 'Jacob',
         lastName:'Taylor',
@@ -31,7 +34,11 @@ router.get('/create', async(req,res)=>{
         hashedPassword: hashedPassword,
         isAdmin:true
     }
-    const admin2 = await adminData.createAdmin(admin2);
+    try{
+        const adminTwo = await adminData.createAdmin(admin2);
+    }catch(err){
+        res.status(400).send(err)
+    }
     // email == 'anku127@gmail.com' || email == 'chanukya.cheekati@gmail.com' || email == 'rahulkrishkampati@gmail.com'
     res.send('Admins successfully created!')
 });
@@ -40,15 +47,38 @@ router.post('/login', async(req,res)=>{
     const {email, password} = req.body;
     if(!validatorData.isNonEmptyString(email)) throw 'Must provide email to login as admin'
     if(!validatorData.isNonEmptyString(password)) throw 'Must provide password to login as admin'
-    const admin = await adminData.getAdminByEmail(email.toLowerCase());  
-    if (admin && (await bcrypt.compare(password, admin.hashedPassword))){
-        //req.session.user = {_id: admin._id, email:admin.email, firstName: admin.firstName, lastName: admin.lastName}
-        res.redirect('/emp');
-    }else{
-        res.status(400).send('Admin login failed!')
-    }
+    try{
+        const admin = await adminData.getAdminByEmail(email.toLowerCase());  
+        if (admin && (await bcrypt.compare(password, admin.hashedPassword))){
+            //req.session.user = {_id: admin._id, email:admin.email, firstName: admin.firstName, lastName: admin.lastName}
+            //res.redirect('/emp');
+            res.send('Admin Login successul!')
+        }else{
+            res.status(400).send('Admin login failed!')
+        }
+    }catch(e){
+        res.status(400).send(e)
+    }  
 });
 
+router.post('/addProduct', async(req,res)=>{
+    const {name, price, quantity, description } = req.body
+    if(!validatorData.isNonEmptyString(name)) throw 'Product name must be non-empty string!'
+    if(!validatorData.isPositiveNumber(price)) throw 'Product price must be a positive number!'
+    if(!validatorData.isPositiveNumber(quantity)) throw 'Product quantity must be a positive number!'
+    if(!validatorData.isNonEmptyString(description)) throw 'Product description must be non-empty string!'
+
+    let newProd = {
+        name, price, quantity, description 
+    }
+    try{
+        await adminData.addProduct(newProd)
+        res.send('Product added successfully!')
+    }catch(e){
+        res.sendStatus(500).send('Error adding product')
+    }
+    
+});
 
 
 module.exports = router;
