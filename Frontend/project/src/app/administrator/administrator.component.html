@@ -29,7 +29,6 @@
 
     <div id="addEmp" class="section">
         <h3>
-            <!-- <button mat-button color="primary" class="section-button" (click)="showHideSection('addEmp')">Add New Employee</button> -->
             <input type="button" class="section-button" value="Add New Employee" (click)="showHideSection('addEmp')">
         </h3>
         <form *ngIf="addEmp" #addEmpRef="ngForm" (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
@@ -45,8 +44,7 @@
             <br />
             <mat-form-field>
                 <mat-label>Email:</mat-label>
-                <input matInput type="email" name="email" ngModel required placeholder="Ex. johndoe@example.com"
-                    pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" /><br />
+                <input matInput type="email" name="email" ngModel required placeholder="Ex. johndoe@example.com" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" /><br />
             </mat-form-field>
             <br />
             <button mat-stroked-button color="primary" type="submit" [disabled]="!addEmpRef.valid">Add Employee</button>
@@ -59,8 +57,7 @@
 
     <div id="removeEmp" class="section">
         <h3>
-            <input type="button" class="section-button" value="Remove Employee Record"
-                (click)="showHideSection('removeEmp')">
+            <input type="button" class="section-button" value="Remove Employee Record" (click)="showHideSection('removeEmp')">
         </h3>
         <form *ngIf="removeEmp" #delEmpRef="ngForm" (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm()">
             <mat-form-field>
@@ -68,8 +65,7 @@
                 <input matInput type="text" name="empID" ngModel required /><br />
             </mat-form-field>
             <br />
-            <button mat-stroked-button color="primary" type="submit" [disabled]="!delEmpRef.valid">Remove Employee
-                Record</button>
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!delEmpRef.valid">Remove Employee Record</button>
             &nbsp;
             <button mat-stroked-button color="primary" type="reset">Reset</button>
         </form>
