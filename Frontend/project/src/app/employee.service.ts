@@ -25,11 +25,12 @@ export class EmployeeService {
   }
 
   getEmpById(id: any): Observable<Employee> {
-    return this.http.get<Employee>(this.url + "getEmpByID" + id)
+    return this.http.get<Employee>(this.url + "getEmpByID/" + id)
   }
 
   loadAllEmpDetails(): Observable<Employee[]> {
     return this.http.get<Employee[]>("http://localhost:9090/emp/getAllEmpDetails");
 
   }
+
 }

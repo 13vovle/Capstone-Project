@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { CartComponent } from './cart/cart.component';
+import { EmployeeRequestComponent } from './employee-request/employee-request.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: "\admin", component:AdministratorComponent},
   {path: "\productPage", component:ProductPageComponent},
   {path: "\cart", component:CartComponent},
-  {path: "\empUpdate", component:EmployeeUpdateComponent}
+  {path: "\empUpdate", component:EmployeeUpdateComponent},
+  {path: "\empRequest", component:EmployeeRequestComponent}
 ];
 
 @NgModule({

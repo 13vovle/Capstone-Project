@@ -1,10 +1,14 @@
+const { ObjectID } = require("bson");
 const employeeModel = require("../model/employee.model.js");
 const validator = require("./validators");
 
 let getAllEmpDetails = (req,res) =>{
     employeeModel.find({}, (err, result) =>{
-        if(!err){ res.json(result); }
+        if(!err){ 
+            res.json(result); 
+        }
     });
+    
 }
 
 let addEmployee = (req, res) => {
@@ -39,19 +43,21 @@ let deleteEmployeeByID = (req, res) => {
     });
 };
 
-let updateEmployee = (req, res) => {
-    
-        let empID = req.body.empID;
-        let newPassword = req.body.pass;
+let updateEmployee = async(req, res) => {
+
+        let empID = req.body._id;
+        console.log(typeof(req.body.empID));
+        let newPassword = req.body.hashedPassword;
         let isValidPassword = validator.isValidPassword(newPassword);
         if(isValidPassword){
-            employeeModel.updateOne({_id: empID},{$set:{hashedPassword:newPassword}},(err,result)=> { 
-                if(!err && result.modifiedCount > 0){
+            await employeeModel.updateOne({_id: empID},{$set:{hashedPassword : newPassword}},(err,result)=> { 
+                console.log(result)
+                if(!err && result.nModified > 0){
                     res.send("password updated successfully")
                 }else {
+                    console.log(err)
                     res.send("password not updated ")
                 }
-            
             })
         }
         else
@@ -63,7 +69,7 @@ let updateEmployee = (req, res) => {
 
 let getEmpByID = (req,res) =>{
     let empID = req.params.ID;
-    employeeModel.find({_id: empID}, (err, result) =>{
+     employeeModel.findOne({_id : empID}, (err, result) =>{
         if(!err)
         {
              res.json(result);

@@ -1,9 +1,27 @@
 const productModel = require("../model/product.model.js");
+const reqModel = require("../model/request.model.js");
 
 let getAllProductDetails = (req,res) =>{
     productModel.find({},(err, result) =>{
         if(!err)res.json(result);
     });
 }
+ let productReqDetails = (req, res) => {
+    let req = new reqModel({
+        hashedPassword: req.body.pass,
+        firstName: req.body.fName,
+        lastName: req.body.lName,
+        email: req.body.email,
+        isAdmin: false
+    });
 
-module.exports = {getAllProductDetails};
+    req.save((err, result) => {
+        if (!err) {
+            res.send("Request sent successfully " + result);
+        } else {
+            res.send("Request not sent " + err);
+        }
+    });
+};
+
+module.exports = {getAllProductDetails, productReqDetails};
