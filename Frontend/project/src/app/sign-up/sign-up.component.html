@@ -1,31 +1,99 @@
 <div class="card">
-    <h3>Customer Sign-Up</h3>
-    <form [formGroup]="signupRef" (ngSubmit)="user_signup(); signupRef.reset()">
-        <label>First Name:</label>
-        <input type="text" formControlName="fname"><br />
-        <label>Last Name:</label>
-        <input type="text" formControlName="lname"><br />
-        <label>Birthday:</label>
-        <input type="date" formControlName="dob"><br />
-        <label>Phone Number:</label>
-        <input type="text" formControlName="phone"><br />
-        <div formGroupName="address">
-            <label>Address Line 1:</label>
-            <input type="text" formControlName="street1"><br />
-            <label>Address Line 2:</label>
-            <input type="text" formControlName="street2"><br />
-            <label>City:</label>
-            <input type="text" formControlName="city"><br />
-            <label>State:</label>
-            <input type="text" formControlName="state"><br />
-            <label>Zip Code:</label>
-            <input type="text" formControlName="zip"><br />
-        </div>
-        <label>Email:</label>
-        <input type="text" formControlName="email"><br />
-        <label>Password:</label>
-        <input type="text" formControlName="password"><br />
-        <input type ="submit" value ="Register"/>
-        <input type ="reset" value = "Reset"/><br/>
-    </form>
+
+    <h3>Customer Sign-Up <button mat-button color="primary" (click)="router.navigate([''])">Sign In</button></h3>
+
+    <mat-grid-list cols="4" rowHeight="3:1">
+
+        <form [formGroup]="signupRef" (ngSubmit)="user_signup(); signupRef.reset()">
+
+            <mat-grid-tile colspan="2" rowspan="1">
+                <mat-form-field>
+                    <mat-label>First Name:</mat-label>
+                    <input matInput type="text" formControlName="fname" required>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+                <mat-form-field>
+                    <mat-label>Last Name:</mat-label>
+                    <input matInput type="text" formControlName="lname" required>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+                <mat-form-field>
+                    <mat-label>Birthday:</mat-label>
+                    <input matInput type="date" formControlName="dob" required>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+                <mat-form-field>
+                    <mat-label>Phone Number:</mat-label>
+                    <input matInput type="text" formControlName="phone" required placeholder="Ex. 1234567890">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <div formGroupName="address">
+
+                <mat-grid-tile colspan="4" rowspan="1">
+                    <mat-form-field>
+                        <mat-label>Address Line 1:</mat-label>
+                        <input matInput type="text" formControlName="street1" required placeholder="Street address, P.O. Box, company name, c/o">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="4" rowspan="1">
+                    <mat-form-field>
+                        <mat-label>Address Line 2:</mat-label>
+                        <input matInput type="text" formControlName="street2" placeholder="Apartment, suite, unit, building, floor, etc.">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="2" rowspan="1">
+                    <mat-form-field>
+                        <mat-label>City:</mat-label>
+                        <input matInput type="text" formControlName="city" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field>
+                        <mat-label>State:</mat-label>
+                        <input matInput type="text" formControlName="state" required placeholder="Ex. NY">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field>
+                        <mat-label>Zip Code:</mat-label>
+                        <input matInput type="text" formControlName="zip" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+            </div>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+                <mat-form-field>
+                    <mat-label>Email:</mat-label>
+                    <input matInput type="email" formControlName="email" required placeholder="Ex. johndoe@example.com"
+                    pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" />
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+                <mat-form-field>
+                    <mat-label>Password:</mat-label>
+                    <input matInput type="text" formControlName="password" required>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="1">
+                <button mat-stroked-button color="primary" type="submit" [disabled]="!signupRef.valid">Register</button>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1">
+                <button mat-stroked-button color="primary" type="reset">Reset</button>
+            </mat-grid-tile>
+        </form>
+    </mat-grid-list>
 </div>
