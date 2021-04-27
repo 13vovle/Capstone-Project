@@ -3,17 +3,11 @@ const employeeModel = require("../model/employee.model.js");
 const validator = require("./validators");
 const bcrypt = require('bcrypt');
 
-<<<<<<< HEAD
 let getAllEmpDetails = (req,res) =>{
     employeeModel.find({}, (err, result) =>{
         if(!err){ 
             res.json(result); 
         }
-=======
-let getAllEmpDetails = (req, res) => {
-    employeeModel.find({}, (err, result) => {
-        if (!err) { res.json(result); }
->>>>>>> 2d6998079a21bfdcfeedd1e00456b7920a3eeb8f
     });
     
 }
@@ -51,7 +45,6 @@ let deleteEmployeeByID = (req, res) => {
     });
 };
 
-<<<<<<< HEAD
 let updateEmployee = async(req, res) => {
 
         let empID = req.body._id;
@@ -74,42 +67,14 @@ let updateEmployee = async(req, res) => {
             res.send("Invalid Password")
         }
       
-=======
-let updateEmployee = async (req, res) => {
-
-    let empID = req.body.empID;
-    let newPassword = req.body.pass;
-    let isValidPassword = validator.isValidPassword(newPassword);
-    if (isValidPassword) {
-        newPassword = await bcrypt.hash(newPassword, 10);
-        const employeeOne = await employeeModel.updateOne({ _id: empID }, { $set: { hashedPassword: newPassword } }, (err, result) => {
-            if (!err && result.nModified > 0) {
-                res.send("password updated successfully")
-            } else {
-                res.send("password not updated ")
-            }
-
-        })
-    }
-    else {
-        res.send("Invalid Password")
-    }
-
->>>>>>> 2d6998079a21bfdcfeedd1e00456b7920a3eeb8f
 };
 
 let getEmpByID = (req, res) => {
     let empID = req.params.ID;
-<<<<<<< HEAD
      employeeModel.findOne({_id : empID}, (err, result) =>{
         if(!err)
         {
              res.json(result);
-=======
-    employeeModel.find({ _id: empID }, (err, result) => {
-        if (!err) {
-            res.json(result);
->>>>>>> 2d6998079a21bfdcfeedd1e00456b7920a3eeb8f
         }
         else {
             res.send("Employee not found")
