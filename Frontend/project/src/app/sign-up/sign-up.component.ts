@@ -37,5 +37,6 @@ export class SignUpComponent implements OnInit {
   user_signup() {
     console.log(this.signupRef.value);
     this.ser.storeUserDetails(this.signupRef.value);
+    this.router.navigate([""]);
   }
 }
