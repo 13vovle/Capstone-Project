@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../employee.model';
 import { EmployeeService } from '../employee.service';
+import { Product } from '../product.model';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-administrator',
@@ -11,14 +13,17 @@ import { EmployeeService } from '../employee.service';
 })
 export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
+  allProducts: Array<Product> = [];
   addEmp = false;
   removeEmp = false;
   addProduct:boolean = false; 
+  updateProduct:boolean = false; 
 
-  constructor(public router: Router, public empSer: EmployeeService ) { }
+  constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService ) { }
 
   ngOnInit(): void {
     this.loadAllEmployees();
+    this.loadAllProducts();
   }
 
   logout() {
@@ -46,12 +51,18 @@ export class AdministratorComponent implements OnInit {
   }
 
   loadAllProducts(){
+    this.prodSer.loadProductDetails().subscribe(result => this.allProducts = result, error => console.log(error));
 
   }
   
   addProductFunc(productRef:any){
-    console.log(productRef);
+    //console.log(productRef);
     this.empSer.addProduct(productRef);
+  }
+  updateProductFunc(productRef:any){
+    console.log(productRef);
+    this.empSer.updateProduct(productRef);
+    
   }
   showHideSection(flag: string) {
     if (flag == "addEmp") {
@@ -60,6 +71,8 @@ export class AdministratorComponent implements OnInit {
       this.removeEmp = !this.removeEmp;
     } else if(flag == 'addProduct'){
       this.addProduct = !this.addProduct
+    }else if(flag == 'updateProduct'){
+      this.updateProduct = !this.updateProduct
     }
   }
 }

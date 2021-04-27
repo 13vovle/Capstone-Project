@@ -21,6 +21,7 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
     this.ser.loadAllUsersDetails().subscribe(result => this.allUsers = result, error => console.log(error));
     this.ser.loadAllEmpDetails().subscribe(result => this.allEmps = result, error => console.log(error));
+    this.ser.loadAllAdminDetails().subscribe();
   }
   async user_signin(userRef: any) {
     for (var user of this.allUsers) {

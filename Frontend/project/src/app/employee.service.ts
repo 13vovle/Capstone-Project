@@ -38,5 +38,9 @@ export class EmployeeService {
     subscribe(result => console.log(result), error => console.log(error));
   }
 
+  updateProduct(newProd: any){
+    this.http.patch(this.url + "updateProduct/"+newProd.Id, newProd, { responseType: "text" }).
+      subscribe(result => console.log(result), error => console.log(error));
+  }
 
 }
