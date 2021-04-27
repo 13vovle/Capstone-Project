@@ -15,6 +15,16 @@ module.exports = {
         const createdAdmin = await saveSafely(newAdmin);
         return createdAdmin; 
     },
+    async getAdminById(id){
+        if (!validators.isNonEmptyString(id)) throw 'No admin with that id found!'
+        try{
+            const admin = await models.Employee.findById(id).exec();
+            return admin
+        }catch(e){
+            console.log(e);
+        }
+        
+    },
     async addProduct(product){
         if(!validators.isNonEmptyString(product.name)) throw 'You must provid a product name'
         if(!validators.isPositiveNumber(product.price)) throw 'You must provid a positive product price'
@@ -35,7 +45,7 @@ module.exports = {
     },  
     async updateProduct(id, product){
         if (!validators.isNonEmptyString(id)) throw 'Please provide an product Id';
-        const existingProduct = await models.product.findById(id).exec();
+        const existingProduct = await models.Product.findById(id).exec();
         if (!existingProduct) throw `There is no product with that given ID: ${id}`;
         if (product.name){
             existingProduct.name = product.name
