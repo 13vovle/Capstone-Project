@@ -7,5 +7,5 @@ router.post("/storeUserDetails", UserController.storeUserDetails);
 router.put("/incrementNumOfTries", UserController.incrementNumOfTries);
 router.put("/lockUserOut", UserController.lockUserOut);
 router.put("/reset", UserController.resetNumOfTries);
-
+router.put("/addToCart/:id", UserController.addToCart);
 module.exports = router;
