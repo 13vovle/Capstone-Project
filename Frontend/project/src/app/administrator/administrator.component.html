@@ -31,7 +31,7 @@
             <input type="button" class="section-button" value="Add New Employee" (click)="showHideSection('addEmp')">
         </h3>
         <form *ngIf="addEmp" #addEmpRef="ngForm"
-            (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm(); loadAllEmployees()">
+            (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
             <label>First Name:</label>
             <input type="text" name="fName" ngModel /><br />
 
@@ -52,11 +52,85 @@
                 (click)="showHideSection('removeEmp')">
         </h3>
         <form *ngIf="removeEmp" #delEmpRef="ngForm"
-            (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm(); loadAllEmployees()">
+            (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm()">
             <label>Employee ID:</label>
             <input type="text" name="empID" ngModel /><br />
 
             <input type="submit" value="Remove Employee Record" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
+    <br>
+    <div id="allProducts">
+        <h3>All Products</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Product Quantity</th>
+                    <th>Product Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of allProducts">
+                    <td>{{p._id}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.price}}</td>
+                    <td>{{p.quantity}}</td>
+                    <td>{{p.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+    <div id="add Product">
+        <h3>
+            <input type="button" class="section-button" value="Add New Product" (click)="showHideSection('addProduct')">
+        </h3>
+        <form *ngIf="addProduct" #addProductRef="ngForm"
+            (ngSubmit)="addProductFunc(addProductRef.value); addProductRef.resetForm(); loadAllProducts()">
+            <label>Product Name:</label>
+            <input type="text" name="name" ngModel /><br />
+
+            <label>Product Price:</label>
+            <input type="number" name="price" ngModel /><br />
+
+            <label>Quantity:</label>
+            <input type="number" name="quantity" ngModel /><br />
+
+            <label>Description:</label>
+            <input type="text" name="description" ngModel /><br />
+
+            <input type="submit" value="Add Product" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
+    <div id="Update Product">
+        <h3>
+            <input type="button" class="section-button" value="Update Product" (click)="showHideSection('updateProduct')">
+        </h3>
+        <form *ngIf="updateProduct" #updateProductRef="ngForm"
+            (ngSubmit)="updateProductFunc(updateProductRef.value); updateProductRef.resetForm(); loadAllProducts()">
+            
+            <label>Product Id:</label>
+            <input type="text" name="Id" ngModel /><br />
+            
+            <label>Product Name:</label>
+            <input type="text" name="name" ngModel /><br />
+
+            <label>Product Price:</label>
+            <input type="number" name="price" ngModel /><br />
+
+            <label>Quantity:</label>
+            <input type="number" name="quantity" ngModel /><br />
+
+            <label>Description:</label>
+            <input type="text" name="description" ngModel /><br />
+
+            <input type="submit" value="Update Product" />
             <input type="reset" value="Reset" />
         </form>
     </div>

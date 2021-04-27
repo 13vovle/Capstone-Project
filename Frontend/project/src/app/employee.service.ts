@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { fromEventPattern, Observable } from 'rxjs';
 import { Employee } from './employee.model';
+import {Product} from './product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,16 @@ export class EmployeeService {
 
   loadAllEmpDetails(): Observable<Employee[]> {
     return this.http.get<Employee[]>("http://localhost:9090/emp/getAllEmpDetails");
+  }
 
+  addProduct(newProd: any){
+    this.http.post(this.url + "addProduct", newProd, { responseType: "text" }).
+    subscribe(result => console.log(result), error => console.log(error));
+  }
+
+  updateProduct(newProd: any){
+    this.http.patch(this.url + "updateProduct/"+newProd.Id, newProd, { responseType: "text" }).
+      subscribe(result => console.log(result), error => console.log(error));
   }
 
 }

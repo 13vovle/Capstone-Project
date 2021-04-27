@@ -23,6 +23,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   reroute_login(){
+    sessionStorage.removeItem("user");
     this.router.navigate([""]);
   }
 }

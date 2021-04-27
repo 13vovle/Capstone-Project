@@ -1,7 +1,11 @@
-export class Product{
-    constructor(_id:string,
-                name:string,
-                price:string,
-                quantity:number,
-                description:string){}
+export class Product {
+    constructor(
+        public _id: string,
+        public name: string,
+        public price: number,
+        public quantity: number,
+        public description: string,
+    ) { }
+
+
 }
