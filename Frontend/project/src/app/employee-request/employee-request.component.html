@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Send Product Request </h2>
-    <form #req="ngForm" (ngSubmit)="frmData(req.value)">
+   <!--  <form #req="ngForm" (ngSubmit)="frmData(req.value)">
         <div class="pt-3 w-50" >
             <div class="fieldgroup pt-3">
                 <label for="prd" class="font-weight-bold">Product</label>
@@ -27,10 +27,9 @@
                 <button type="submit" class="btn btn-primary" [disabled]="!upd.form.valid"><b>submit</b> </button>
             </div>
             <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="alert alert-danger">
-                <!-- <div *ngIf="pwd.errors.required"> -->
-                Password is required with 8 characters
-                <!-- </div> -->
-            </div>
+                <div *ngIf="pwd.errors.required"> -->
+                <!-- </div> 
+            </div> 
         </div>
-    </form>
+    </form>-->
 </div>

@@ -8,7 +8,7 @@ let getAllProductDetails = (req,res) =>{
     });
 }
  let productReqDetails = (req, res) => {
-    let req = new reqModel({
+    let request = new reqModel({
         hashedPassword: req.body.pass,
         firstName: req.body.fName,
         lastName: req.body.lName,
