@@ -10,13 +10,13 @@ let getAllProductDetails = (req,res) =>{
  let productReqDetails = (req, res) => {
     let request = new reqModel({
         hashedPassword: req.body.pass,
-        firstName: req.body.fName,
-        lastName: req.body.lName,
-        email: req.body.email,
-        isAdmin: false
+        productName: req.body.productName,
+        productId : req.body.productId,
+        quantity: req.body.quantity,
+        
     });
 
-    req.save((err, result) => {
+    request.save((err, result) => {
         if (!err) {
             res.send("Request sent successfully " + result);
         } else {
@@ -34,4 +34,4 @@ let getProductById = async (id)=>{
 }
 
 
-module.exports = {getAllProductDetails, getProductById,productReqDetails};
+module.exports = {getAllProductDetails, getProductById, productReqDetails};

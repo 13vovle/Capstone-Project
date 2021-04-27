@@ -13,6 +13,10 @@ export class ProductService {
   loadProductDetails():Observable<Product[]>{
     return this.http.get<Product[]>("http://localhost:9090/emp/getAllProductDetails");
   }
+
+  getProductDetails():Observable<Product[]>{
+    return this.http.get<Product[]>("http://localhost:9090/product/getAllProductsDetails");
+  }
   
   productReqDetails(req:any):Observable<ProductReq>{
     return this.http.post<ProductReq>("http://localhost:9090/product/sendProductsRequest", req);
