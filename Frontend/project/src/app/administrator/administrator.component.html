@@ -151,7 +151,8 @@
             <input type="reset" value="Reset" />
         </form>
     </div>
-    <div id="removeProduct">
+    <hr />
+    <div id="removeProduct" class="section">
         <h3>
             <input type="button" class="section-button" value="Remove Product"
                 (click)="showHideSection('removeProduct')">
@@ -164,5 +165,25 @@
             <input type="submit" value="Remove Product Record" />
             <input type="reset" value="Reset" />
         </form>
+    </div>
+    <hr/>
+    <div id="allRequests" class="section">
+        <h3>All Requests</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Product Name</th>
+                    <th>Update Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of allRequests">
+                    <td>{{r._id}}</td>
+                    <td>{{r.productName}}</td>
+                    <td>{{r.quantity}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

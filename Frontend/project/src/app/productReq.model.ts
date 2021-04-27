@@ -1,6 +1,7 @@
 export class ProductReq{
-    constructor(_id:string,
-        productName:string,
-        quantity:number,
+    constructor(
+        public _id:string,
+        public productName:string,
+        public quantity:number,
                ){}
 }

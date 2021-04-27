@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { fromEventPattern, Observable } from 'rxjs';
 import { Employee } from './employee.model';
-import {Product} from './product.model';
+import { ProductReq } from './productReq.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +47,7 @@ export class EmployeeService {
     return this.http.delete(this.url + "deleteProduct/" + prodRef.Id, { responseType: 'text' }).
       subscribe(result => console.log(result), error => console.log(error));
   }
-
+  loadAllRequests():Observable<ProductReq[]> {
+    return this.http.get<ProductReq[]>(this.url + "getAllRequests");
+  }
 }

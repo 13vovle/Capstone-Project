@@ -147,5 +147,14 @@ router.delete('/deleteProduct/:id', async(req,res)=>{
     }
 });
 
+router.get('/getAllRequests', async(req,res)=>{
+    try{
+        const requestData = await adminData.viewRequests()
+        res.json(requestData);
+    }catch(err){
+        res.send(err);
+    }
+})
+
 
 module.exports = router;

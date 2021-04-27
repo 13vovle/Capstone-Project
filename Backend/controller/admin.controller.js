@@ -74,7 +74,11 @@ module.exports = {
             return deletedProduct
     }, 
     async viewRequests(){
-        return await models.Request.find({}).exec();
+        try{
+           return await models.Request.find({}).exec(); 
+        }catch(err){
+            console.log(err)
+        }
     }, 
 };
 
