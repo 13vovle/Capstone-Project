@@ -151,4 +151,18 @@
             <input type="reset" value="Reset" />
         </form>
     </div>
+    <div id="removeProduct">
+        <h3>
+            <input type="button" class="section-button" value="Remove Product"
+                (click)="showHideSection('removeProduct')">
+        </h3>
+        <form *ngIf="removeProduct" #delProdRef="ngForm"
+            (ngSubmit)="deleteProductFunc(delProdRef.value); delProdRef.resetForm()">
+            <label>Product ID:</label>
+            <input type="text" name="Id" ngModel /><br />
+
+            <input type="submit" value="Remove Product Record" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
 </div>

@@ -43,4 +43,9 @@ export class EmployeeService {
       subscribe(result => console.log(result), error => console.log(error));
   }
 
+  deleteProduct(prodRef:any){
+    return this.http.delete(this.url + "deleteProduct/" + prodRef.Id, { responseType: 'text' }).
+      subscribe(result => console.log(result), error => console.log(error));
+  }
+
 }

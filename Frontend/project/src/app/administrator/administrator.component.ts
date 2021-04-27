@@ -14,10 +14,11 @@ import { ProductService } from '../product.service';
 export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
   allProducts: Array<Product> = [];
-  addEmp: boolean = false;
-  removeEmp: boolean = false;
-  addProduct: boolean = false;
-  updateProduct: boolean = false;
+  addEmp = false;
+  removeEmp = false;
+  addProduct:boolean = false; 
+  updateProduct:boolean = false; 
+  removeProduct:boolean = false; 
 
   constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService) { }
 
@@ -58,10 +59,13 @@ export class AdministratorComponent implements OnInit {
     //console.log(productRef);
     this.empSer.addProduct(productRef);
   }
-  updateProductFunc(productRef: any) {
-    console.log(productRef);
+  updateProductFunc(productRef:any){
+    //console.log(productRef);
     this.empSer.updateProduct(productRef);
-
+  }
+  deleteProductFunc(delProdRef:any){
+    console.log(delProdRef)
+    this.empSer.deleteProduct(delProdRef);
   }
   showHideSection(flag: string) {
     if (flag == "addEmp") {
@@ -72,6 +76,8 @@ export class AdministratorComponent implements OnInit {
       this.addProduct = !this.addProduct
     } else if (flag == 'updateProduct') {
       this.updateProduct = !this.updateProduct
+    }else if(flag == 'removeProduct'){
+      this.removeProduct = !this.removeProduct
     }
   }
 }
