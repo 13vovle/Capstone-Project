@@ -5,6 +5,7 @@ import { Employee } from '../employee.model';
 import { EmployeeService } from '../employee.service';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
+import { ProductReq } from '../productReq.model';
 
 @Component({
   selector: 'app-administrator',
@@ -14,6 +15,7 @@ import { ProductService } from '../product.service';
 export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
   allProducts: Array<Product> = [];
+  allRequests: Array<ProductReq> = [];
   addEmp = false;
   removeEmp = false;
   addProduct:boolean = false; 
@@ -25,6 +27,7 @@ export class AdministratorComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllEmployees();
     this.loadAllProducts();
+    this.loadAllRequests();
   }
 
   logout() {
@@ -46,15 +49,12 @@ export class AdministratorComponent implements OnInit {
     this.empSer.loadAllEmpDetails().subscribe(result => this.allEmps = result, error => console.log(error));
   }
 
-  loadAllAdmins() {
-
-  }
-
   loadAllProducts() {
     this.prodSer.loadProductDetails().subscribe(result => this.allProducts = result, error => console.log(error));
-
   }
-
+  loadAllRequests(){
+    this.empSer.loadAllRequests().subscribe(result => this.allRequests = result, error => console.log(error));
+  }
   addProductFunc(productRef: any) {
     //console.log(productRef);
     this.empSer.addProduct(productRef);
@@ -64,7 +64,7 @@ export class AdministratorComponent implements OnInit {
     this.empSer.updateProduct(productRef);
   }
   deleteProductFunc(delProdRef:any){
-    console.log(delProdRef)
+    //console.log(delProdRef)
     this.empSer.deleteProduct(delProdRef);
   }
   showHideSection(flag: string) {
