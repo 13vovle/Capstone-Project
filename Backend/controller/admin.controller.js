@@ -63,7 +63,7 @@ module.exports = {
     }, 
     async deleteProduct(id){
             if(!validators.isNonEmptyString(id)) throw 'Please provide an id to delete the product'
-            const deletedProduct = await models.product.findByIdAndDelete(id).exec();
+            const deletedProduct = await models.Product.findByIdAndDelete(id).exec();
             return deletedProduct
     }, 
     async viewRequests(){
