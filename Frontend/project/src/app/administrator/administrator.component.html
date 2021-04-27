@@ -1,8 +1,7 @@
 <div>
-    <h2>Admin Page</h2>
-    <input type="button" value="Logout" (click)="logout()" />
+    <h2>Admin Page <button mat-button color="primary" (click)="logout()">Logout</button></h2>
 
-    <div id="allEmps">
+    <div id="allEmps" class="section">
         <h3>All Employees</h3>
         <table>
             <thead>
@@ -26,42 +25,59 @@
         </table>
     </div>
 
-    <div id="addEmp">
+    <hr />
+
+    <div id="addEmp" class="section">
         <h3>
+            <!-- <button mat-button color="primary" class="section-button" (click)="showHideSection('addEmp')">Add New Employee</button> -->
             <input type="button" class="section-button" value="Add New Employee" (click)="showHideSection('addEmp')">
         </h3>
-        <form *ngIf="addEmp" #addEmpRef="ngForm"
-            (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
-            <label>First Name:</label>
-            <input type="text" name="fName" ngModel /><br />
-
-            <label>Last Name:</label>
-            <input type="text" name="lName" ngModel /><br />
-
-            <label>Email:</label>
-            <input type="email" name="email" ngModel /><br />
-
-            <input type="submit" value="Add Employee" />
-            <input type="reset" value="Reset" />
+        <form *ngIf="addEmp" #addEmpRef="ngForm" (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
+            <mat-form-field>
+                <mat-label>First Name:</mat-label>
+                <input matInput type="text" name="fName" ngModel required /><br />
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Last Name:</mat-label>
+                <input matInput type="text" name="lName" ngModel required /><br />
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Email:</mat-label>
+                <input matInput type="email" name="email" ngModel required placeholder="Ex. johndoe@example.com"
+                    pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" /><br />
+            </mat-form-field>
+            <br />
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!addEmpRef.valid">Add Employee</button>
+            &nbsp;
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
         </form>
     </div>
 
-    <div id="removeEmp">
+    <hr />
+
+    <div id="removeEmp" class="section">
         <h3>
             <input type="button" class="section-button" value="Remove Employee Record"
                 (click)="showHideSection('removeEmp')">
         </h3>
-        <form *ngIf="removeEmp" #delEmpRef="ngForm"
-            (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm()">
-            <label>Employee ID:</label>
-            <input type="text" name="empID" ngModel /><br />
-
-            <input type="submit" value="Remove Employee Record" />
-            <input type="reset" value="Reset" />
+        <form *ngIf="removeEmp" #delEmpRef="ngForm" (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm()">
+            <mat-form-field>
+                <mat-label>Employee ID:</mat-label>
+                <input matInput type="text" name="empID" ngModel required /><br />
+            </mat-form-field>
+            <br />
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!delEmpRef.valid">Remove Employee
+                Record</button>
+            &nbsp;
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
         </form>
     </div>
-    <br>
-    <div id="allProducts">
+
+    <hr />
+
+    <div id="allProducts" class="section">
         <h3>All Products</h3>
         <table>
             <thead>
@@ -84,9 +100,10 @@
             </tbody>
         </table>
     </div>
-    <br>
 
-    <div id="add Product">
+    <hr />
+
+    <div id="add Product" class="section">
         <h3>
             <input type="button" class="section-button" value="Add New Product" (click)="showHideSection('addProduct')">
         </h3>
@@ -108,16 +125,20 @@
             <input type="reset" value="Reset" />
         </form>
     </div>
-    <div id="Update Product">
+
+    <hr />
+
+    <div id="Update Product" class="section">
         <h3>
-            <input type="button" class="section-button" value="Update Product" (click)="showHideSection('updateProduct')">
+            <input type="button" class="section-button" value="Update Product"
+                (click)="showHideSection('updateProduct')">
         </h3>
         <form *ngIf="updateProduct" #updateProductRef="ngForm"
             (ngSubmit)="updateProductFunc(updateProductRef.value); updateProductRef.resetForm(); loadAllProducts()">
-            
+
             <label>Product Id:</label>
             <input type="text" name="Id" ngModel /><br />
-            
+
             <label>Product Name:</label>
             <input type="text" name="name" ngModel /><br />
 

@@ -17,6 +17,10 @@ import { EmployeeUnlockComponent } from './employee-unlock/employee-unlock.compo
 import { EmployeeOrderComponent } from './employee-order/employee-order.component';
 import { AdminAuthGuard } from './admin.authguard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [AdminAuthGuard],
   bootstrap: [AppComponent]
