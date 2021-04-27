@@ -34,17 +34,17 @@
         <form *ngIf="addEmp" #addEmpRef="ngForm" (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
             <mat-form-field>
                 <mat-label>First Name:</mat-label>
-                <input matInput type="text" name="fName" ngModel required /><br />
+                <input matInput type="text" name="fName" ngModel required />
             </mat-form-field>
             <br />
             <mat-form-field>
                 <mat-label>Last Name:</mat-label>
-                <input matInput type="text" name="lName" ngModel required /><br />
+                <input matInput type="text" name="lName" ngModel required />
             </mat-form-field>
             <br />
             <mat-form-field>
                 <mat-label>Email:</mat-label>
-                <input matInput type="email" name="email" ngModel required placeholder="Ex. johndoe@example.com" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" /><br />
+                <input matInput type="email" name="email" ngModel required placeholder="Ex. johndoe@example.com" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
             </mat-form-field>
             <br />
             <button mat-stroked-button color="primary" type="submit" [disabled]="!addEmpRef.valid">Add Employee</button>
