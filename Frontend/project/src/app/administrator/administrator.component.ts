@@ -14,12 +14,12 @@ import { ProductService } from '../product.service';
 export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
   allProducts: Array<Product> = [];
-  addEmp = false;
-  removeEmp = false;
-  addProduct:boolean = false; 
-  updateProduct:boolean = false; 
+  addEmp: boolean = false;
+  removeEmp: boolean = false;
+  addProduct: boolean = false;
+  updateProduct: boolean = false;
 
-  constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService ) { }
+  constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService) { }
 
   ngOnInit(): void {
     this.loadAllEmployees();
@@ -32,7 +32,6 @@ export class AdministratorComponent implements OnInit {
   }
 
   addEmployee(empRef: any) {
-    empRef.pass = "NewPass123";
     this.empSer.addEmployee(empRef);
     this.loadAllEmployees();
   }
@@ -46,32 +45,32 @@ export class AdministratorComponent implements OnInit {
     this.empSer.loadAllEmpDetails().subscribe(result => this.allEmps = result, error => console.log(error));
   }
 
-  loadAllAdmins(){
+  loadAllAdmins() {
 
   }
 
-  loadAllProducts(){
+  loadAllProducts() {
     this.prodSer.loadProductDetails().subscribe(result => this.allProducts = result, error => console.log(error));
 
   }
-  
-  addProductFunc(productRef:any){
+
+  addProductFunc(productRef: any) {
     //console.log(productRef);
     this.empSer.addProduct(productRef);
   }
-  updateProductFunc(productRef:any){
+  updateProductFunc(productRef: any) {
     console.log(productRef);
     this.empSer.updateProduct(productRef);
-    
+
   }
   showHideSection(flag: string) {
     if (flag == "addEmp") {
       this.addEmp = !this.addEmp;
     } else if (flag == "removeEmp") {
       this.removeEmp = !this.removeEmp;
-    } else if(flag == 'addProduct'){
+    } else if (flag == 'addProduct') {
       this.addProduct = !this.addProduct
-    }else if(flag == 'updateProduct'){
+    } else if (flag == 'updateProduct') {
       this.updateProduct = !this.updateProduct
     }
   }
