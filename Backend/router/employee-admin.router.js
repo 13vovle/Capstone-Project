@@ -136,5 +136,16 @@ router.patch('/updateProduct/:id', async(req,res)=>{
     }
 });
 
+router.delete('/deleteProduct/:id', async(req,res)=>{
+    let id = req.params.id
+    if(!validatorData.isNonEmptyString(id)) throw 'Must enter valid id to delete product'
+    try{
+       let deletedProduct =  await adminData.deleteProduct(id);
+       res.send('Product successfully deleted!')
+    }catch(e){
+        res.send(e)
+    }
+});
+
 
 module.exports = router;
