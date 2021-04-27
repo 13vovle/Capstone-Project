@@ -1,4 +1,5 @@
 const productModel = require("../model/product.model.js");
+const reqModel = require("../model/request.model.js");
 const validator = require('./validators')
 
 let getAllProductDetails = (req,res) =>{
@@ -6,6 +7,24 @@ let getAllProductDetails = (req,res) =>{
         if(!err)res.json(result);
     });
 }
+ let productReqDetails = (req, res) => {
+    let request = new reqModel({
+        hashedPassword: req.body.pass,
+        firstName: req.body.fName,
+        lastName: req.body.lName,
+        email: req.body.email,
+        isAdmin: false
+    });
+
+    req.save((err, result) => {
+        if (!err) {
+            res.send("Request sent successfully " + result);
+        } else {
+            res.send("Request not sent " + err);
+        }
+    });
+};
+
 
 let getProductById = async (id)=>{
     if(!validator.isNonEmptyString(id)) throw 'Can not get product with invalid Id!'
@@ -15,4 +34,4 @@ let getProductById = async (id)=>{
 }
 
 
-module.exports = {getAllProductDetails, getProductById};
+module.exports = {getAllProductDetails, getProductById,productReqDetails};

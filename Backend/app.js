@@ -17,7 +17,10 @@ const mongooseDbOption = {       // to avoid warning
     useNewUrlParser: true,
     useUnifiedTopology: true
 }
-mongoose.connect(url, mongooseDbOption);   //ready to connect
+mongoose.connect(url, mongooseDbOption).then(
+    () => { console.log('Database is connected') },
+    err => { console.log('Can not connect to the database' + err) }
+  );   //ready to connect
 
 //Connect the data 
 mongoose.connection

@@ -1,32 +1,56 @@
 <div>
-    <div id="Customer">
-        <h3>Customer Sign-In</h3>
-        <form #userRef="ngForm" (ngSubmit)="user_signin(userRef.value)">
-            <label>Email:</label>
-            <input type="text" name="c_email" ngModel /><br />
 
-            <label>Password:</label>
-            <input type="text" name="c_password" ngModel /><br />
+    <mat-grid-list cols="2" rowHeight="3:1">
 
-            <input type="submit" value="Sign-in" />
-            <input type="reset" value="Reset" />
-        </form>
-        <input type="button" value="Sign-up" (click)="reroute_signup()" /><br/>
-        {{msg}}
-    </div>
+        <mat-grid-tile colspan="1" rowspan="1">
 
-    <div id="Employee">
-        <h3>Employee Sign-In</h3>
-        <form #empRef="ngForm" (ngSubmit)="emp_admin_signin(empRef.value)">
-            <label>Username:</label>
-            <input type="text" name="e_username" ngModel /><br />
+            <div id="Customer" class="card">
+                <h3>Customer Sign-In <button mat-stroked-button color="primary" (click)="reroute_signup()">Sign Up</button></h3>
+                <form #userRef="ngForm" (ngSubmit)="user_signin(userRef.value)">
+                    <mat-form-field>
+                        <mat-label>Email:</mat-label>
+                        <input matInput type="email" name="c_email" ngModel required
+                            placeholder="Ex. johndoe@example.com"
+                            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field>
+                        <mat-label>Password:</mat-label>
+                        <input matInput type="password" name="c_password" ngModel required />
+                    </mat-form-field>
+                    <br />
+                    <button mat-stroked-button color="primary" type="submit" [disabled]="!userRef.valid">Sign In</button>
+                    &nbsp;
+                    <button mat-stroked-button color="primary" type="reset">Reset</button>
+                </form>
+                {{msg}}
+            </div>
 
-            <label>Password:</label>
-            <input type="text" name="e_password" ngModel /><br />
+        </mat-grid-tile>
 
-            <input type="submit" value="Sign-in" />
-            <input type="reset" value="Reset" /><br />
-        </form>
-    </div>
+        <mat-grid-tile colspan="1" rowspan="1">
+
+            <div id="Employee" class="card">
+                <h3>Employee Sign-In</h3>
+                <form #empRef="ngForm" (ngSubmit)="emp_admin_signin(empRef.value)">
+                    <mat-form-field>
+                        <mat-label>Email:</mat-label>
+                        <input matInput type="email" name="e_email" ngModel required
+                            placeholder="Ex. johndoe@example.com"
+                            pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" /><br />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Password:</mat-label>
+                        <input matInput type="password" name="e_password" ngModel required /><br />
+                    </mat-form-field>
+                    <button mat-stroked-button color="primary" type="submit" [disabled]="!empRef.valid">Sign In</button>
+                    &nbsp;
+                    <button mat-stroked-button color="primary" type="reset">Reset</button>
+                </form>
+            </div>
+
+        </mat-grid-tile>
+
+    </mat-grid-list>
 
 </div>

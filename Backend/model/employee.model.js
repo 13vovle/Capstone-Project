@@ -12,5 +12,7 @@ const employeeSchema = new mongoose.Schema({
     isAdmin:{type:Boolean, default: false}
 }); 
 
-module.exports =mongoose.model('employee',employeeSchema);
+module.exports = mongoose.model('employee',employeeSchema);
+
+
 

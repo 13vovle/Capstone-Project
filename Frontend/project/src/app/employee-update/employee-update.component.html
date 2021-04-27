@@ -1,22 +1,22 @@
 <div class="container">
-    <h1>Edit Employee Profile</h1>
+    <h2>Edit Employee Profile</h2>
     <form #upd="ngForm" (ngSubmit)="frmData(upd.value)">
         <div class="pt-3 w-50" >
             <div class="fieldgroup pt-3">
                 <label for="id" class="font-weight-bold">ID</label>
-                <input type="text" class="form-control" disabled name="id" ngModelplaceholder="ID">
+                <input type="text" class="form-control" disabled name="id" placeholder={{empDetails._id}}>
             </div>
             <div class="fieldgroup pt-3">
                 <label for="fname" class="font-weight-bold">First Name</label>
-                <input type="text" class="form-control" disabled name="fname" ngModelplaceholder="ID">
+                <input type="text"  class="form-control" disabled name="fname" placeholder={{empDetails.firstName}}>
             </div>
             <div class="fieldgroup pt-3">
                 <label for="lname" class="font-weight-bold">Last Name</label>
-                <input type="text" class="form-control" disabled name="lname" ngModel placeholder="ID">
+                <input type="text" class="form-control" disabled name="lname" placeholder={{empDetails.lastName}}>
             </div>
             <div class="fieldgroup pt-3">
                 <label for="email" class="font-weight-bold">Email</label>
-                <input type="text" class="form-control" disabled name="email" ngModel placeholder="ID">
+                <input type="text" class="form-control" disabled name="email" placeholder={{empDetails.email}}>
             </div>
             <div class="fieldgroup pt-3">
                 <label for="pwd" class="font-weight-bold">New Password</label>

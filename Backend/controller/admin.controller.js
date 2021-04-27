@@ -1,7 +1,14 @@
 const models = require('../model');
 const validators = require('./validators')
-
+let ProductController = require('../controller/product.controller')
+let getAllProductDetails = (req, res) =>{
+    ProductController.find({}, (err, result)=>{
+        if(!err) res.json(result);
+        else res.send(error);
+    });
+}
 module.exports = {
+    getAllProductDetails,
     async createAdmin(admin){
         if(!validators.isLettersOnly(admin.firstName))
         throw 'First name must be provided and contains only letters'

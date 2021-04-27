@@ -72,4 +72,10 @@ let lockUserOut = (req, res)=>{
         else res.send("Could not lock user out.")
     });
 }
-module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries}
+
+let addToCart = (req, res) =>{
+    let i = req.params.id;
+    console.log(i);
+}
+
+module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart}

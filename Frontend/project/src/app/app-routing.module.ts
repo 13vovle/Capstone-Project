@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminAuthGuard } from './admin.authguard';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { CartComponent } from './cart/cart.component';
+import { EmployeeRequestComponent } from './employee-request/employee-request.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ProductPageComponent } from './product-page/product-page.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: "\productPage", component: ProductPageComponent },
   { path: "\cart", component: CartComponent },
   { path: "\employee", component: EmployeeComponent },
-  { path: "\empUpdate", component: EmployeeUpdateComponent }
+  { path: "\empUpdate", component: EmployeeUpdateComponent },
+  {path: "\empRequest", component:EmployeeRequestComponent}
 ];
 
 @NgModule({

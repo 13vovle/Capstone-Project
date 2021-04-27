@@ -5,6 +5,7 @@ import { SignInService } from '../sign-in.service';
 import { Employee } from '../employee.model';
 import { ThisReceiver } from '@angular/compiler';
 import * as bcrypt from 'bcryptjs';
+import { CartService } from '../cart.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -16,7 +17,7 @@ export class SignInComponent implements OnInit {
   allEmps: Array<Employee> = [];
   n: number = 0;
   msg: string = "";
-  constructor(public router: Router, public ser: SignInService) { }
+  constructor(public router: Router, public ser: SignInService, public cart_ser:CartService) { }
 
   ngOnInit(): void {
     this.ser.loadAllUsersDetails().subscribe(result => this.allUsers = result, error => console.log(error));
@@ -30,6 +31,7 @@ export class SignInComponent implements OnInit {
           sessionStorage.setItem("user", user._id);
           console.log("successfully logged in");
           this.ser.reset(user);
+          this.cart_ser.setUserID(user);
           this.router.navigate(["\productPage"]);
         }
         else if (user.email == userRef.c_email) {
@@ -57,7 +59,7 @@ export class SignInComponent implements OnInit {
 
   async emp_admin_signin(empRef: any) {
     for (var emp of this.allEmps) {
-      if (emp.email == empRef.e_username && await bcrypt.compare(empRef.e_password, emp.hashedPassword)) {
+      if (emp.email == empRef.e_email && await bcrypt.compare(empRef.e_password, emp.hashedPassword)) {
         if (emp.isAdmin) {
           sessionStorage.setItem("admin", emp._id);
           this.router.navigate(["\admin"]);

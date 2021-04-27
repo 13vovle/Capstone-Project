@@ -1,6 +1,5 @@
-#Customer {
-    float: left;
-    width: 45%;
+.card {
+    width: 95%;
     margin: auto;
     padding: 20px;
     border: 1px solid black;
@@ -8,12 +7,6 @@
     background: lightgrey;
 }
 
-#Employee {
-    float: right;
-    width: 45%;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid black;
-    border-radius: 25px;
-    background: lightgrey;
+mat-form-field {
+    width: 95%;
 }
