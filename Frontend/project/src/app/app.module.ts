@@ -16,6 +16,7 @@ import { EmployeeRequestComponent } from './employee-request/employee-request.co
 import { EmployeeUnlockComponent } from './employee-unlock/employee-unlock.component';
 import { EmployeeOrderComponent } from './employee-order/employee-order.component';
 import { AdminAuthGuard } from './admin.authguard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { AdminAuthGuard } from './admin.authguard';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [AdminAuthGuard],
   bootstrap: [AppComponent]
