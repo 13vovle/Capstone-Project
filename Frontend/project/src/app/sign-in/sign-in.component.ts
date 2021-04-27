@@ -22,16 +22,16 @@ export class SignInComponent implements OnInit {
     this.ser.loadAllUsersDetails().subscribe(result => this.allUsers = result, error => console.log(error));
     this.ser.loadAllEmpDetails().subscribe(result => this.allEmps = result, error => console.log(error));
   }
-  user_signin(userRef: any) {
-
+  async user_signin(userRef: any) {
     for (var user of this.allUsers) {
       if (user.isLockedOut == false) {
-        if (user.email == userRef.c_email && user.hashedPassword == userRef.c_password) {
+        if (user.email == userRef.c_email && await bcrypt.compare(userRef.c_password, user.hashedPassword)) {
+          sessionStorage.setItem("user", user._id);
           console.log("successfully logged in");
           this.ser.reset(user);
           this.router.navigate(["\productPage"]);
         }
-        else if (user.email == userRef.c_email && user.hashedPassword != userRef.c_password) {
+        else if (user.email == userRef.c_email) {
           this.n++;
           console.log("unsuccessful log in");
           this.ser.incrementNumOfTries(user).subscribe((result: string) => {

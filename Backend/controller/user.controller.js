@@ -1,6 +1,7 @@
 const { static } = require("express");
 const userModel = require("../model/user.model.js");
 let UserModel = require("../model/user.model.js");
+const bcrypt = require('bcrypt');
 
 let getAllUserDetails = (req,res) =>{
     UserModel.find({}, (err, result) =>{
@@ -9,7 +10,7 @@ let getAllUserDetails = (req,res) =>{
 }
 
 let id = 0;
-let storeUserDetails = (req,res) =>{
+let storeUserDetails = async (req,res) =>{
     let user = new UserModel({
     _id: id++,
     firstName:  req.body.fname,
@@ -26,7 +27,9 @@ let storeUserDetails = (req,res) =>{
     numberOfTries:0 
     });
 
-    user.save((err,result)=>{
+    user.hashedPassword = await bcrypt.hash(user.hashedPassword, 10);
+
+    const userOne = await user.save((err,result)=>{
         if(!err){
             res.send(user.firstName + "'s information stored successfully");
         } 
