@@ -1,14 +1,32 @@
 const models = require('../model');
 const validators = require('./validators')
-let ProductController = require('../controller/product.controller')
+let ProductController = require('../controller/product.controller');
+const orderModel = require('../model/order.model');
 let getAllProductDetails = (req, res) =>{
     ProductController.find({}, (err, result)=>{
         if(!err) res.json(result);
         else res.send(error);
     });
 }
+let getOrderByDates = (req, res) => {
+    let begin = req.params.begin;
+    let end = req.params.end;
+    orderModel.find({
+        sellDate: {
+            $gte: begin,
+            $lt: end
+        }
+    }, (err, result) => {
+        if(!err) {
+            res.json(result);
+        } else {
+            res.send("No orders placed within the selected dates " + err);
+        }
+    });
+};
 module.exports = {
     getAllProductDetails,
+    getOrderByDates,
     async createAdmin(admin){
         if(!validators.isLettersOnly(admin.firstName))
         throw 'First name must be provided and contains only letters'
