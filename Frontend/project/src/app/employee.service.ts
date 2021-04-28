@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { fromEventPattern, Observable } from 'rxjs';
 import { Employee } from './employee.model';
 import { ProductReq } from './productReq.model';
+import {Ticket } from './ticket.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
   private url = "http://localhost:9090/emp/";
+  private urlTik = "http://localhost:9090/ticket/";
   constructor(public http: HttpClient) { }
 
   addEmployee(newEmp: any) {
@@ -50,4 +52,13 @@ export class EmployeeService {
   loadAllRequests():Observable<ProductReq[]> {
     return this.http.get<ProductReq[]>(this.url + "getAllRequests");
   }
+
+  loadAllTickets():Observable<Ticket[]>{
+    return this.http.get<Ticket[]>("http://localhost:9090/ticket/getTickets");
+  } 
+  updateTicket(tid: any): Observable<Ticket> {
+    console.log(tid )
+    return this.http.put<Ticket>(this.urlTik + "updateTicket", tid)
+  }
+
 }
