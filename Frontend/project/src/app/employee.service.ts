@@ -14,13 +14,11 @@ export class EmployeeService {
   constructor(public http: HttpClient) { }
 
   addEmployee(newEmp: any) {
-    this.http.post(this.url + "addEmployee", newEmp, { responseType: "text" }).
-      subscribe(result => console.log(result), error => console.log(error));
+    return this.http.post(this.url + "addEmployee", newEmp, { responseType: "text" });
   }
 
   deleteEmployee(empID: string) {
-    return this.http.delete(this.url + "deleteEmployeeByID/" + empID, { responseType: 'text' }).
-      subscribe(result => console.log(result), error => console.log(error));
+    return this.http.delete(this.url + "deleteEmployeeByID/" + empID, { responseType: 'text' });
   }
 
   updateEmployee(emp: any): Observable<Employee> {

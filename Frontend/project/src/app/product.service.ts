@@ -22,7 +22,9 @@ export class ProductService {
     return this.http.post<ProductReq>("http://localhost:9090/product/sendProductsRequest", req);
   }
 
- 
-
+  updateStoreQuantity(product:any, n:number){
+    this.http.put("http://localhost:9090/product/updateQuantity/" + n, product, {responseType: "text"}).
+    subscribe(result => console.log(result), error => console.log(error));
+  }
 
 }

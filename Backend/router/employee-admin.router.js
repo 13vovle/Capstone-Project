@@ -14,6 +14,7 @@ router.delete("/deleteEmployeeByID/:empID", employeeController.deleteEmployeeByI
 router.put("/updateEmpDetails",employeeController.updateEmployee);
 router.get("/getEmpByID/:ID", employeeController.getEmpByID);
 router.get("/getAllProductDetails", productData.getAllProductDetails);
+router.get("/getOrdersByDates/:begin/:end", adminData.getOrderByDates)
 
 router.get('/create', async(req,res)=>{
     const hashedPassword = await bcrypt.hash('12345', 10);

@@ -1,3 +1,4 @@
+const { rmSync } = require("fs");
 const productModel = require("../model/product.model.js");
 const reqModel = require("../model/request.model.js");
 const validator = require('./validators')
@@ -33,5 +34,12 @@ let getProductById = async (id)=>{
     return product
 }
 
-
-module.exports = {getAllProductDetails, getProductById, productReqDetails};
+let updateQuantity = (req, res) =>{
+    let i = req.body._id;
+    let n = req.params.num;
+    productModel.updateOne({_id: i}, {$inc: {quantity: n}}, (err, result)=>{
+        if(!err) res.send("store quantity updated");
+        else res.send("could not be updated");
+    });
+}
+module.exports = {getAllProductDetails, getProductById,productReqDetails, updateQuantity};

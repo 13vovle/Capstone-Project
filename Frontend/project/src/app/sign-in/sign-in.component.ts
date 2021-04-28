@@ -24,6 +24,9 @@ export class SignInComponent implements OnInit {
     this.ser.loadAllEmpDetails().subscribe(result => this.allEmps = result, error => console.log(error));
     this.ser.loadAllAdminDetails().subscribe();
   }
+  reroute_productPage(){
+    this.router.navigate(["\productPage"]);
+  }
   async user_signin(userRef: any) {
     for (var user of this.allUsers) {
       if (user.isLockedOut == false) {

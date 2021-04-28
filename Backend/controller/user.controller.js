@@ -1,6 +1,8 @@
 const { static } = require("express");
 const userModel = require("../model/user.model.js");
 let UserModel = require("../model/user.model.js");
+let ProductModel = require("../model/product.model");
+let OrderModel = require("../model/order.model");
 const bcrypt = require('bcrypt');
 
 let getAllUserDetails = (req,res) =>{
@@ -75,7 +77,87 @@ let lockUserOut = (req, res)=>{
 
 let addToCart = (req, res) =>{
     let i = req.params.id;
-    console.log(i);
+    
+    let product = new ProductModel({
+        _id: req.body._id,
+        name: req.body.name,
+        price: req.body.price,
+        quantity: 1,
+        description: req.body.description
+
+    });
+    
+    UserModel.updateOne({_id: i}, {$push: {cart: product}}, (err, result)=>{
+        if(!err) res.send(product.name + " added to cart!")
+        else res.send(roduct.name + " could not be added to cart!")
+    });
+}
+let deleteFromCart = (req, res) =>{
+    let i = req.params.id;
+    let pid = req.body._id;
+    console.log(pid);
+    UserModel.updateOne({_id: i}, {$pull: {cart: {$pull: pid}}}, (err, result)=>{
+        if(!err){
+            if(result.deletedCount >0) res.send("record successfully deleted!")
+            else res.send("record could not be deleted!")
+        }
+        else res.send(err);
+    })
+}
+let updateQuantity = (req, res) =>{
+    let i = req.params.id;
+    let pid = req.body._id;
+    UserModel.updateOne({_id:i, "cart._id": pid}, {$inc: {"cart.$.quantity": 1}}, (err, result) =>{
+        if(!err){
+            if(result.nModified > 0) res.send("quantity updated!")
+            else res.send("quantity could not be updated!")
+        }
+        else res.send("error generated: " + err);
+    });
+}
+let checkout = (req, res) =>{
+    let order = new OrderModel({
+        product: req.body,
+        userId: req.params.id,
+        status: "Getting it together!",
+        sellDate: Date.now()
+    });
+
+    order.save((err, result)=>{
+        if(!err) res.send("Order placed successfully!");
+        else res.send("Order could not be placed: " + err);
+    });
 }
 
-module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart}
+let emptyCart = (req, res) =>{
+    let i = req.params.id;
+    console.log(i);
+    UserModel.updateOne({_id: i}, {$set: {cart: []}}, (err, result)=>{
+        if(!err) res.send("cart was emptied!")
+        else res.send("cart could not be emptied!")
+    })
+}
+let loadUser = (req, res) =>{
+    let i = req.params.id;
+
+    UserModel.findOne(
+        {_id: i},
+        {cart: 1, _id: 0},
+        (err, result) =>{
+        if(!err) res.json(result);
+        else res.send("user could not be loaded!");
+    });
+}
+
+let pushNewCart = (req, res) =>{
+    let id = req.params.id;
+    let newCart = req.body;
+
+    UserModel.updateOne({_id: id}, {$push: {cart: newCart}}, (err, result) =>{
+        if(!err) res.send("new cart has been pushed")
+        else res.send("cart was not pushed");
+    });
+}
+module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut, 
+                resetNumOfTries, addToCart, loadUser, deleteFromCart, updateQuantity, checkout, emptyCart,
+                pushNewCart}
