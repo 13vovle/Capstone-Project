@@ -1,7 +1,8 @@
-export class ProductReq{
-    constructor(_id:string,
-        productName:string,
-        productId : string,
-        quantity:number,
-               ){}
+export class ProductReq {
+    constructor(
+        public _id: string,
+        public productName: string,
+        public productId: string,
+        public quantity: number,
+    ) { }
 }
