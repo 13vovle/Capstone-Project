@@ -8,37 +8,20 @@ let getAllProductDetails = (req, res) =>{
         else res.send(error);
     });
 }
-let getOrderByDates = (req, res) => {
-    let begin = req.params.begin;
-    let end = req.params.end;
-    orderModel.find({
-        sellDate: {
-            $gte: begin,
-            $lt: end
-        }
-    }, (err, result) => {
-        if(!err) {
-            res.json(result);
-        } else {
-            res.send("No orders placed within the selected dates " + err);
-        }
-    });
-};
 module.exports = {
     getAllProductDetails,
-    getOrderByDates,
     async createAdmin(admin){
         if(!validators.isLettersOnly(admin.firstName))
-        throw 'First name must be provided and contains only letters'
+            throw 'First name must be provided and contains only letters'
         if(!validators.isLettersOnly(admin.lastName))
-        throw 'Last name must be provided and contains only letters'
-        if (!validators.isValidEmail(admin.email)) 
-        throw 'Email is not valid';
+            throw 'Last name must be provided and contains only letters'
+        if (!validators.isValidEmail(admin.email))
+            throw 'Email is not valid';
         if (!validators.isNonEmptyString(admin.hashedPassword))
-        throw 'Please provide a password';
+            throw 'Please provide a password';
         const newAdmin = new models.Employee(admin);
         const createdAdmin = await saveSafely(newAdmin);
-        return createdAdmin; 
+        return createdAdmin;
     },
     async getAdminById(id){
         if (!validators.isNonEmptyString(id)) throw 'No admin with that id found!'
@@ -48,7 +31,7 @@ module.exports = {
         }catch(e){
             console.log(e);
         }
-        
+
     },
     async addProduct(product){
         if(!validators.isNonEmptyString(product.name)) throw 'You must provid a product name'
@@ -62,12 +45,12 @@ module.exports = {
             description:product.description
         });
         const createdProduct = await saveSafely(newProduct);
-        return createdProduct; 
+        return createdProduct;
     },
     async getAdminByEmail(email){
         if(!validators.isValidEmail(email)) throw 'Email address is not valid'
         return await models.Employee.findOne({$and:[{email: email.toLowerCase()}, {isAdmin:true}]});
-    },  
+    },
     async updateProduct(id, product){
         if (!validators.isNonEmptyString(id)) throw 'Please provide an product Id';
         const existingProduct = await models.Product.findById(id).exec();
@@ -85,25 +68,35 @@ module.exports = {
             existingProduct.description = product.description
         }
         return await saveSafely(existingProduct);
-    }, 
+    },
     async deleteProduct(id){
-            if(!validators.isNonEmptyString(id)) throw 'Please provide an id to delete the product'
-            const deletedProduct = await models.Product.findByIdAndDelete(id).exec();
-            return deletedProduct
-    }, 
+        if(!validators.isNonEmptyString(id)) throw 'Please provide an id to delete the product'
+        const deletedProduct = await models.Product.findByIdAndDelete(id).exec();
+        return deletedProduct
+    },
     async viewRequests(){
         try{
-           return await models.Request.find({}).exec(); 
+            return await models.Request.find({}).exec();
         }catch(err){
             console.log(err)
         }
-    }, 
+    },
+    async getOrdersByDates(begin, end) {
+        end = new Date(end);
+        end.setDate(end.getDate()+1);
+        try {
+            const orders = await orderModel.find({sellDate: {$gte: begin,$lt: end}}).exec();
+            return orders;
+        } catch (err) {
+            console.log(err)
+        }
+    },
 };
 
 async function saveSafely(document) {
     try {
-      return await document.save();
+        return await document.save();
     } catch (e) {
-      throw e.message;
+        throw e.message;
     }
-  }
+}
