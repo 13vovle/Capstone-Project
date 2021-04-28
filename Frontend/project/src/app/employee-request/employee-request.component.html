@@ -1,35 +1,42 @@
 <div class="container">
     <h2>Send Product Request </h2>
-   <!--  <form #req="ngForm" (ngSubmit)="frmData(req.value)">
+     <form #req="ngForm" (ngSubmit)="frmData(req.value)">
         <div class="pt-3 w-50" >
             <div class="fieldgroup pt-3">
-                <label for="prd" class="font-weight-bold">Product</label>
-                <input type="text" class="form-control" disabled name="prd" placeholder="Product Name">
+                <label for="prd" class="font-weight-bold">Product Name</label>
+                <select name="productName" ngModel  class="form-control" (change) = "onddchange($event)" >
+                    <option value="0">--All--</option>
+                    <option *ngFor="let product of products" value={{product|json}}>
+                      {{product.name}}
+                    </option>
+                  </select>
             </div>
-            <div class="fieldgroup pt-3">
-                <label for="fname" class="font-weight-bold">First Name</label>
-                <input type="text"  class="form-control" disabled name="fname" placeholder={{empDetails.firstName}}>
+            <div *ngIf = "currentquantity">
+            <div class="fieldgroup pt-4">
+                <label for="quantity" class="font-weight-bold">Current Quantity : </label>
+                {{currentquantity}}
             </div>
+        </div>
+
             <div class="fieldgroup pt-3">
+                <label for="quantity" class="font-weight-bold">Quantity</label>
+                <input type="number"  class="form-control"  name="quantity" #quantity="ngModel" ngModel required placeholder="Increase Quantity by">
+            </div>
+            <!-- <div class="fieldgroup pt-3">
                 <label for="lname" class="font-weight-bold">Last Name</label>
                 <input type="text" class="form-control" disabled name="lname" placeholder={{empDetails.lastName}}>
-            </div>
-            <div class="fieldgroup pt-3">
-                <label for="email" class="font-weight-bold">Email</label>
-                <input type="text" class="form-control" disabled name="email" placeholder={{empDetails.email}}>
-            </div>
-            <div class="fieldgroup pt-3">
-                <label for="pwd" class="font-weight-bold">New Password</label>
-                <input type="text" class="form-control" name="pwd" placeholder="New Password" minlength="8"
-                    #pwd="ngModel" ngModel required>
-            </div>
+            </div> -->
+
             <div class="fieldgroup pt-5">
-                <button type="submit" class="btn btn-primary" [disabled]="!upd.form.valid"><b>submit</b> </button>
+                <button type="submit" class="btn btn-primary" [disabled]="!req.form.valid"><b>submit</b> </button>
             </div>
-            <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="alert alert-danger">
-                <div *ngIf="pwd.errors.required"> -->
-                <!-- </div> 
+            <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="alert alert-danger">
+               Enter a valid number
             </div> 
+
+            <div *ngIf = "Message">
+                <span class="alert alert-success">{{ Message }}</span>
+            </div>
         </div>
-    </form>-->
+    </form>
 </div>

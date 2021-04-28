@@ -29,7 +29,7 @@ let addEmployee = async (req, res) => {
     try {
         const employeeOne = await employee.save((err, result) => {
             if (!err) {
-                res.send("Employee info stored successfully " + result);
+                res.send(employee.firstName + "'s info stored successfully");
             } else {
                 res.send("Employee not added " + err);
             }
@@ -44,9 +44,9 @@ let deleteEmployeeByID = (req, res) => {
     employeeModel.deleteOne({ _id: empID }, (err, result) => {
         if (!err) {
             if (result.deletedCount > 0) {
-                res.send("Employee deleted successfully");
+                res.send("Employee record deleted successfully");
             } else {
-                res.send("Employee not present");
+                res.send("Employee record not present");
             }
         } else {
             res.send("Error " + err);
@@ -61,6 +61,7 @@ let updateEmployee = async (req, res) => {
     let newPassword = req.body.hashedPassword;
     let isValidPassword = validator.isValidPassword(newPassword);
     if (isValidPassword) {
+        newPassword = await bcrypt.hash(newPassword, 10);
         await employeeModel.updateOne({ _id: empID }, { $set: { hashedPassword: newPassword } }, (err, result) => {
             console.log(result)
             if (!err && result.nModified > 0) {

@@ -13,20 +13,31 @@ export class EmployeeUpdateComponent implements OnInit {
  empID:any
  empDetails : any;
  errors : any = [];
+ 
 
 
   constructor(public service:EmployeeService, public route : Router) { }
 
   ngOnInit(): void {
 
-    this.empID = "07ca84a6-8281-4d02-aab4-ab392149d4bb";
-    this.service.getEmpById(this.empID).subscribe(data => {
-      this.empDetails = data;
-      console.log(this.empDetails);
-    },
-    (errorResponse) => {
-      this.errors.push(errorResponse.error.error);
-    });
+    this.empID = sessionStorage.getItem("employee");
+    
+    //this.empID = "07ca84a6-8281-4d02-aab4-ab392149d4bb";
+    if(this.empID)
+    {
+      this.service.getEmpById(this.empID).subscribe(data => {
+        this.empDetails = data;
+        console.log(this.empDetails);
+      },
+      (errorResponse) => {
+        this.errors.push(errorResponse.error.error);
+      });
+    }
+    else
+    {
+      alert("employee ID not available");
+    }
+    
     
   }
 

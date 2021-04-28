@@ -50,6 +50,7 @@
             <button mat-stroked-button color="primary" type="submit" [disabled]="!addEmpRef.valid">Add Employee</button>
             &nbsp;
             <button mat-stroked-button color="primary" type="reset">Reset</button>
+            <span class="alert">{{addEmpMsg}}</span>
         </form>
     </div>
 
@@ -68,6 +69,7 @@
             <button mat-stroked-button color="primary" type="submit" [disabled]="!delEmpRef.valid">Remove Employee Record</button>
             &nbsp;
             <button mat-stroked-button color="primary" type="reset">Reset</button>
+            <span class="alert">{{removeEmpMsg}}</span>
         </form>
     </div>
 

@@ -9,11 +9,13 @@ export class EmployeeRequestComponent implements OnInit {
 
   products : any;
   errors : any = [];
+  currentquantity : Number = 0;
+  Message : string = "";
 
   constructor(public Service:ProductService) { }
 
   ngOnInit(): void {
-    this.Service.loadProductDetails().subscribe(data => {
+    this.Service.getProductDetails().subscribe(data => {
       this.products = data;
       console.log(this.products);
     },(errorResponse) => {
@@ -21,10 +23,25 @@ export class EmployeeRequestComponent implements OnInit {
     });
 
 }
+
+  onddchange(event : any){
+    let ob = JSON.parse(event.target.value);
+    this.currentquantity = ob.quantity;
+    console.log(this.currentquantity);
+  }
+
   frmData(req:any){
-    this.Service.productReqDetails(req).subscribe(data => {
+    let data = JSON.parse(req.productName);
+    let fomdata = {
+      productName: data.name,
+      productId :  data._id,
+      quantity: req.quantity,
+    }
+    this.Service.productReqDetails(fomdata).subscribe(data => {
       console.log("Request Sent");
-    
+      this.Message = "Request Sent Successfully";
+      alert("Data Saved Successfully");
+      
     },
     (errorResponse) => {
       this.errors.push(errorResponse.error.error);

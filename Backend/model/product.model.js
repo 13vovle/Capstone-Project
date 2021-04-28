@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
+const { db } = require('./request.model');
 
 mongoose.Promise = global.Promise; 
 
@@ -12,4 +13,6 @@ const ProductSchema = new mongoose.Schema({
 }); 
 
 module.exports =mongoose.model('product',ProductSchema);
+
+
 
