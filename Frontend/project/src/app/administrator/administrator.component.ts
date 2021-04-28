@@ -16,11 +16,13 @@ export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
   allProducts: Array<Product> = [];
   allRequests: Array<ProductReq> = [];
-  addEmp = false;
-  removeEmp = false;
-  addProduct:boolean = false; 
-  updateProduct:boolean = false; 
-  removeProduct:boolean = false; 
+  addEmp: boolean = false;
+  addEmpMsg?: string;
+  removeEmp: boolean = false;
+  removeEmpMsg?: string;
+  addProduct: boolean = false;
+  updateProduct: boolean = false;
+  removeProduct: boolean = false;
 
   constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService) { }
 
@@ -36,13 +38,25 @@ export class AdministratorComponent implements OnInit {
   }
 
   addEmployee(empRef: any) {
-    this.empSer.addEmployee(empRef);
-    this.loadAllEmployees();
+    console.log(empRef);
+    let emailMatch = false;
+    for (var emp of this.allEmps) {
+      if (empRef.email == emp.email) {
+        emailMatch = true;
+        this.addEmpMsg = "This email is already registered to an employee account."
+      }
+    }
+    if (!emailMatch) {
+      this.empSer.addEmployee(empRef).subscribe(result => this.addEmpMsg = result, error => console.log(error));
+      this.loadAllEmployees();
+    }
   }
 
   deleteEmployee(empRef: any) {
-    this.empSer.deleteEmployee(empRef.empID);
-    this.loadAllEmployees();
+    if (confirm("Are you sure to delete this employee")) {
+      this.empSer.deleteEmployee(empRef.empID).subscribe(result => this.removeEmpMsg = result, error => console.log(error));
+      this.loadAllEmployees();
+    }
   }
 
   loadAllEmployees() {
@@ -52,18 +66,18 @@ export class AdministratorComponent implements OnInit {
   loadAllProducts() {
     this.prodSer.loadProductDetails().subscribe(result => this.allProducts = result, error => console.log(error));
   }
-  loadAllRequests(){
+  loadAllRequests() {
     this.empSer.loadAllRequests().subscribe(result => this.allRequests = result, error => console.log(error));
   }
   addProductFunc(productRef: any) {
     //console.log(productRef);
     this.empSer.addProduct(productRef);
   }
-  updateProductFunc(productRef:any){
+  updateProductFunc(productRef: any) {
     //console.log(productRef);
     this.empSer.updateProduct(productRef);
   }
-  deleteProductFunc(delProdRef:any){
+  deleteProductFunc(delProdRef: any) {
     //console.log(delProdRef)
     this.empSer.deleteProduct(delProdRef);
   }
@@ -76,7 +90,7 @@ export class AdministratorComponent implements OnInit {
       this.addProduct = !this.addProduct
     } else if (flag == 'updateProduct') {
       this.updateProduct = !this.updateProduct
-    }else if(flag == 'removeProduct'){
+    } else if (flag == 'removeProduct') {
       this.removeProduct = !this.removeProduct
     }
   }
