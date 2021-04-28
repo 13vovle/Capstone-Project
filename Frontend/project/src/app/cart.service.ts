@@ -1,7 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Order } from './order.model';
 import { Product } from './product.model';
 import { User } from './user.model';
 
@@ -51,7 +51,7 @@ export class CartService {
 
   getUser(id:any):Observable<User>{
     return this.http.get<User>("http://localhost:9090/user/loadUser/" + id);
-  }//
+  }
 
   delete(product:any, id:number){
     let cart:Array<Product> = [];
@@ -93,5 +93,9 @@ export class CartService {
   pushNewCart(products:any){
     this.http.put("http://localhost:9090/user/pushNewCart/" + this.getUserID(), products,{responseType:"text"}).
     subscribe(result => console.log(result), error =>console.log(error));
+  }
+
+  getOrdersByDate(begin:Date, end:Date):Observable<Order[]> {
+    return this.http.get<Order[]>('http://localhost:9090/emp/getOrdersByDates/'+ begin + '/' + end);
   }
 }

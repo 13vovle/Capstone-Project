@@ -1,8 +1,10 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../cart.service';
 import { Employee } from '../employee.model';
 import { EmployeeService } from '../employee.service';
+import { Order } from '../order.model';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 import { ProductReq } from '../productReq.model';
@@ -16,6 +18,7 @@ export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
   allProducts: Array<Product> = [];
   allRequests: Array<ProductReq> = [];
+  orderReport: Array<Order> = [];
   addEmp: boolean = false;
   addEmpMsg?: string;
   removeEmp: boolean = false;
@@ -23,8 +26,9 @@ export class AdministratorComponent implements OnInit {
   addProduct: boolean = false;
   updateProduct: boolean = false;
   removeProduct: boolean = false;
+  genReports: boolean = false;
 
-  constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService) { }
+  constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService, public cartSer: CartService) { }
 
   ngOnInit(): void {
     this.loadAllEmployees();
@@ -81,6 +85,11 @@ export class AdministratorComponent implements OnInit {
     //console.log(delProdRef)
     this.empSer.deleteProduct(delProdRef);
   }
+  generateReport(genReportRef: any) {
+    // console.log(genReportRef)
+    this.cartSer.getOrdersByDate(genReportRef.begin, genReportRef.end).subscribe(result => this.orderReport = result);
+    // console.log(this.orderReport);
+  }
   showHideSection(flag: string) {
     if (flag == "addEmp") {
       this.addEmp = !this.addEmp;
@@ -92,6 +101,8 @@ export class AdministratorComponent implements OnInit {
       this.updateProduct = !this.updateProduct
     } else if (flag == 'removeProduct') {
       this.removeProduct = !this.removeProduct
+    } else if (flag == 'genReports') {
+      this.genReports = !this.genReports;
     }
   }
 }
