@@ -4,7 +4,7 @@
 
     <mat-grid-list cols="4" rowHeight="3:1">
 
-        <form [formGroup]="signupRef" (ngSubmit)="user_signup(); signupRef.reset()">
+        <form [formGroup]="signupRef" (ngSubmit)="user_signup()">
 
             <mat-grid-tile colspan="2" rowspan="1">
                 <mat-form-field>
@@ -39,14 +39,16 @@
                 <mat-grid-tile colspan="4" rowspan="1">
                     <mat-form-field>
                         <mat-label>Address Line 1:</mat-label>
-                        <input matInput type="text" formControlName="street1" required placeholder="Street address, P.O. Box, company name, c/o">
+                        <input matInput type="text" formControlName="street1" required
+                            placeholder="Street address, P.O. Box, company name, c/o">
                     </mat-form-field>
                 </mat-grid-tile>
 
                 <mat-grid-tile colspan="4" rowspan="1">
                     <mat-form-field>
                         <mat-label>Address Line 2:</mat-label>
-                        <input matInput type="text" formControlName="street2" placeholder="Apartment, suite, unit, building, floor, etc.">
+                        <input matInput type="text" formControlName="street2"
+                            placeholder="Apartment, suite, unit, building, floor, etc.">
                     </mat-form-field>
                 </mat-grid-tile>
 
@@ -77,14 +79,18 @@
                 <mat-form-field>
                     <mat-label>Email:</mat-label>
                     <input matInput type="email" formControlName="email" required placeholder="Ex. johndoe@example.com"
-                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+                        pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
                 </mat-form-field>
             </mat-grid-tile>
 
             <mat-grid-tile colspan="2" rowspan="1">
                 <mat-form-field>
                     <mat-label>Password:</mat-label>
-                    <input matInput type="password" formControlName="password" required>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                 </mat-form-field>
             </mat-grid-tile>
 
@@ -96,4 +102,5 @@
             </mat-grid-tile>
         </form>
     </mat-grid-list>
+    <span class="alert">{{msg}}</span>
 </div>

@@ -16,8 +16,7 @@ export class SignInService {
   }
   
   storeUserDetails(newUser:any){
-    this.http.post("http://localhost:9090/user/storeUserDetails", newUser, {responseType: "text"}).
-    subscribe(result => console.log(result), error => console.log(error));
+    return this.http.post("http://localhost:9090/user/storeUserDetails", newUser, {responseType: "text"});
   }
 
   incrementNumOfTries(user:any):any{
