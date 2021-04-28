@@ -19,7 +19,7 @@
                         <input matInput type="password" name="c_password" ngModel required />
                     </mat-form-field>
                     <br />
-                    <button mat-stroked-button color="primary" type="submit" [disabled]="!userRef.valid">Sign In</button>
+                    <button mat-stroked-button color="primary" type="submit" (click) = "reroute_productPage" [disabled]="!userRef.valid">Sign In</button>
                     &nbsp;
                     <button mat-stroked-button color="primary" type="reset">Reset</button>
                 </form>

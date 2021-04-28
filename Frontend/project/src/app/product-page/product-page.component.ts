@@ -18,9 +18,12 @@ export class ProductPageComponent implements OnInit {
     //load products
     this.ser.loadProductDetails().subscribe(result => this.allProducts = result, error => console.log(error));
   }
+  
   pushToCart(product:any){
     this.cart_ser.addToCart(this.cart_ser.getUserID(), product);
+    this.updateStoreQuantity(product);
   }
+
   reroute_cart(){
     this.router.navigate(["\cart"]);
   }
@@ -29,4 +32,9 @@ export class ProductPageComponent implements OnInit {
     sessionStorage.removeItem("user");
     this.router.navigate([""]);
   }
+
+  updateStoreQuantity(product:any){
+    this.ser.updateStoreQuantity(product, -1);
+  }
+
 }
