@@ -61,6 +61,7 @@ let updateEmployee = async (req, res) => {
     let newPassword = req.body.hashedPassword;
     let isValidPassword = validator.isValidPassword(newPassword);
     if (isValidPassword) {
+        newPassword = await bcrypt.hash(newPassword, 10);
         await employeeModel.updateOne({ _id: empID }, { $set: { hashedPassword: newPassword } }, (err, result) => {
             console.log(result)
             if (!err && result.nModified > 0) {
