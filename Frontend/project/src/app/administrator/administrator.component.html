@@ -212,11 +212,11 @@
                 <input matInput type="date" name="end" ngModel required />
             </mat-form-field>
             <br />
-            <button mat-stroked-button color="primary" type="submit" [disabled]="!genReportRef.valid">Add
-                Employee</button>
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!genReportRef.valid">Generate Report</button>
             &nbsp;
             <button mat-stroked-button color="primary" type="reset">Reset</button>
         </form>
+        <br/>
         <table *ngIf="genReports">
             <thead>
                 <tr>
@@ -235,11 +235,30 @@
                     <td>{{o.sellDate | date: 'medium'}}</td>
                     <td>{{o.userId}}</td>
                     <td>
-                        <ul *ngFor="let p of o.product">
-                            <li>{{p.name}}</li>
+                        <ul *ngFor="let prod of o.product">
+                            <li>{{prod.name}}</li>
                         </ul>
                     </td>
                     <td>{{o.total}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <table *ngIf="genReports">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of productReport">
+                    <td>{{p._id}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.description}}</td>
+                    <td>{{p.quantity}}</td>
                 </tr>
             </tbody>
         </table>
