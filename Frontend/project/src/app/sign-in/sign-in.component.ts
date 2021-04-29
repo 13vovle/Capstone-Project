@@ -25,6 +25,7 @@ export class SignInComponent implements OnInit {
     this.ser.loadAllAdminDetails().subscribe();
   }
   async user_signin(userRef: any) {
+    console.log(this.allUsers)
     for (var user of this.allUsers) {
       if (user.isLockedOut == false) {
         if (user.email == userRef.c_email && await bcrypt.compare(userRef.c_password, user.hashedPassword)) {

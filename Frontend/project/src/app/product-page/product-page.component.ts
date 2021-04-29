@@ -29,4 +29,7 @@ export class ProductPageComponent implements OnInit {
     sessionStorage.removeItem("user");
     this.router.navigate([""]);
   }
+  navigateToProfile(){
+    this.router.navigate(["\profilePage"])
+  }
 }

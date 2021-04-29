@@ -9,6 +9,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: "", component: SignInComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: "\cart", component: CartComponent },
   { path: "\employee", component: EmployeeComponent },
   { path: "\empUpdate", component: EmployeeUpdateComponent },
-  {path: "\empRequest", component:EmployeeRequestComponent}
+  {path: "\empRequest", component:EmployeeRequestComponent},
+  {path: "\profilePage", component: UserProfileComponent}
 ];
 
 @NgModule({

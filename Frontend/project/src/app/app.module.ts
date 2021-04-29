@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     EmployeeUpdateComponent,
     EmployeeRequestComponent,
     EmployeeUnlockComponent,
-    EmployeeOrderComponent
+    EmployeeOrderComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
