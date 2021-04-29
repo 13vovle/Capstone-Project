@@ -25,6 +25,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { OrderUpdateComponent } from './order-update/order-update.component';
 import { EmployeeAuthGuard } from './emp.authguard';
 import { UserAuthGuard } from './user.authguard';
+import { EmpInfoComponent } from './emp-info/emp-info.component';
+import { ProductInfoComponent } from './product-info/product-info.component';
+import { ReportInfoComponent } from './report-info/report-info.component';
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { UserAuthGuard } from './user.authguard';
     EmployeeRequestComponent,
     EmployeeUnlockComponent,
     OrderUpdateComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    EmpInfoComponent,
+    ProductInfoComponent,
+    ReportInfoComponent
   ],
   imports: [
     BrowserModule,

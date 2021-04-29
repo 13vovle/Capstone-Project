@@ -106,20 +106,28 @@
         </h3>
         <form *ngIf="addProduct" #addProductRef="ngForm"
             (ngSubmit)="addProductFunc(addProductRef.value); addProductRef.resetForm(); loadAllProducts()">
-            <label>Product Name:</label>
-            <input type="text" name="name" ngModel /><br />
-
-            <label>Product Price:</label>
-            <input type="number" name="price" ngModel /><br />
-
-            <label>Quantity:</label>
-            <input type="number" name="quantity" ngModel /><br />
-
-            <label>Description:</label>
-            <input type="text" name="description" ngModel /><br />
-
-            <input type="submit" value="Add Product" />
-            <input type="reset" value="Reset" />
+            <mat-form-field>
+                <mat-label>Product Name:</mat-label>
+                <input matInput type="text" name="name" ngModel /><br />
+            </mat-form-field>
+<br>
+            <mat-form-field>
+                <mat-label>Product Price:</mat-label>
+                <input matInput type="number" name="price" ngModel /><br />
+            </mat-form-field>
+<br>
+            <mat-form-field>
+                <mat-label>Quantity:</mat-label>
+                <input matInput type="number" name="quantity" ngModel /><br />
+            </mat-form-field>
+<br>
+            <mat-form-field>
+            <mat-label>Description:</mat-label>
+            <input matInput type="text" name="description" ngModel /><br />
+            </mat-form-field>
+<br>
+            <button  mat-stroked-button color="primary" type="submit"> Add Product</button>
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
         </form>
     </div>
 
@@ -132,24 +140,34 @@
         </h3>
         <form *ngIf="updateProduct" #updateProductRef="ngForm"
             (ngSubmit)="updateProductFunc(updateProductRef.value); updateProductRef.resetForm(); loadAllProducts()">
-
+            
+            <mat-form-field>
             <label>Product Id:</label>
-            <input type="text" name="Id" ngModel /><br />
-
+            <input matInput type="text" name="Id" ngModel /><br />
+            </mat-form-field>
+<br>
+            <mat-form-field>
             <label>Product Name:</label>
-            <input type="text" name="name" ngModel /><br />
-
+            <input matInput type="text" name="name" ngModel /><br />
+            </mat-form-field>
+<br>
+            <mat-form-field>
             <label>Product Price:</label>
-            <input type="number" name="price" ngModel /><br />
-
+            <input matInput matInput type="number" name="price" ngModel /><br />
+            </mat-form-field>
+<br>
+            <mat-form-field>
             <label>Quantity:</label>
-            <input type="number" name="quantity" ngModel /><br />
-
+            <input matInput type="number" name="quantity" ngModel /><br />
+            </mat-form-field>
+<br>
+            <mat-form-field>
             <label>Description:</label>
-            <input type="text" name="description" ngModel /><br />
-
-            <input type="submit" value="Update Product" />
-            <input type="reset" value="Reset" />
+            <input matInput type="text" name="description" ngModel /><br />
+            </mat-form-field>
+<br>
+            <button mat-stroked-button color="primary" type="submit">Update Product</button>
+            <button mat-stroked-button color="primary" type="reset" value="Reset">Reset</button>
         </form>
     </div>
 
@@ -165,8 +183,8 @@
             <label>Product ID:</label>
             <input type="text" name="Id" ngModel /><br />
 
-            <input type="submit" value="Remove Product Record" />
-            <input type="reset" value="Reset" />
+            <button mat-stroked-button color="primary" type="submit">Remove Product Record</button>
+            <button mat-stroked-button color="primary" type="reset" >Reset</button>
         </form>
     </div>
 

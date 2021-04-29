@@ -68,7 +68,7 @@ export class SignInComponent implements OnInit {
           sessionStorage.setItem("empName", emp.firstName);
           if (emp.isAdmin) {
             sessionStorage.setItem("admin", emp._id);
-            this.router.navigate(["\admin"]);
+            this.router.navigate(["\empInfo"]);
           } else {
             sessionStorage.setItem("employee", emp._id);
             this.router.navigate(["\empUpdate"]);

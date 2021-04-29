@@ -65,42 +65,64 @@
   </h3>
   <form *ngIf="updateProfile" #updateProfileRef="ngForm"
     (ngSubmit)="updateProfileFunc(updateProfileRef.value); updateProfileRef.resetForm(); loadUserDetails()">
+    <mat-form-field>
+      <mat-label>First Name:</mat-label>
+      <input matInput type="text" name="firstName" ngModel /><br />
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Last Name:</mat-label>
+      <input matInput type="text" name="lastName" ngModel /><br />
+    </mat-form-field>
+<br>
+    <mat-form-field>
+      <mat-label>Birthday:</mat-label>
+      <input matInput type="date" name="birthday" ngModel /><br />
+    </mat-form-field>
+<br>
 
-    <label>First Name:</label>
-    <input type="text" name="firstName" ngModel /><br />
+<mat-form-field>
+    <mat-label>Phone</mat-label>
+    <input matInput type="text" name="Phone" ngModel /><br />
+</mat-form-field>
+<br>
 
-    <label>Last Name:</label>
-    <input type="text" name="lastName" ngModel /><br />
+<mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput type="text" name="email" ngModel /><br />
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Address line 1</mat-label>
+    <input matInput type="text" name="address1" ngModel /><br />
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Address line 2</mat-label>
+    <input matInput type="text" name="address2" ngModel /><br />
+</mat-form-field>
+<br>
+<mat-form-field>
 
-    <label>Birthday:</label>
-    <input type="date" name="birthday" ngModel /><br />
-
-    <label>Phone</label>
-    <input type="text" name="Phone" ngModel /><br />
-
-    <label>Email</label>
-    <input type="text" name="email" ngModel /><br />
-
-    <label>Address line 1</label>
-    <input type="text" name="address1" ngModel /><br />
-
-    <label>Address line 2</label>
-    <input type="text" name="address2" ngModel /><br />
-
-    <label>City</label>
-    <input type="text" name="city" ngModel /><br />
-
-    <label>State</label>
-    <input type="text" name="state" ngModel /><br />
-
-    <label>Zip Code</label>
-    <input type="text" name="zip" ngModel /><br />
-
-    <input type="submit" value="Update Profile" />
-    <input type="reset" value="Reset" />
+    <mat-label>City</mat-label>
+    <input matInput type="text" name="city" ngModel /><br />
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>State</mat-label>
+    <input matInput type="text" name="state" ngModel /><br />
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Zip Code</mat-label>
+    <input matInput type="text" name="zip" ngModel /><br />
+</mat-form-field>
+<br>
+    <button mat-stroked-button color="primary" type="submit" >Update Profile</button>
+    <button  mat-stroked-button color="primary" type="reset" >Reset</button>
   </form>
 </div>
-
+<br><br>
 <div id="updateFunds">
   <h3>
     <input type="button" class="section-button" value="Update Funds" (click)="showHideSection('updateFunds')">

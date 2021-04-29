@@ -29,7 +29,7 @@ export class OrderUpdateComponent implements OnInit {
           let pname = "";
           for(let prod of order.product)
           {
-            pname += prod.name + ', '
+            pname += prod + ', '
           }
           order["productsList"] = pname.slice(0, -2);
         }
@@ -55,6 +55,11 @@ export class OrderUpdateComponent implements OnInit {
     (errorResponse) => {
       this.errors.push(errorResponse.error.error);
     });
+  }
+
+  logout() {
+    sessionStorage.removeItem("employee");
+    sessionStorage.removeItem("empName");
   }
 
   }
