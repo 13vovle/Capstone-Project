@@ -10,6 +10,7 @@ import {EmployeeUnlockComponent } from './employee-unlock/employee-unlock.compon
 import { ProductPageComponent } from './product-page/product-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: "", component: SignInComponent },
@@ -20,7 +21,9 @@ const routes: Routes = [
   { path: "\employee", component: EmployeeComponent },
   { path: "\empUpdate", component: EmployeeUpdateComponent },
   {path: "\empRequest", component:EmployeeRequestComponent},
+  {path: "\profilePage", component: UserProfileComponent},
   {path: "\empUnlock", component:EmployeeUnlockComponent}
+  
 ];
 
 @NgModule({

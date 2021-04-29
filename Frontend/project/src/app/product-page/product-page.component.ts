@@ -33,6 +33,10 @@ export class ProductPageComponent implements OnInit {
     this.router.navigate([""]);
   }
 
+  navigateToProfile(){
+    this.router.navigate(["\profilePage"])
+  }
+
   updateStoreQuantity(product:any){
     this.ser.updateStoreQuantity(product, -1);
   }
