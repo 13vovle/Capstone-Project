@@ -55,4 +55,9 @@ export class EmployeeUpdateComponent implements OnInit {
     });
   }
 
+  logout() {
+    sessionStorage.removeItem("employee");
+    sessionStorage.removeItem("empName");
+  }
+
 }
