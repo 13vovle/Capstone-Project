@@ -23,7 +23,6 @@ export class AdministratorComponent implements OnInit {
   addEmp: boolean = false;
   addEmpMsg?: string;
   removeEmp: boolean = false;
-  removeEmpMsg?: string;
   addProduct: boolean = false;
   updateProduct: boolean = false;
   removeProduct: boolean = false;
@@ -53,15 +52,16 @@ export class AdministratorComponent implements OnInit {
       }
     }
     if (!emailMatch) {
-      this.empSer.addEmployee(empRef).subscribe(result => this.addEmpMsg = result, error => console.log(error));
-      alert(addEmpMsg)
+      this.empSer.addEmployee(empRef).subscribe(result => console.log(result), error => console.log(error));
+      alert("Employee added successfully!")
       this.loadAllEmployees();
     }
   }
 
   deleteEmployee(empRef: any) {
     if (confirm("Are you sure to delete this employee")) {
-      this.empSer.deleteEmployee(empRef.empID).subscribe(result => this.removeEmpMsg = result, error => console.log(error));
+      this.empSer.deleteEmployee(empRef.empID).subscribe(result => console.log(result), error => console.log(error));
+      alert("Employee deleted successfully!")
       this.loadAllEmployees();
     }
   }
