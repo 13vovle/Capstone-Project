@@ -162,12 +162,8 @@ let loadUser = (req, res) =>{
 
 
 let updateProfile = async(id, profile)=>{
-    console.log('profile is ', profile)
-
     if (!validators.isNonEmptyString(id)) throw 'Please provide an user Id';
         const existingProfile = await UserModel.findById(id).exec();
-        console.log('existing profile is, ' ,existingProfile)
-
         addressObj = {
                       street1:existingProfile.address.street1,
                       street2:existingProfile.address.street2,
@@ -208,7 +204,6 @@ let updateProfile = async(id, profile)=>{
         if(profile.email){
             existingProfile.email = profile.email
         }
-        console.log('existing profile after is, ', existingProfile)
         return await saveSafely(existingProfile);
 }
 
