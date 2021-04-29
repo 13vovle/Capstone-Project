@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Welcome Admin!</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link active"  routerLink="/empInfo">Employees <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" routerLink="/productInfo">Products</a>
+        <a class="nav-item nav-link " routerLink="/generateReport"> Generate Report</a>
+        <a class="nav-item nav-link " (click)='logout()' routerLink="">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container pt-5">
+    <h2>Edit Employee Information</h2>
+<div id="allEmps" class="section">
+    <h3>All Employees</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Emp ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Administrative Access</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of allEmps">
+                <td>{{e._id}}</td>
+                <td>{{e.firstName}}</td>
+                <td>{{e.lastName}}</td>
+                <td>{{e.email}}</td>
+                <td>{{e.isAdmin}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr />
+    <div id="addEmp" class="section">
+        <h3>
+            <input type="button" class="section-button" value="Add New Employee" (click)="showHideSection('addEmp')">
+        </h3>
+        <form *ngIf="addEmp" #addEmpRef="ngForm" (ngSubmit)="addEmployee(addEmpRef.value); addEmpRef.resetForm()">
+            <mat-form-field>
+                <mat-label>First Name:</mat-label>
+                <input matInput type="text" name="fName" ngModel required />
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Last Name:</mat-label>
+                <input matInput type="text" name="lName" ngModel required />
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Email:</mat-label>
+                <input matInput type="email" name="email" ngModel required placeholder="Ex. johndoe@example.com" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+            </mat-form-field>
+            <br />
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!addEmpRef.valid">Add Employee</button>
+            &nbsp;
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
+            <span class="alert">{{addEmpMsg}}</span>
+        </form>
+    </div>
+
+    <hr />
+
+    <div id="removeEmp" class="section">
+        <h3>
+            <input type="button" class="section-button" value="Remove Employee Record" (click)="showHideSection('removeEmp')">
+        </h3>
+        <form *ngIf="removeEmp" #delEmpRef="ngForm" (ngSubmit)="deleteEmployee(delEmpRef.value); delEmpRef.resetForm()">
+            <mat-form-field>
+                <mat-label>Employee ID:</mat-label>
+                <input matInput type="text" name="empID" ngModel required /><br />
+            </mat-form-field>
+            <br />
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!delEmpRef.valid">Remove Employee Record</button>
+            &nbsp;
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
+        </form>
+    </div>
+    <hr />
+</div>

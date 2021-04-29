@@ -13,12 +13,19 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserAuthGuard } from './user.authguard';
 import { OrderUpdateComponent } from './order-update/order-update.component';
 import { EmployeeAuthGuard } from './emp.authguard';
+import { EmpInfoComponent } from './emp-info/emp-info.component';
+import { ProductInfoComponent } from './product-info/product-info.component';
+import { ReportInfoComponent } from './report-info/report-info.component';
 
 
 const routes: Routes = [
   { path: "", component: SignInComponent },
   { path: "\sign-up", component: SignUpComponent },
   { path: "\admin", component: AdministratorComponent, canActivate: [AdminAuthGuard] },
+  { path: "\empInfo", component:EmpInfoComponent, canActivate: [AdminAuthGuard]},
+  { path: "\productInfo", component:ProductInfoComponent, canActivate: [AdminAuthGuard]},
+  { path: "\generateReport", component:ReportInfoComponent},
+
   { path: "\productPage", component: ProductPageComponent, canActivate: [UserAuthGuard] },
   { path: "\cart", component: CartComponent, canActivate: [UserAuthGuard] },
   { path: "\empUpdate", component: EmployeeUpdateComponent, canActivate: [EmployeeAuthGuard] },
