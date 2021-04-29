@@ -27,6 +27,7 @@ export class AdministratorComponent implements OnInit {
   updateProduct: boolean = false;
   removeProduct: boolean = false;
   genReports: boolean = false;
+  msg:any = ''
 
   constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService, public cartSer: CartService) { }
 
@@ -52,6 +53,7 @@ export class AdministratorComponent implements OnInit {
     }
     if (!emailMatch) {
       this.empSer.addEmployee(empRef).subscribe(result => this.addEmpMsg = result, error => console.log(error));
+      alert('Employee added successfully!')
       this.loadAllEmployees();
     }
   }
@@ -75,19 +77,23 @@ export class AdministratorComponent implements OnInit {
   }
   addProductFunc(productRef: any) {
     //console.log(productRef);
-    this.empSer.addProduct(productRef);
+    this.empSer.addProduct(productRef)
+    alert('Product added successfully!')
   }
   updateProductFunc(productRef: any) {
     //console.log(productRef);
     this.empSer.updateProduct(productRef);
+    alert('Product updated successfully!')
   }
   deleteProductFunc(delProdRef: any) {
     //console.log(delProdRef)
     this.empSer.deleteProduct(delProdRef);
+    alert('Product deleted successfully!')
   }
   generateReport(genReportRef: any) {
     // console.log(genReportRef)
     this.cartSer.getOrdersByDate(genReportRef.begin, genReportRef.end).subscribe(result => this.orderReport = result);
+    alert('Report generated!')
     // console.log(this.orderReport);
   }
   showHideSection(flag: string) {
