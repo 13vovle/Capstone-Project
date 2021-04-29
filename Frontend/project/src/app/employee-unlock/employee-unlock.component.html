@@ -15,6 +15,7 @@
   </nav>
 
 <div class ="container pt-5" *ngIf="hasData; else Nodata">
+    <h2>Unlock Users</h2>
     <table class="table w-70">
         <thead>
             <th>User Id</th>
@@ -35,6 +36,7 @@
   
 </div>
 <ng-template #Nodata>
+   <div class="container pt-5"><h2>Unlock Users</h2> </div> 
     <div class="container mt-5 jumbotron">
      <h2 class="text-center">No Records found</h2>
     </div>
