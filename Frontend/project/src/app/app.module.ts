@@ -24,6 +24,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { MatIconModule } from '@angular/material/icon';
+import { UserAuthGuard } from './user.authguard';
+import { EmployeeAuthGuard } from './employee.authguard';
 
 
 @NgModule({
@@ -54,7 +56,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatGridListModule,
     MatIconModule
   ],
-  providers: [AdminAuthGuard],
+  providers: [AdminAuthGuard, UserAuthGuard, EmployeeAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
