@@ -58,10 +58,10 @@ module.exports = {
         if (product.name){
             existingProduct.name = product.name
         }
-        if (product.price){
+        if (product.price && validators.isPositiveNumber(product.price)){
             existingProduct.price = product.price
         }
-        if(product.quantity){
+        if(product.quantity && validators.isPositiveNumber(product.quantity)){
             existingProduct.quantity = product.quantity
         }
         if(product.description){
