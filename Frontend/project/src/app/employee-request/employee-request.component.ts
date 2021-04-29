@@ -11,10 +11,13 @@ export class EmployeeRequestComponent implements OnInit {
   errors : any = [];
   currentquantity : Number = 0;
   Message : string = "";
+  uname : any = "";
 
   constructor(public Service:ProductService) { }
 
   ngOnInit(): void {
+
+    this.uname = sessionStorage.getItem("empName");
     this.Service.getProductDetails().subscribe(data => {
       this.products = data;
       console.log(this.products);
@@ -37,11 +40,9 @@ export class EmployeeRequestComponent implements OnInit {
       productId :  data._id,
       quantity: req.quantity,
     }
-    this.Service.productReqDetails(fomdata).subscribe(data => {
+    this.Service.productReqDetails(fomdata).subscribe((res) => {
       console.log("Request Sent");
       this.Message = "Request Sent Successfully";
-      alert("Data Saved Successfully");
-      
     },
     (errorResponse) => {
       this.errors.push(errorResponse.error.error);

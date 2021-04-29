@@ -65,15 +65,15 @@ let updateEmployee = async (req, res) => {
         await employeeModel.updateOne({ _id: empID }, { $set: { hashedPassword: newPassword } }, (err, result) => {
             console.log(result)
             if (!err && result.nModified > 0) {
-                res.send("password updated successfully")
+                res.status(200).json({"EmployeeFound":true});
             } else {
                 console.log(err)
-                res.send("password not updated ")
+                res.status(422).json({"EmployeeFound":false});
             }
         })
     }
     else {
-        res.send("Invalid Password")
+        res.status(422).json({"InvalidPassword":true});
     }
 
 };
@@ -85,7 +85,7 @@ let getEmpByID = (req, res) => {
             res.json(result);
         }
         else {
-            res.send("Employee not found")
+            res.status(422).json({"EmployeeFound":false});
         }
     });
 }

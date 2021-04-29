@@ -4,6 +4,8 @@ let router = express.Router();
 
 router.get("/getAllProductsDetails", productController.getAllProductDetails);
 router.post("/sendProductsRequest", productController.productReqDetails);
-router.put("/updateQuantity/:num", productController.updateQuantity)
+router.put("/updateQuantity/:num", productController.updateQuantity);
+router.get("/getAllOrders", productController.getAllOrders);
+router.put("/updateOrder", productController.updateOrder);
 
 module.exports = router;

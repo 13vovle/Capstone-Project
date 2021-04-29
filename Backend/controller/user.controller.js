@@ -1,5 +1,4 @@
 const { static } = require("express");
-const userModel = require("../model/user.model.js");
 let UserModel = require("../model/user.model.js");
 let ProductModel = require("../model/product.model");
 let OrderModel = require("../model/order.model");

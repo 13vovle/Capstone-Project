@@ -1,8 +1,8 @@
 const { static } = require("express");
 let mongoose = require('mongoose');
 const { db } = require("../model/tickets.model.js");
-const ticketModel = require("../model/tickets.model.js");
 let TicketModel = require("../model/tickets.model.js");
+let UserModel = require("../model/user.model.js");
 
 let id = 0;
 let addTicket = (req, res) =>{
@@ -29,13 +29,24 @@ let updateTicket = (req, res) => {
         TicketModel.updateOne({ _id: tid},{$set: {isLockedOut : false}}, (err, result) => {
         console.log(result)
         if (!err && result.nModified > 0) {
-            res.send("user unlocked successfully")
-        } else {
+            UserModel.updateOne({ _id: req.body.userId},{$set: {isLockedOut : false}}, (err1, result1) => {
+                if (!err1 && result1.nModified > 0) {
+                    res.status(200).json({"UserUnlocked":true});
+                }
+                else{
+                    console.log("user is not unlocked ")
+                    res.status(422).json({"UserUnlocked":false});
+                }
+            }
+            )
+        }
+         else {
             console.log("user is not unlocked")
-            res.send("user is not unlocked ")
+            res.status(422).json({"UserUnlocked":false});
         }
     })
 
 }
+
 
 module.exports={addTicket, getTickets, updateTicket}

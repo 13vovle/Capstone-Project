@@ -10,13 +10,21 @@ export class EmployeeUnlockComponent implements OnInit {
   tickets :any =[];
   errors : any = [];
   hasData : boolean = false;
+  public uname : any;
 
   constructor(public Service: EmployeeService) { }
 
   ngOnInit(): void {
+
+    this.uname = sessionStorage.getItem("empName");
+
     this.Service.loadAllTickets().subscribe(data => {
+      let locked =  data.find(t => t.isLockedOut == true);
+      if(locked)
+      {
+        this.hasData = true; 
+      }
       if(data){
-      this.hasData = true; 
       this.tickets = data;
       console.log(this.tickets);
       }
@@ -30,13 +38,16 @@ export class EmployeeUnlockComponent implements OnInit {
   UnlockUser(tid: any){
     console.log(tid);
     let tic =  this.tickets.find((t: { _id: any; }) => t._id == tid)
-    console.log(tic)
-    this.Service.updateTicket(tic).subscribe(data => {
+    this.Service.updateTicket(tic).subscribe((res) => {
       console.log("Ticket Inserted");
+      location.reload();
     },
     (errorResponse) => {
       this.errors.push(errorResponse.error.error);
     });
+
+    //location.reload();
+
   }
 
 }

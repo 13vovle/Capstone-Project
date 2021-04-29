@@ -1,4 +1,20 @@
-<div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Welcome {{uname}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link"  routerLink="/empUpdate">Edit Profile</a>
+        <a class="nav-item nav-link active" routerLink="/empRequest">Inventory Request<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" routerLink="/empUnlock">Unlock Users</a>
+        <a class="nav-item nav-link"  routerLink="/orderStatus">Update orders</a>
+        <a class="nav-item nav-link active"  routerLink="">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+<div class="container pt-5">
     <h2>Send Product Request </h2>
      <form #req="ngForm" (ngSubmit)="frmData(req.value)">
         <div class="pt-3 w-50" >
@@ -20,7 +36,7 @@
 
             <div class="fieldgroup pt-3">
                 <label for="quantity" class="font-weight-bold">Quantity</label>
-                <input type="number"  class="form-control"  name="quantity" #quantity="ngModel" ngModel required placeholder="Increase Quantity by">
+                <input type="number"  min="0" oninput="validity.valid||(value='');" class="form-control"  name="quantity" #quantity="ngModel" ngModel required placeholder="Increase Quantity by">
             </div>
             <!-- <div class="fieldgroup pt-3">
                 <label for="lname" class="font-weight-bold">Last Name</label>
@@ -30,13 +46,17 @@
             <div class="fieldgroup pt-5">
                 <button type="submit" class="btn btn-primary" [disabled]="!req.form.valid"><b>submit</b> </button>
             </div>
-            <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="alert alert-danger">
+            <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="alert alert-danger mt-5">
                Enter a valid number
             </div> 
 
-            <div *ngIf = "Message">
-                <span class="alert alert-success">{{ Message }}</span>
-            </div>
+           
+        </div>
+        <br>
+        <br>
+        <br>
+        <div *ngIf = "Message">
+            <span class="alert alert-success mt-9">{{ Message }}</span>
         </div>
     </form>
 </div>

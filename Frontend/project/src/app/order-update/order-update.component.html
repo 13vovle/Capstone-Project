@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Welcome {{uname}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link" routerLink="/empUpdate">Edit Profile </a>
+        <a class="nav-item nav-link" routerLink="/empRequest">Inventory Request</a>
+        <a class="nav-item nav-link " routerLink="/empUnlock">Unlock Users</a>
+        <a class="nav-item nav-link active"  routerLink="/orderStatus">Update orders <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link active"  routerLink="">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+<div class ="container pt-5" *ngIf="hasData; else Nodata">
+    <table class="table">
+        <thead>
+            <th>user Id</th>
+            <th>products</th>
+            <th>Current status</th>
+            <th>Order total</th>
+            <th>Change Status</th>
+            <th>Comments</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td >{{order.userId}}</td>
+                <td> <span>{{order.productsList}}</span>  </td>
+                <td >{{order.status}}</td>
+                <td > {{order.total}}   </td>
+                <td> <select class="form-control" name="orderstat" ngModel #orderstat required>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Out for Delivery">Out for Delivery</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+               </td>
+                <td><input type="text"  class= "form-control" ngModel #comment> </td>
+                <td *ngIf= "orderstat.value"><input type="submit" value="submit" (click) = "updateOrderStatus(order, orderstat.value, comment.value)"  class= "btn btn-info"> </td>
+            </tr>
+        </tbody>
+    </table>
+
+  
+</div>
+<ng-template #Nodata>
+    <div class="container mt-5 jumbotron">
+     <h2 class="text-center">No Records found</h2>
+    </div>
+    
+  </ng-template>

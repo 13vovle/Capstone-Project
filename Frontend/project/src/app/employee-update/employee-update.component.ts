@@ -12,12 +12,13 @@ export class EmployeeUpdateComponent implements OnInit {
  empID:any
  empDetails : any;
  errors : any = [];
- 
-
+ public uname : any;
 
   constructor(public service:EmployeeService, public route : Router) { }
 
   ngOnInit(): void {
+
+    this.uname = sessionStorage.getItem("empName");
 
     this.empID = sessionStorage.getItem("employee");
     
@@ -46,7 +47,8 @@ export class EmployeeUpdateComponent implements OnInit {
     console.log(this.empDetails)
     this.service.updateEmployee(this.empDetails).subscribe(data => {
       console.log("Data Inserted");
-      this.route.navigateByUrl("/sign-up")
+      alert("Password Changed Successfully")
+      this.route.navigateByUrl("/empRequest")
     },
     (errorResponse) => {
       this.errors.push(errorResponse.error.error);

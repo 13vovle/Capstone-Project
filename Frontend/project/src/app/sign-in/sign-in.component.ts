@@ -63,12 +63,14 @@ export class SignInComponent implements OnInit {
   async emp_admin_signin(empRef: any) {
     for (var emp of this.allEmps) {
       if (emp.email == empRef.e_email && await bcrypt.compare(empRef.e_password, emp.hashedPassword)) {
+        sessionStorage.setItem("empName", emp.firstName);
         if (emp.isAdmin) {
+          
           sessionStorage.setItem("admin", emp._id);
           this.router.navigate(["\admin"]);
         } else {
           sessionStorage.setItem("employee", emp._id);
-          this.router.navigate(["\employee"]);
+          this.router.navigate(["\empUpdate"]);
         }
       }
     }
