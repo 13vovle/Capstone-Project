@@ -19,6 +19,7 @@ export class AdministratorComponent implements OnInit {
   allProducts: Array<Product> = [];
   allRequests: Array<ProductReq> = [];
   orderReport: Array<Order> = [];
+  productReport: Array<Product> = [];
   addEmp: boolean = false;
   addEmpMsg?: string;
   removeEmp: boolean = false;
@@ -85,10 +86,27 @@ export class AdministratorComponent implements OnInit {
     //console.log(delProdRef)
     this.empSer.deleteProduct(delProdRef);
   }
-  generateReport(genReportRef: any) {
+  async generateReport(genReportRef: any) {
     // console.log(genReportRef)
-    this.cartSer.getOrdersByDate(genReportRef.begin, genReportRef.end).subscribe(result => this.orderReport = result);
-    // console.log(this.orderReport);
+    this.orderReport = await this.cartSer.getOrdersByDate(genReportRef.begin, genReportRef.end).toPromise();
+    this.productReport = [];
+    this.productReportInfo();
+  }
+  productReportInfo() {
+    for (var order of this.orderReport) {
+      for (var product of order.product) {
+        let found = false;
+        for (var item of this.productReport) {
+          if (item._id == product._id) {
+            item.quantity = item.quantity + product.quantity;
+            found = true;
+          }
+        }
+        if (!found) {
+          this.productReport.push(product);
+        }
+      }
+    }
   }
   showHideSection(flag: string) {
     if (flag == "addEmp") {
