@@ -212,6 +212,15 @@ let updateProfile = async(id, profile)=>{
         return await saveSafely(existingProfile);
 }
 
+let transferFunds = (req, res) => {
+    let id = req.body.id;
+    let transfer = req.body.transfer;
+    UserModel.updateOne({_id:id}, {$inc:{funds:transfer, "account.amount":-transfer}}, (err, result) => {
+        if(!err) res.send("Transfer complete");
+        else res.send("Funds not updated");
+    });
+};
+
 let pushNewCart = (req, res) =>{
     let id = req.params.id;
     let newCart = req.body;
@@ -232,7 +241,7 @@ async function saveSafely(document) {
   }
 
 module.exports={getAllUserDetails, getUserDetailById, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart, updateProfile,
-                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, pushNewCart}
+                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart}
 
 
 

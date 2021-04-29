@@ -19,4 +19,11 @@ export class UserService {
       this.http.patch("http://localhost:9090/user/updateProfile/"+userId, profileRef,{ responseType: "text" }).
       subscribe(result => console.log(result), error => console.log(error));
   }
+
+  transferFunds(transfer:number) {
+    let userId = sessionStorage.getItem('user');
+    let data = {id:userId, transfer:transfer};
+    this.http.put("http://localhost:9090/user/transferFunds/", data,{ responseType: "text" }).
+    subscribe(result => console.log(result), error => console.log(error));
+  }
 }
