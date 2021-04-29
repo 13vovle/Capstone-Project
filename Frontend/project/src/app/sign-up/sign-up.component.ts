@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SignInService } from '../sign-in.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  allUsers: Array<User> = [];
   signupRef = new FormGroup({
     fname: new FormControl(),
     lname: new FormControl(),
@@ -24,19 +26,35 @@ export class SignUpComponent implements OnInit {
     email: new FormControl(),
     password: new FormControl()
   });
+  msg?: string;
+  hide: boolean = true;
 
-  constructor(public ser:SignInService, public router:Router) { }
+  constructor(public ser: SignInService, public router: Router) { }
 
   ngOnInit(): void {
+    this.ser.loadAllUsersDetails().subscribe(result => this.allUsers = result, error => console.log(error));
   }
 
-  // user_signup(userRef:any){
-  //   this.ser.storeUserDetails(userRef);
-  //   this.router.navigate([""]);
-  // }
   user_signup() {
     console.log(this.signupRef.value);
-    this.ser.storeUserDetails(this.signupRef.value);
-    this.router.navigate([""]);
+    let emailMatch = false;
+    for (var user of this.allUsers) {
+      if (this.signupRef.value.email == user.email) {
+        emailMatch = true;
+        this.msg = "This email is already registered to an account. Please enter a new email address or contact a store associate to resolve this issue."
+      }
+    }
+    if (!emailMatch) {
+      this.ser.storeUserDetails(this.signupRef.value).subscribe(result => this.msg = result, error => console.log(error));
+      this.resetForm(this.signupRef);
+      this.resetForm(this.signupRef.get("address")! as FormGroup);
+    }
+  }
+
+  resetForm(form: FormGroup) {
+    form.reset();
+    Object.keys(form.controls).forEach(key => {
+      form.get(key)!.setErrors(null);
+    });
   }
 }

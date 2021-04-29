@@ -1,0 +1,20 @@
+<div >
+    <table border = "2">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+
+        <tr *ngFor = "let p of userCart">
+            <td>{{p.name}}</td>
+            <td>{{p.price}}</td>
+            <td>{{p.quantity}}</td>
+            <td>{{p.description}}</td>
+            <td><input type = "button" value = "Delete" (click) = "delete(p)"/></td>
+        </tr>
+    </table>
+    <input type ="button" value ="Checkout" (click) = "checkout()"/>
+</div>

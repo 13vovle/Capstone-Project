@@ -1,13 +1,18 @@
 .card {
-    margin:auto;
+    margin: auto;
     border: 2px solid black;
     border-radius: 25px;
     background: lightgrey;
     padding: 20px;
-    /* height: 75%; */
     width: 50%;
-}  
+}
 
 mat-form-field {
     width: 95%;
-  }
+}
+
+.alert {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}

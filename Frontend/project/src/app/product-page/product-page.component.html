@@ -1,5 +1,6 @@
 <input type ="button" (click) = "reroute_cart()" value = "View Cart"/>
 <input type ="button" (click) = "reroute_login()" value = "Logout"/>
+
 <div class = "card" *ngFor = "let product of allProducts">
     {{product.name}} <br/>
     ${{product.price}}<br/>
@@ -7,5 +8,7 @@
     <input type="button" value = "Add to Cart" (click) = "pushToCart(product)"/>
 </div>
 
+
 <br>
 <input type="button" (click)='navigateToProfile()' value = 'Profile Page'/>
+

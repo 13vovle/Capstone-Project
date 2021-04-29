@@ -6,6 +6,7 @@ import { CartComponent } from './cart/cart.component';
 import { EmployeeRequestComponent } from './employee-request/employee-request.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { EmployeeComponent } from './employee/employee.component';
+import {EmployeeUnlockComponent } from './employee-unlock/employee-unlock.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -20,7 +21,9 @@ const routes: Routes = [
   { path: "\employee", component: EmployeeComponent },
   { path: "\empUpdate", component: EmployeeUpdateComponent },
   {path: "\empRequest", component:EmployeeRequestComponent},
-  {path: "\profilePage", component: UserProfileComponent}
+  {path: "\profilePage", component: UserProfileComponent},
+  {path: "\empUnlock", component:EmployeeUnlockComponent}
+  
 ];
 
 @NgModule({

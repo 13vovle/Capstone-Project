@@ -15,6 +15,7 @@ router.put("/updateEmpDetails",employeeController.updateEmployee);
 router.get("/getEmpByID/:ID", employeeController.getEmpByID);
 router.get("/getAllProductDetails", productData.getAllProductDetails);
 
+
 router.get('/create', async(req,res)=>{
     const hashedPassword = await bcrypt.hash('12345', 10);
     try{
@@ -156,5 +157,16 @@ router.get('/getAllRequests', async(req,res)=>{
     }
 })
 
+router.get("/getOrdersByDates/:begin/:end", async(req,res)=> {
+    let begin = req.params.begin;
+    let end = req.params.end;
+    try {
+        const orders = await adminData.getOrdersByDates(begin, end);
+        res.json(orders);
+        // console.log(orders);
+    }catch(err){
+        res.send(err);
+    }
+})
 
 module.exports = router;

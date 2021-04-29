@@ -1,1 +1,18 @@
-<p>employee-unlock works!</p>
+<div class ="container" *ngIf="hasData">
+    <table class="table w-70">
+        <thead>
+            <th>User Id</th>
+            <th>description</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ticket of tickets">
+               <!-- <span *ngIf = "ticket.isLockedOut"> -->
+                <td *ngIf = "ticket.isLockedOut">{{ticket.userId}}</td>
+                <td *ngIf = "ticket.isLockedOut"> {{ticket.description}}   </td>
+                <td *ngIf = "ticket.isLockedOut"> <input type="submit" value="Unlock" (click)= "UnlockUser(ticket._id)" class= "btn btn-info"> </td>
+            <!-- </span> -->
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema({
     product:{type: Array, default:[]},
     userId:{type:String, required:true},
     status: {type:String, required:true},
+    amount : {type : Number, required: true},
     sellDate:{type:Date, required: true}
 }); 
 

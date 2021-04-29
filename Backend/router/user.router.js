@@ -9,6 +9,7 @@ router.put("/lockUserOut", UserController.lockUserOut);
 router.put("/reset", UserController.resetNumOfTries);
 router.put("/addToCart/:id", UserController.addToCart);
 
+
 router.get("/getUserDetailsById/:id",async (req,res)=>{
     let id = req.params.id;
     try{
@@ -68,4 +69,12 @@ router.patch('/updateProfile/:id', async(req,res)=>{
         res.send(e);
     }
 })
+
+router.get("/loadUser/:id", UserController.loadUser)
+router.put("/delete/:id", UserController.deleteFromCart);
+router.post("/checkout/:id", UserController.checkout);
+router.put("/emptyCart/:id", UserController.emptyCart);
+router.put("/updateQuantity/:id", UserController.updateQuantity);
+router.put("/pushNewCart/:id", UserController.pushNewCart);
+
 module.exports = router;

@@ -23,6 +23,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
+import { MatIconModule } from '@angular/material/icon';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +51,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule
   ],
   providers: [AdminAuthGuard],
   bootstrap: [AppComponent]
