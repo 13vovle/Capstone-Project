@@ -69,7 +69,6 @@
             <button mat-stroked-button color="primary" type="submit" [disabled]="!delEmpRef.valid">Remove Employee Record</button>
             &nbsp;
             <button mat-stroked-button color="primary" type="reset">Reset</button>
-            <span class="alert">{{removeEmpMsg}}</span>
         </form>
     </div>
 
@@ -153,7 +152,9 @@
             <input type="reset" value="Reset" />
         </form>
     </div>
+
     <hr />
+
     <div id="removeProduct" class="section">
         <h3>
             <input type="button" class="section-button" value="Remove Product"
@@ -168,7 +169,9 @@
             <input type="reset" value="Reset" />
         </form>
     </div>
-    <hr/>
+
+    <hr />
+
     <div id="allRequests" class="section">
         <h3>All Requests</h3>
         <table>
@@ -184,6 +187,77 @@
                     <td>{{r._id}}</td>
                     <td>{{r.productName}}</td>
                     <td>{{r.quantity}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+    <div id="generateReports" class="section">
+        <h3>
+            <input type="button" class="section-button" value="Generate Reports"
+                (click)="showHideSection('genReports')">
+        </h3>
+        <form *ngIf="genReports" #genReportRef="ngForm"
+            (ngSubmit)="generateReport(genReportRef.value); genReportRef.resetForm()">
+            <mat-form-field>
+                <mat-label>Starting Date:</mat-label>
+                <input matInput type="date" name="begin" ngModel required />
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Ending Date:</mat-label>
+                <input matInput type="date" name="end" ngModel required />
+            </mat-form-field>
+            <br />
+            <button mat-stroked-button color="primary" type="submit" [disabled]="!genReportRef.valid">Generate Report</button>
+            &nbsp;
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
+        </form>
+        <br/>
+        <table *ngIf="genReports">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Status</th>
+                    <th>Sell Date</th>
+                    <th>User ID</th>
+                    <th>Products</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let o of orderReport">
+                    <td>{{o._id}}</td>
+                    <td>{{o.status}}</td>
+                    <td>{{o.sellDate | date: 'medium'}}</td>
+                    <td>{{o.userId}}</td>
+                    <td>
+                        <ul *ngFor="let prod of o.product">
+                            <li>{{prod.name}}</li>
+                        </ul>
+                    </td>
+                    <td>{{o.total}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <table *ngIf="genReports">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of productReport">
+                    <td>{{p._id}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.description}}</td>
+                    <td>{{p.quantity}}</td>
                 </tr>
             </tbody>
         </table>

@@ -17,6 +17,7 @@ export class SignInComponent implements OnInit {
   allEmps: Array<Employee> = [];
   n: number = 0;
   msg: string = "";
+  adminMsg:string = "";
   constructor(public router: Router, public ser: SignInService, public cart_ser:CartService) { }
 
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class SignInComponent implements OnInit {
     this.router.navigate(["\productPage"]);
   }
   async user_signin(userRef: any) {
+    console.log(this.allUsers)
     for (var user of this.allUsers) {
       if (user.isLockedOut == false) {
         if (user.email == userRef.c_email && await bcrypt.compare(userRef.c_password, user.hashedPassword)) {
@@ -41,7 +43,7 @@ export class SignInComponent implements OnInit {
           this.n++;
           console.log("unsuccessful log in");
           this.ser.incrementNumOfTries(user).subscribe((result: string) => {
-            this.msg = result;
+            this.msg = "You have entered the incorrect password. " + result;
             if (this.n >= 5) {
               this.ser.lockUserOut(user).subscribe((result: string) => { this.msg = result; });
               this.ser.createTicket(user);
@@ -62,15 +64,18 @@ export class SignInComponent implements OnInit {
 
   async emp_admin_signin(empRef: any) {
     for (var emp of this.allEmps) {
-      if (emp.email == empRef.e_email && await bcrypt.compare(empRef.e_password, emp.hashedPassword)) {
-        sessionStorage.setItem("empName", emp.firstName);
-        if (emp.isAdmin) {
-          
-          sessionStorage.setItem("admin", emp._id);
-          this.router.navigate(["\admin"]);
+      if (emp.email == empRef.e_email) {
+        if(await bcrypt.compare(empRef.e_password, emp.hashedPassword)) {
+          sessionStorage.setItem("empName", emp.firstName);
+          if (emp.isAdmin) {
+            sessionStorage.setItem("admin", emp._id);
+            this.router.navigate(["\admin"]);
+          } else {
+            sessionStorage.setItem("employee", emp._id);
+            this.router.navigate(["\empUpdate"]);
+          }
         } else {
-          sessionStorage.setItem("employee", emp._id);
-          this.router.navigate(["\empUpdate"]);
+          this.adminMsg = "You have entered the incorrect password. Please try again."
         }
       }
     }

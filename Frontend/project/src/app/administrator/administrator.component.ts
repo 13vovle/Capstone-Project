@@ -1,8 +1,10 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../cart.service';
 import { Employee } from '../employee.model';
 import { EmployeeService } from '../employee.service';
+import { Order } from '../order.model';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 import { ProductReq } from '../productReq.model';
@@ -16,15 +18,18 @@ export class AdministratorComponent implements OnInit {
   allEmps: Array<Employee> = [];
   allProducts: Array<Product> = [];
   allRequests: Array<ProductReq> = [];
+  orderReport: Array<Order> = [];
+  productReport: Array<Product> = [];
   addEmp: boolean = false;
   addEmpMsg?: string;
   removeEmp: boolean = false;
-  removeEmpMsg?: string;
   addProduct: boolean = false;
   updateProduct: boolean = false;
   removeProduct: boolean = false;
+  genReports: boolean = false;
+  msg:any = ''
 
-  constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService) { }
+  constructor(public router: Router, public empSer: EmployeeService, public prodSer: ProductService, public cartSer: CartService) { }
 
   ngOnInit(): void {
     this.loadAllEmployees();
@@ -47,14 +52,16 @@ export class AdministratorComponent implements OnInit {
       }
     }
     if (!emailMatch) {
-      this.empSer.addEmployee(empRef).subscribe(result => this.addEmpMsg = result, error => console.log(error));
+      this.empSer.addEmployee(empRef).subscribe(result => console.log(result), error => console.log(error));
+      alert("Employee added successfully!")
       this.loadAllEmployees();
     }
   }
 
   deleteEmployee(empRef: any) {
     if (confirm("Are you sure to delete this employee")) {
-      this.empSer.deleteEmployee(empRef.empID).subscribe(result => this.removeEmpMsg = result, error => console.log(error));
+      this.empSer.deleteEmployee(empRef.empID).subscribe(result => console.log(result), error => console.log(error));
+      alert("Employee deleted successfully!")
       this.loadAllEmployees();
     }
   }
@@ -71,15 +78,41 @@ export class AdministratorComponent implements OnInit {
   }
   addProductFunc(productRef: any) {
     //console.log(productRef);
-    this.empSer.addProduct(productRef);
+    this.empSer.addProduct(productRef)
+    alert('Product added successfully!')
   }
   updateProductFunc(productRef: any) {
     //console.log(productRef);
     this.empSer.updateProduct(productRef);
+    alert('Product updated successfully!')
   }
   deleteProductFunc(delProdRef: any) {
     //console.log(delProdRef)
     this.empSer.deleteProduct(delProdRef);
+    alert('Product deleted successfully!')
+  }
+  async generateReport(genReportRef: any) {
+    // console.log(genReportRef)
+    this.orderReport = await this.cartSer.getOrdersByDate(genReportRef.begin, genReportRef.end).toPromise();
+    this.productReport = [];
+    this.productReportInfo();
+    alert('Report generated!')
+  }
+  productReportInfo() {
+    for (var order of this.orderReport) {
+      for (var product of order.product) {
+        let found = false;
+        for (var item of this.productReport) {
+          if (item._id == product._id) {
+            item.quantity = item.quantity + product.quantity;
+            found = true;
+          }
+        }
+        if (!found) {
+          this.productReport.push(product);
+        }
+      }
+    }
   }
   showHideSection(flag: string) {
     if (flag == "addEmp") {
@@ -92,6 +125,8 @@ export class AdministratorComponent implements OnInit {
       this.updateProduct = !this.updateProduct
     } else if (flag == 'removeProduct') {
       this.removeProduct = !this.removeProduct
+    } else if (flag == 'genReports') {
+      this.genReports = !this.genReports;
     }
   }
 }

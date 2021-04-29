@@ -19,9 +19,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import { OrderUpdateComponent } from './order-update/order-update.component';
 import { EmployeeAuthGuard } from './emp.authguard';
+import { UserAuthGuard } from './user.authguard';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { EmployeeAuthGuard } from './emp.authguard';
     EmployeeUpdateComponent,
     EmployeeRequestComponent,
     EmployeeUnlockComponent,
-    OrderUpdateComponent
+    OrderUpdateComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,7 @@ import { EmployeeAuthGuard } from './emp.authguard';
     MatGridListModule,
     MatIconModule
   ],
-  providers: [AdminAuthGuard, EmployeeAuthGuard],
+  providers: [AdminAuthGuard, EmployeeAuthGuard, UserAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

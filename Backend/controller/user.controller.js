@@ -3,6 +3,7 @@ let UserModel = require("../model/user.model.js");
 let ProductModel = require("../model/product.model");
 let OrderModel = require("../model/order.model");
 const bcrypt = require('bcrypt');
+const validators = require('./validators')
 
 let getAllUserDetails = (req,res) =>{
     UserModel.find({}, (err, result) =>{
@@ -10,10 +11,20 @@ let getAllUserDetails = (req,res) =>{
     });
 }
 
-let id = 0;
+let getUserDetailById = async(userId)=>{
+    if (!validators.isNonEmptyString(userId)) throw 'No User with that id found!';
+    try{
+        const user = await UserModel.findById(userId).exec();
+        return user
+    }catch(e){
+        console.log(e); 
+    }
+}
+
+// let id = 0;
 let storeUserDetails = async (req,res) =>{
     let user = new UserModel({
-    _id: id++,
+    // _id: JSON.stringify(id),
     firstName:  req.body.fname,
     lastName:   req.body.lname,
     birthday:   req.body.dob,
@@ -27,7 +38,7 @@ let storeUserDetails = async (req,res) =>{
     isLockedOut: false,
     numberOfTries:0 
     });
-
+    // id ++;
     user.hashedPassword = await bcrypt.hash(user.hashedPassword, 10);
 
     const userOne = await user.save((err,result)=>{
@@ -148,6 +159,62 @@ let loadUser = (req, res) =>{
     });
 }
 
+
+let updateProfile = async(id, profile)=>{
+    if (!validators.isNonEmptyString(id)) throw 'Please provide an user Id';
+        const existingProfile = await UserModel.findById(id).exec();
+        addressObj = {
+                      street1:existingProfile.address.street1,
+                      street2:existingProfile.address.street2,
+                      city:existingProfile.address.city,
+                      state:existingProfile.address.state,
+                      zip:existingProfile.address.zip
+                    }
+        if (!existingProfile) throw `There is no user with that given ID: ${id}`;
+        if (profile.firstName){
+            existingProfile.firstName = profile.firstName
+        }
+        if (profile.lastName){
+            existingProfile.lastName = profile.lastName
+        }
+        if(profile.Phone){
+            existingProfile.Phone = profile.Phone
+        }
+        if(profile.street1){
+            addressObj.street1 = profile.street1
+            existingProfile.address =  addressObj
+        }
+        if(profile.street2){
+            addressObj.street2 = profile.street2
+            existingProfile.address = addressObj
+        }
+        if(profile.city){
+            addressObj.city = profile.city
+            existingProfile.address = addressObj
+        }
+        if(profile.state){
+            addressObj.state = profile.state
+            existingProfile.address = addressObj
+        }
+        if(profile.zip){
+            addressObj.zip = profile.zip
+            existingProfile.address = addressObj
+        }
+        if(profile.email){
+            existingProfile.email = profile.email
+        }
+        return await saveSafely(existingProfile);
+}
+
+let transferFunds = (req, res) => {
+    let id = req.body.id;
+    let transfer = req.body.transfer;
+    UserModel.updateOne({_id:id}, {$inc:{funds:transfer, "account.amount":-transfer}}, (err, result) => {
+        if(!err) res.send("Transfer complete");
+        else res.send("Funds not updated");
+    });
+};
+
 let pushNewCart = (req, res) =>{
     let id = req.params.id;
     let newCart = req.body;
@@ -157,6 +224,18 @@ let pushNewCart = (req, res) =>{
         else res.send("cart was not pushed");
     });
 }
-module.exports={getAllUserDetails, storeUserDetails, incrementNumOfTries, lockUserOut, 
-                resetNumOfTries, addToCart, loadUser, deleteFromCart, updateQuantity, checkout, emptyCart,
-                pushNewCart}
+
+async function saveSafely(document) {
+    try {
+        await document.save();
+      return 
+    } catch (e) {
+      throw e.message;
+    }
+  }
+
+module.exports={getAllUserDetails, getUserDetailById, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart, updateProfile,
+                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart}
+
+
+

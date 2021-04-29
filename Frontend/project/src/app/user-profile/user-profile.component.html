@@ -1,0 +1,108 @@
+<h3>Hello {{userDetail.firstName}}</h3>
+
+<table style="width:100%">
+  <tr>
+    <th>First Name</th>
+    <td>{{userDetail.firstName}}</td>
+  </tr>
+  <tr>
+    <th>Last Name</th>
+    <td>{{userDetail.lastName}}</td>
+  </tr>
+  <tr>
+    <th>Address</th>
+    <td>{{userDetail.address.street1}}
+      {{userDetail.address.street2}}<br />
+      {{userDetail.address.city}} {{userDetail.address.state}} {{userDetail.address.zip}}
+    </td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>{{userDetail.email}}</td>
+  </tr>
+  <tr>
+    <th>Birthday</th>
+    <td>{{userDetail.birthday | date: "longDate"}}</td>
+  </tr>
+  <tr>
+    <th>Phone Number</th>
+    <td>{{userDetail.Phone}}</td>
+  </tr>
+  <tr>
+    <th>Funds</th>
+    <td>{{userDetail.funds}}</td>
+  </tr>
+  <tr>
+    <th>Linked Account</th>
+    <td>{{userDetail.account.accNum}}</td>
+  </tr>
+  <tr>
+    <th>Account Balance</th>
+    <td>{{userDetail.account.amount}}</td>
+  </tr>
+  <tr>
+    <th>Orders</th>
+    <td>{{userDetail.orders}}</td>
+  </tr>
+</table>
+
+<div id="Update User" class="section">
+  <h3>
+    <input type="button" class="section-button" value="Update Profile" (click)="showHideSection('updateProfile')">
+  </h3>
+  <form *ngIf="updateProfile" #updateProfileRef="ngForm"
+    (ngSubmit)="updateProfileFunc(updateProfileRef.value); updateProfileRef.resetForm(); loadUserDetails()">
+
+    <label>First Name:</label>
+    <input type="text" name="firstName" ngModel /><br />
+
+    <label>Last Name:</label>
+    <input type="text" name="lastName" ngModel /><br />
+
+    <label>Birthday:</label>
+    <input type="date" name="birthday" ngModel /><br />
+
+    <label>Phone</label>
+    <input type="text" name="Phone" ngModel /><br />
+
+    <label>Email</label>
+    <input type="text" name="email" ngModel /><br />
+
+    <label>Address line 1</label>
+    <input type="text" name="address1" ngModel /><br />
+
+    <label>Address line 2</label>
+    <input type="text" name="address2" ngModel /><br />
+
+    <label>City</label>
+    <input type="text" name="city" ngModel /><br />
+
+    <label>State</label>
+    <input type="text" name="state" ngModel /><br />
+
+    <label>Zip Code</label>
+    <input type="text" name="zip" ngModel /><br />
+
+    <input type="submit" value="Update Profile" />
+    <input type="reset" value="Reset" />
+  </form>
+</div>
+
+<div id="updateFunds">
+  <h3>
+    <input type="button" class="section-button" value="Update Funds" (click)="showHideSection('updateFunds')">
+  </h3>
+  <form *ngIf="updateFunds" #updateFundsRef="ngForm"
+    (ngSubmit)="updateFundsFunc(updateFundsRef.value); updateFundsRef.resetForm(); loadUserDetails()">
+    <span>How much money would you like to transfer into your store funds?</span><br />
+    <mat-form-field>
+      <mat-label>Amount:</mat-label>
+      <input matInput type="number" name="transfer" ngModel required />
+    </mat-form-field>
+    <br />
+    <button mat-stroked-button color="primary" type="submit" [disabled]="!updateFundsRef.valid">Transfer Amount</button>
+    &nbsp;
+    <button mat-stroked-button color="primary" type="reset">Reset</button>
+  </form>
+  {{updateFundsMsg}}
+</div>
