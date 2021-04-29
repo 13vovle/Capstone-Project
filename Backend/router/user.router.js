@@ -8,6 +8,7 @@ router.put("/incrementNumOfTries", UserController.incrementNumOfTries);
 router.put("/lockUserOut", UserController.lockUserOut);
 router.put("/reset", UserController.resetNumOfTries);
 router.put("/addToCart/:id", UserController.addToCart);
+router.put("/transferFunds", UserController.transferFunds);
 
 
 router.get("/getUserDetailsById/:id",async (req,res)=>{
