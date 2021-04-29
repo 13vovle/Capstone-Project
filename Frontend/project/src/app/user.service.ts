@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
 import { User } from './user.model'
+import { Order } from './order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,10 @@ export class UserService {
     let data = {id:userId, transfer:transfer};
     this.http.put("http://localhost:9090/user/transferFunds/", data,{ responseType: "text" }).
     subscribe(result => console.log(result), error => console.log(error));
+  }
+
+  getOrderStatus():any{
+    let userId = sessionStorage.getItem('user');
+    return this.http.get("http://localhost:9090/user/getOrderStatus/"+userId);
   }
 }

@@ -31,7 +31,7 @@ export class SignInComponent implements OnInit {
   async user_signin(userRef: any) {
     console.log(this.allUsers)
     for (var user of this.allUsers) {
-      if (user.isLockedOut == false) {
+      if (!user.isLockedOut) {
         if (user.email == userRef.c_email && await bcrypt.compare(userRef.c_password, user.hashedPassword)) {
           sessionStorage.setItem("user", user._id);
           console.log("successfully logged in");
@@ -53,7 +53,6 @@ export class SignInComponent implements OnInit {
         }
       }
       else {
-        alert("You have made too many incorrect attempts to login. A ticket has been automatically raised. Please contact the store to have the ticket resolved.");
         this.msg = "You have been locked from the system. A ticket has been automatically raised. Please contact a store associate to resolve this ticket.";
       }
     }

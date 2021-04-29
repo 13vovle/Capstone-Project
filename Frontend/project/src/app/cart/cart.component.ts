@@ -13,14 +13,17 @@ export class CartComponent implements OnInit {
   user?:User;
   userCart?:Array<Product>;
   newCart?:Array<Product> = [];
-
+  total:number = 0;
   constructor(public cart_ser:CartService, public prod_ser:ProductService) { }
 
   ngOnInit(): void {
     this.cart_ser.getUser(this.cart_ser.getUserID()).
     subscribe(result => {
       this.user = result;
-      this.userCart = this.user?.cart;    
+      this.userCart = this.user?.cart;
+      for(let p of this.userCart){
+        this.total += (p.quantity) * (p.price);
+      }
     }, error => console.log(error));
   }
 

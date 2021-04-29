@@ -126,17 +126,44 @@ let updateQuantity = (req, res) =>{
     });
 }
 let checkout = (req, res) =>{
+    let cost = 0;
+    for(let p of cart){
+        cost += (p.quantity) * (p.price);
+    }
+    
     let order = new OrderModel({
         product: req.body,
         userId: req.params.id,
         status: "Getting it together!",
-        sellDate: Date.now()
+        sellDate: Date.now(),
+        total: cost
     });
 
+    
     order.save((err, result)=>{
         if(!err) res.send("Order placed successfully!");
         else res.send("Order could not be placed: " + err);
     });
+}
+
+let decreaseFunds = (req, res) =>{
+    let id = req.params._id;
+    let cart = req.body;
+    let cost = 0;
+    for(let p of cart)
+        cost += (p.quantity) * (p.price);
+    UserModel.updateOne({_id: id}, {$inc: {funds: (-1*cost)}});
+}
+
+let getOrderStatus = (req, res) =>{
+   let id = req.params.cid;
+   
+   OrderModel.find({userId: id}, {status:1, _id:0}, (err, result) =>{
+        if(!err){
+            console.log(result);
+            res.send(result);}
+        else res.send("could not retrieve order status.")
+   });
 }
 
 let emptyCart = (req, res) =>{
@@ -159,7 +186,14 @@ let loadUser = (req, res) =>{
     });
 }
 
+let updateQuantityN = (req, res) =>{
+    let pid = req.body._id;
+    let n = req.params.num;
 
+    ProductModel.updateOne({_id: pid}, {$inc: {quantity: n}}, (err, result) =>{
+        if(!err) res.send("store quanity was updated by: " + n);
+    })
+}
 let updateProfile = async(id, profile)=>{
     if (!validators.isNonEmptyString(id)) throw 'Please provide an user Id';
         const existingProfile = await UserModel.findById(id).exec();
@@ -234,8 +268,8 @@ async function saveSafely(document) {
     }
   }
 
-module.exports={getAllUserDetails, getUserDetailById, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart, updateProfile,
-                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart}
+module.exports={decreaseFunds, getAllUserDetails, getUserDetailById, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart, updateProfile,
+                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart, updateQuantityN, getOrderStatus}
 
 
 

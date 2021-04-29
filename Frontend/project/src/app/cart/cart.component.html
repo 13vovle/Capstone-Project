@@ -2,19 +2,25 @@
     <table border = "2">
         <tr>
             <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
             <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            
             <th></th>
         </tr>
 
         <tr *ngFor = "let p of userCart">
             <td>{{p.name}}</td>
-            <td>{{p.price}}</td>
-            <td>{{p.quantity}}</td>
             <td>{{p.description}}</td>
+            <td>{{p.quantity}}</td>
+            <td>{{p.price}}</td>
             <td><input type = "button" value = "Delete" (click) = "delete(p)"/></td>
         </tr>
+
+        <tfoot>
+            <th colspan="3">Total:</th>
+            <td>{{total}}</td>
+        </tfoot>
     </table>
     <input type ="button" value ="Checkout" (click) = "checkout()"/>
 </div>

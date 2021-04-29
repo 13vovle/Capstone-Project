@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service'
 import { User } from '../user.model'
 import { ThrowStmt } from '@angular/compiler';
+import { Order } from '../order.model';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -12,12 +13,14 @@ export class UserProfileComponent implements OnInit {
   name: string = ''
   updateProfile: boolean = false
   updateFunds: boolean = false;
+  orderStatus: boolean = false;
   updateFundsMsg?: string;
-
+  orderStatusMsg?:any;
   constructor(public userSer: UserService) { }
 
   ngOnInit(): void {
     this.loadUserDetails();
+    this.getCurrentOrderStatus();
   }
   showHideSection(flag: string) {
     if (flag == "updateProfile") {
@@ -44,5 +47,10 @@ export class UserProfileComponent implements OnInit {
       this.userSer.transferFunds(transfer);
       this.updateFundsMsg = "Transfer complete";
     }
+  }
+
+  getCurrentOrderStatus(){
+    this.userSer.getOrderStatus().subscribe((result:string) => {this.orderStatusMsg = result})
+    console.log(this.orderStatusMsg);
   }
 }

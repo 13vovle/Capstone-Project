@@ -52,6 +52,10 @@ export class CartService {
   getUser(id:any):Observable<User>{
     return this.http.get<User>("http://localhost:9090/user/loadUser/" + id);
   }
+  
+  updateStoreQuantityN(product:any, num:number){
+    this.http.put("http://localhost:9090/user/updateQuantityN/:num", product);
+  }
 
   delete(product:any, id:number){
     let cart:Array<Product> = [];
@@ -81,7 +85,7 @@ export class CartService {
 
     this.http.post("http://localhost:9090/user/checkout/"+this.getUserID(), this.userCart, {responseType: "text"}).
     subscribe(result => console.log(result), error => console.log(error));
-
+    this.decreaseFund();
     this.emptyCart(this.u);
   }
 
@@ -89,7 +93,11 @@ export class CartService {
     this.http.put("http://localhost:9090/user/emptyCart/" + this.getUserID(), user, {responseType:"text"}).
     subscribe(result => console.log(result), error =>console.log(error));
   }
+  decreaseFund(){
+    let userId = sessionStorage.getItem('user');
 
+    this.http.put("http://localhost:9090/user/decreaseFund/"+userId, this.userCart);
+  }
   pushNewCart(products:any){
     this.http.put("http://localhost:9090/user/pushNewCart/" + this.getUserID(), products,{responseType:"text"}).
     subscribe(result => console.log(result), error =>console.log(error));
