@@ -34,5 +34,6 @@ export class CartComponent implements OnInit {
 
   checkout(){
      this.cart_ser.checkout();
+
   }
 }

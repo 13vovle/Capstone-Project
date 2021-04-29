@@ -77,7 +77,6 @@ router.post("/checkout/:id", UserController.checkout);
 router.put("/emptyCart/:id", UserController.emptyCart);
 router.put("/updateQuantity/:id", UserController.updateQuantity);
 router.put("/pushNewCart/:id", UserController.pushNewCart);
-router.get("/getOrderStatus/:id", UserController.getOrderStatus);
 router.put("/decreaseFunds/:id", UserController.decreaseFunds);
-
+router.get("/getOrderDetails/:id", UserController.getOrder);
 module.exports = router;

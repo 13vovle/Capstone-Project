@@ -1,4 +1,4 @@
-<h3>Hello {{userDetail.firstName}}</h3>
+<h3>Hello {{userDetail.firstName}},</h3>
 
 <table style="width:100%">
   <tr>
@@ -42,12 +42,21 @@
   </tr>
   <tr>
     <th>Orders</th>
-    <td>{{userDetail.orders}}</td>
+    <table>
+      <tr>
+        <th>Tracking Number</th>
+        <th>Status</th>
+        <th>Total</th>
+      </tr>
+
+      <tr *ngFor = "let o of userOrder">
+          <td>{{o._id}}</td>
+          <td>{{o.status}}</td>
+          <td>{{o.total}}</td>
+      </tr>
+    </table>
   </tr>
-  <tr>
-    <th>Order Status</th>
-    <td>{{orderStatusMsg}}</td>
-  </tr>
+
 </table>
 
 <div id="Update User" class="section">

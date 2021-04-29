@@ -105,7 +105,6 @@ let addToCart = (req, res) =>{
 let deleteFromCart = (req, res) =>{
     let i = req.params.id;
     let pid = req.body._id;
-    console.log(pid);
     UserModel.updateOne({_id: i}, {$pull: {cart: {$pull: pid}}}, (err, result)=>{
         if(!err){
             if(result.deletedCount >0) res.send("record successfully deleted!")
@@ -125,8 +124,9 @@ let updateQuantity = (req, res) =>{
         else res.send("error generated: " + err);
     });
 }
+let cost = 0;
 let checkout = (req, res) =>{
-    let cost = 0;
+    let cart = req.body;
     for(let p of cart){
         cost += (p.quantity) * (p.price);
     }
@@ -146,29 +146,10 @@ let checkout = (req, res) =>{
     });
 }
 
-let decreaseFunds = (req, res) =>{
-    let id = req.params._id;
-    let cart = req.body;
-    let cost = 0;
-    for(let p of cart)
-        cost += (p.quantity) * (p.price);
-    UserModel.updateOne({_id: id}, {$inc: {funds: (-1*cost)}});
-}
 
-let getOrderStatus = (req, res) =>{
-   let id = req.params.cid;
-   
-   OrderModel.find({userId: id}, {status:1, _id:0}, (err, result) =>{
-        if(!err){
-            console.log(result);
-            res.send(result);}
-        else res.send("could not retrieve order status.")
-   });
-}
 
 let emptyCart = (req, res) =>{
     let i = req.params.id;
-    console.log(i);
     UserModel.updateOne({_id: i}, {$set: {cart: []}}, (err, result)=>{
         if(!err) res.send("cart was emptied!")
         else res.send("cart could not be emptied!")
@@ -268,8 +249,26 @@ async function saveSafely(document) {
     }
   }
 
-module.exports={decreaseFunds, getAllUserDetails, getUserDetailById, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart, updateProfile,
-                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart, updateQuantityN, getOrderStatus}
+  let getOrder = (req, res) =>{
+    let i = req.params.id;
+
+    OrderModel.find({userId: i}, {}, (err, result) =>{
+        if(!err){
+            res.json(result)
+        }
+        else console.log(err);
+    })
+}
+let decreaseFunds = (req, res) =>{
+    let i = req.params.id;
+    console.log("cost: " + req.body.total);
+    UserModel.updateOne({_id: i}, {$inc: {funds: (-1*req.body.total)}}, (err, result) =>{
+        if(!err) res.send(result);
+        else res.send(err)
+    });
+}
+module.exports={getOrder, decreaseFunds, getAllUserDetails, getUserDetailById, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart, updateProfile,
+                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart, updateQuantityN}
 
 
 

@@ -15,12 +15,12 @@ export class UserProfileComponent implements OnInit {
   updateFunds: boolean = false;
   orderStatus: boolean = false;
   updateFundsMsg?: string;
-  orderStatusMsg?:any;
+  userOrder:Array<Order> = [];
   constructor(public userSer: UserService) { }
 
   ngOnInit(): void {
     this.loadUserDetails();
-    this.getCurrentOrderStatus();
+    this.getOrderDetails();
   }
   showHideSection(flag: string) {
     if (flag == "updateProfile") {
@@ -32,12 +32,19 @@ export class UserProfileComponent implements OnInit {
   loadUserDetails() {
     let userId = sessionStorage.getItem('user');
     this.userSer.loadUsersDetails(userId).subscribe(result => this.userDetail = result, error => console.log(error));
+    console.log(this.userOrder)
   }
   updateProfileFunc(profileRef: any) {
     //console.log(productRef);
     this.userSer.updateProfile(profileRef);
   }
 
+  getOrderDetails(){
+    let userId = sessionStorage.getItem('user');
+    this.userSer.getOrderDetails(userId).subscribe(result =>{
+      this.userOrder = result;
+    }, error => console.log(error));
+  }
   updateFundsFunc(updateFundsRef: any) {
     // console.log(updateFundsRef);
     let transfer = updateFundsRef.transfer;
@@ -49,8 +56,9 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /*
   getCurrentOrderStatus(){
-    this.userSer.getOrderStatus().subscribe((result:string) => {this.orderStatusMsg = result})
+    this.orderStatusMsg = this.userSer.getOrderStatus();
     console.log(this.orderStatusMsg);
-  }
+  }*/
 }

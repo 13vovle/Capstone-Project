@@ -28,8 +28,7 @@ export class UserService {
     subscribe(result => console.log(result), error => console.log(error));
   }
 
-  getOrderStatus():any{
-    let userId = sessionStorage.getItem('user');
-    return this.http.get("http://localhost:9090/user/getOrderStatus/"+userId);
+  getOrderDetails(userId:any):Observable<Order[]>{
+    return this.http.get<Order[]>("http://localhost:9090/user/getOrderDetails/"+ userId);
   }
 }

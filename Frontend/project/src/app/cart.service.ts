@@ -77,15 +77,21 @@ export class CartService {
   }
 
   checkout(){
+    let total = 0;
     this.getUser(this.getUserID()).
     subscribe(result => {
       this.u = result;
-      this.userCart = this.u?.cart;    
+      this.userCart = this.u?.cart;  
+      for(let p of this.userCart){
+        total = (p.quantity) * (p.price);
+      }
+      this.decreaseFund(total);
     }, error => console.log(error));
 
     this.http.post("http://localhost:9090/user/checkout/"+this.getUserID(), this.userCart, {responseType: "text"}).
     subscribe(result => console.log(result), error => console.log(error));
-    this.decreaseFund();
+
+    
     this.emptyCart(this.u);
   }
 
@@ -93,16 +99,16 @@ export class CartService {
     this.http.put("http://localhost:9090/user/emptyCart/" + this.getUserID(), user, {responseType:"text"}).
     subscribe(result => console.log(result), error =>console.log(error));
   }
-  decreaseFund(){
-    let userId = sessionStorage.getItem('user');
 
-    this.http.put("http://localhost:9090/user/decreaseFund/"+userId, this.userCart);
+  decreaseFund(total:number){
+    let userId = sessionStorage.getItem('user');
+   
+    this.http.put("http://localhost:9090/user/decreaseFund/"+userId, total).subscribe(result => console.log(result), error => console.log(error));
   }
   pushNewCart(products:any){
     this.http.put("http://localhost:9090/user/pushNewCart/" + this.getUserID(), products,{responseType:"text"}).
     subscribe(result => console.log(result), error =>console.log(error));
   }
-
   getOrdersByDate(begin:Date, end:Date):Observable<Order[]> {
     return this.http.get<Order[]>('http://localhost:9090/emp/getOrdersByDates/'+ begin + '/' + end);
   }
