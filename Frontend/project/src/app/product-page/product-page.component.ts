@@ -38,7 +38,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   updateStoreQuantity(product:any){
-    this.ser.updateStoreQuantity(product, -1);
+    this.ser.updateStoreQuantity(product, -1); // (product, quantity)
   }
 
 }

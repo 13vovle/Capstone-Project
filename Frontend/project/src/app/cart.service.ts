@@ -75,20 +75,10 @@ export class CartService {
       this.pushNewCart(cart);
     }, error => console.log(error));
   }
-
-  checkout(){
-    let total = 0;
-    this.getUser(this.getUserID()).
-    subscribe(result => {
-      this.u = result;
-      this.userCart = this.u?.cart;  
-      for(let p of this.userCart){
-        total = (p.quantity) * (p.price);
-      }
-      this.decreaseFund(total);
-    }, error => console.log(error));
-
-    this.http.post("http://localhost:9090/user/checkout/"+this.getUserID(), this.userCart, {responseType: "text"}).
+  total = 0;
+  checkout(cart:any){
+ 
+    this.http.post("http://localhost:9090/user/checkout/"+this.getUserID(), cart, {responseType: "text"}).
     subscribe(result => console.log(result), error => console.log(error));
 
     
@@ -100,11 +90,11 @@ export class CartService {
     subscribe(result => console.log(result), error =>console.log(error));
   }
 
-  decreaseFund(total:number){
+  decreaseFund(cart:any):any{
     let userId = sessionStorage.getItem('user');
-   
-    this.http.put("http://localhost:9090/user/decreaseFund/"+userId, total).subscribe(result => console.log(result), error => console.log(error));
+    return this.http.put("http://localhost:9090/user/decreaseFund/" + userId, cart, {responseType:"text"});
   }
+
   pushNewCart(products:any){
     this.http.put("http://localhost:9090/user/pushNewCart/" + this.getUserID(), products,{responseType:"text"}).
     subscribe(result => console.log(result), error =>console.log(error));

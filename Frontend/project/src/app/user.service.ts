@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { User } from './user.model'
 import { Order } from './order.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -30,5 +31,15 @@ export class UserService {
 
   getOrderDetails(userId:any):Observable<Order[]>{
     return this.http.get<Order[]>("http://localhost:9090/user/getOrderDetails/"+ userId);
+  }
+
+  deleteOrder(order:any):any{
+    let orderId = order._id;
+    return this.http.delete("http://localhost:9090/user/deleteOrder/" + orderId, {responseType: "text"});
+  }
+
+  increaseFunds(order:any):any{
+    let userId = sessionStorage.getItem('user');
+    return this.http.put("http://localhost:9090/user/increaseFunds/" + userId, order, {responseType: "text"});
   }
 }

@@ -9,7 +9,6 @@ router.put("/lockUserOut", UserController.lockUserOut);
 router.put("/reset", UserController.resetNumOfTries);
 router.put("/addToCart/:id", UserController.addToCart);
 router.put("/transferFunds", UserController.transferFunds);
-router.put("/updateQuantityN/:num", UserController.updateQuantityN);
 
 router.get("/getUserDetailsById/:id",async (req,res)=>{
     let id = req.params.id;
@@ -77,6 +76,9 @@ router.post("/checkout/:id", UserController.checkout);
 router.put("/emptyCart/:id", UserController.emptyCart);
 router.put("/updateQuantity/:id", UserController.updateQuantity);
 router.put("/pushNewCart/:id", UserController.pushNewCart);
-router.put("/decreaseFunds/:id", UserController.decreaseFunds);
+router.put("/decreaseFund/:id", UserController.decreaseFunds);
 router.get("/getOrderDetails/:id", UserController.getOrder);
+router.delete("/deleteOrder/:id", UserController.deleteOrder);
+router.put("/increaseFunds/:id", UserController.increaseFunds);
+
 module.exports = router;

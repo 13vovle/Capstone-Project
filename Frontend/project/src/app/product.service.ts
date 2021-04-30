@@ -29,6 +29,7 @@ export class ProductService {
    return this.http.put("http://localhost:9090/product/updateQuantity/" + n, product, {responseType: "text"}).
     subscribe(result => console.log(result), error => console.log(error));
   }
+  
   getAllOrders():Observable<Order[]>{
     return this.http.get<Order[]>("http://localhost:9090/product/getAllOrders");
   }

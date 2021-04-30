@@ -11,9 +11,10 @@ import { User } from '../user.model';
 })
 export class CartComponent implements OnInit {
   user?:User;
-  userCart?:Array<Product>;
+  userCart?:Array<Product> =[];
   newCart?:Array<Product> = [];
   total:number = 0;
+  length:number = 0;
   constructor(public cart_ser:CartService, public prod_ser:ProductService) { }
 
   ngOnInit(): void {
@@ -21,6 +22,7 @@ export class CartComponent implements OnInit {
     subscribe(result => {
       this.user = result;
       this.userCart = this.user?.cart;
+      this.length = this.userCart.length;
       for(let p of this.userCart){
         this.total += (p.quantity) * (p.price);
       }
@@ -32,8 +34,19 @@ export class CartComponent implements OnInit {
     this.prod_ser.updateStoreQuantity(product,1);
   }
 
-  checkout(){
-     this.cart_ser.checkout();
+  updateFund(){
 
   }
+  checkout(){
+   if(this.userCart?.length!=0){
+    alert("Order was placed!")
+     this.cart_ser.checkout(this.userCart);
+     this.cart_ser.decreaseFund(this.userCart).subscribe((result:string)=>{
+       console.log(result);
+     });
+    }
+    else alert("Your cart is empty! You cannot place an order.");
+  }
+  
+
 }

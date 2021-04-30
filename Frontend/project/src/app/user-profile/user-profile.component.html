@@ -42,23 +42,25 @@
   </tr>
   <tr>
     <th>Orders</th>
-    <table>
+    <table border="1">
       <tr>
         <th>Tracking Number</th>
         <th>Status</th>
         <th>Total</th>
+        <th></th>
       </tr>
 
       <tr *ngFor = "let o of userOrder">
           <td>{{o._id}}</td>
           <td>{{o.status}}</td>
           <td>{{o.total}}</td>
+          <td><input type = "button" value = "Delete" (click) = "delete(o)"/></td>
       </tr>
     </table>
   </tr>
 
 </table>
-
+<hr/>
 <div id="Update User" class="section">
   <h3>
     <input type="button" class="section-button" value="Update Profile" (click)="showHideSection('updateProfile')">

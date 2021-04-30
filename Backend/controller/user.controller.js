@@ -124,9 +124,10 @@ let updateQuantity = (req, res) =>{
         else res.send("error generated: " + err);
     });
 }
-let cost = 0;
+
 let checkout = (req, res) =>{
     let cart = req.body;
+    let cost = 0;
     for(let p of cart){
         cost += (p.quantity) * (p.price);
     }
@@ -167,14 +168,6 @@ let loadUser = (req, res) =>{
     });
 }
 
-let updateQuantityN = (req, res) =>{
-    let pid = req.body._id;
-    let n = req.params.num;
-
-    ProductModel.updateOne({_id: pid}, {$inc: {quantity: n}}, (err, result) =>{
-        if(!err) res.send("store quanity was updated by: " + n);
-    })
-}
 let updateProfile = async(id, profile)=>{
     if (!validators.isNonEmptyString(id)) throw 'Please provide an user Id';
         const existingProfile = await UserModel.findById(id).exec();
@@ -260,15 +253,61 @@ async function saveSafely(document) {
     })
 }
 let decreaseFunds = (req, res) =>{
-    let i = req.params.id;
-    console.log("cost: " + req.body.total);
-    UserModel.updateOne({_id: i}, {$inc: {funds: (-1*req.body.total)}}, (err, result) =>{
-        if(!err) res.send(result);
-        else res.send(err)
+    let userId = req.params.id;
+    let cart = req.body;
+    let total = 0;
+    for(let p of cart)
+        total += (p.quantity) * (p.price);
+    total *= -1;
+    UserModel.updateOne({_id: userId}, {$inc: {funds: total}}, (err, result) =>{
+        if(!err){
+            if(result.nModified>0){
+                    res.send("Record updated succesfully")
+            }else {
+                    res.send("Record is not available");
+            }
+        }else {
+            res.send("Error generated "+err);
+        }
     });
 }
+
+let increaseFunds = (req, res) =>{
+    let userId = req.params.id;
+
+    let order = req.body;
+    let cashBack = order.total;
+
+    UserModel.updateOne({_id: userId}, {$inc: {funds: cashBack}}, (err, result) =>{
+        if(!err){
+            if(result.nModified>0){
+                    res.send("Funds added back to users account!")
+            }else {
+                    res.send("User not found!");
+            }
+        }else {
+            res.send("Error generated "+err);
+        }
+    });
+}
+
+let deleteOrder = (req, res) =>{
+    let orderId = req.params.id;
+    OrderModel.deleteOne({_id: orderId}, (err,result)=> {
+        if(!err){
+                if(result.deletedCount>0){
+                    res.send("Record deleted successfully")
+                }else {
+                    res.send("Record not present");
+                }
+        }else {
+            res.send("Error generated "+err);
+        }
+    });
+
+}
 module.exports={getOrder, decreaseFunds, getAllUserDetails, getUserDetailById, storeUserDetails, incrementNumOfTries, lockUserOut, resetNumOfTries, addToCart, updateProfile,
-                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart, updateQuantityN}
+                loadUser, deleteFromCart, updateQuantity, checkout, emptyCart, transferFunds, pushNewCart, deleteOrder, increaseFunds}
 
 
 
