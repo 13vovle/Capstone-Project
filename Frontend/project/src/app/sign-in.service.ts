@@ -9,38 +9,40 @@ import { Employee } from './employee.model';
 })
 export class SignInService {
 
-  constructor(public http:HttpClient) { }
+  private url = "http://localhost:9090/"
 
-  loadAllUsersDetails():Observable<User[]>{
-    return this.http.get<User[]>("http://localhost:9090/user/getAllUserDetails"); 
+  constructor(public http: HttpClient) { }
+
+  loadAllUsersDetails(): Observable<User[]> {
+    return this.http.get<User[]>(this.url + "user/getAllUserDetails");
+  }
+
+  storeUserDetails(newUser: any) {
+    return this.http.post(this.url + "user/storeUserDetails", newUser, { responseType: "text" });
+  }
+
+  incrementNumOfTries(user: any): any {
+    return this.http.put(this.url + "user/incrementNumOfTries", user, { responseType: 'text' });
+  }
+
+  lockUserOut(user: any): any {
+    return this.http.put(this.url + "user/lockUserOut", user, { responseType: 'text' });
+  }
+
+  reset(user: any) {
+    this.http.put(this.url + "user/reset", user, { responseType: "text" });
+  }
+
+  createTicket(user: any) {
+    this.http.post(this.url + "ticket/createTicket", user, { responseType: "text" }).
+      subscribe(result => console.log(result), error => console.log(error));
+  }
+
+  loadAllEmpDetails(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.url + "emp/getAllEmpDetails");
   }
   
-  storeUserDetails(newUser:any){
-    return this.http.post("http://localhost:9090/user/storeUserDetails", newUser, {responseType: "text"});
+  loadAllAdminDetails(): any {
+    return this.http.get(this.url + "emp/create", { responseType: 'text' });
   }
-
-  incrementNumOfTries(user:any):any{
-    return this.http.put("http://localhost:9090/user/incrementNumOfTries", user, {responseType: 'text'});
-  }
-
-  lockUserOut(user:any):any{
-    return this.http.put("http://localhost:9090/user/lockUserOut", user, {responseType: 'text'});
-  }
-
-  reset(user:any){
-    this.http.put("http://localhost:9090/user/reset", user, {responseType: "text"});
-  }
-  createTicket(user:any){
-    this.http.post("http://localhost:9090/ticket/createTicket", user, {responseType: "text"}).
-    subscribe(result => console.log(result), error => console.log(error));
-  }
-
-  loadAllEmpDetails():Observable<Employee[]>{
-    return this.http.get<Employee[]>("http://localhost:9090/emp/getAllEmpDetails");
-  }
-  loadAllAdminDetails():any{
-    return this.http.get("http://localhost:9090/emp/create" ,{responseType: 'text'});
-  }
-  
-
 }
