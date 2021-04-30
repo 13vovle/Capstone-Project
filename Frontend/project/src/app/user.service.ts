@@ -10,36 +10,38 @@ import { Order } from './order.model';
 })
 export class UserService {
 
-  constructor(public http:HttpClient) { }
+  private url = "http://localhost:9090/"
 
-  loadUsersDetails(id:any):Observable<User>{
-    return this.http.get<User>("http://localhost:9090/user/getUserDetailsById/" + id); 
+  constructor(public http: HttpClient) { }
+
+  loadUsersDetails(id: any): Observable<User> {
+    return this.http.get<User>(this.url + "user/getUserDetailsById/" + id);
   }
 
-  updateProfile(profileRef: any){
-      let userId = sessionStorage.getItem('user');
-      this.http.patch("http://localhost:9090/user/updateProfile/"+userId, profileRef,{ responseType: "text" }).
+  updateProfile(profileRef: any) {
+    let userId = sessionStorage.getItem('user');
+    this.http.patch(this.url + "user/updateProfile/" + userId, profileRef, { responseType: "text" }).
       subscribe(result => console.log(result), error => console.log(error));
   }
 
-  transferFunds(transfer:number) {
+  transferFunds(transfer: number) {
     let userId = sessionStorage.getItem('user');
-    let data = {id:userId, transfer:transfer};
-    this.http.put("http://localhost:9090/user/transferFunds/", data,{ responseType: "text" }).
-    subscribe(result => console.log(result), error => console.log(error));
+    let data = { id: userId, transfer: transfer };
+    this.http.put(this.url + "user/transferFunds/", data, { responseType: "text" }).
+      subscribe(result => console.log(result), error => console.log(error));
   }
 
-  getOrderDetails(userId:any):Observable<Order[]>{
-    return this.http.get<Order[]>("http://localhost:9090/user/getOrderDetails/"+ userId);
+  getOrderDetails(userId: any): Observable<Order[]> {
+    return this.http.get<Order[]>(this.url + "user/getOrderDetails/" + userId);
   }
 
-  deleteOrder(order:any):any{
+  deleteOrder(order: any): any {
     let orderId = order._id;
-    return this.http.delete("http://localhost:9090/user/deleteOrder/" + orderId, {responseType: "text"});
+    return this.http.delete(this.url + "user/deleteOrder/" + orderId, { responseType: "text" });
   }
 
-  increaseFunds(order:any):any{
+  increaseFunds(order: any): any {
     let userId = sessionStorage.getItem('user');
-    return this.http.put("http://localhost:9090/user/increaseFunds/" + userId, order, {responseType: "text"});
+    return this.http.put(this.url + "user/increaseFunds/" + userId, order, { responseType: "text" });
   }
 }

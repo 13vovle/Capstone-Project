@@ -11,6 +11,7 @@ import { ProductService } from '../product.service';
 })
 export class ProductPageComponent implements OnInit {
 
+  userName = sessionStorage.getItem("userName");
   allProducts:Array<Product> =[];
   constructor(public ser:ProductService, public cart_ser:CartService, public router:Router) { }
 
@@ -30,6 +31,7 @@ export class ProductPageComponent implements OnInit {
 
   reroute_login(){
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("userName");
     this.router.navigate([""]);
   }
 

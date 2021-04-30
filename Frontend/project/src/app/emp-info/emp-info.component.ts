@@ -9,7 +9,7 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./emp-info.component.css']
 })
 export class EmpInfoComponent implements OnInit {
-  public uname : any;
+  public adminName = sessionStorage.getItem("empName");
   allEmps: Array<Employee> = [];
   addEmp: boolean = false;
   addEmpMsg?: string;
@@ -22,7 +22,7 @@ export class EmpInfoComponent implements OnInit {
     this.loadAllEmployees();
   }
   logout() {
-    if(confirm("Are you sure tou want to log out?")){
+    if(confirm("Are you sure you want to log out?")){
       sessionStorage.removeItem("admin");
     this.router.navigate([""]);
     }else{

@@ -35,6 +35,7 @@ export class SignInComponent implements OnInit {
         if (user.email == userRef.c_email && await bcrypt.compare(userRef.c_password, user.hashedPassword)) {
           sessionStorage.setItem("user", user._id);
           console.log("successfully logged in");
+          sessionStorage.setItem("userName", user.firstName);
           this.ser.reset(user);
           this.cart_ser.setUserID(user);
           this.router.navigate(["\productPage"]);

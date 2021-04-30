@@ -1,26 +1,42 @@
-<div >
-    <table border = "1">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Grocer App - Welcome {{userName}}!</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" routerLink="/productPage">Product Page</a>
+            <a class="nav-item nav-link active" routerLink="/cart">View Cart<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" routerLink="/profilePage">User Profile</a>
+            <a class="nav-item nav-link " (click)='reroute_login()' routerLink="">Logout</a>
+        </div>
+    </div>
+</nav>
+<div class ="container pt-5">
+    <table class="table w-70">
         <tr>
             <th>Name</th>
             <th>Description</th>
             <th>Quantity</th>
-            <th>Price</th>
-            
-            <th></th>
+            <th>Unit Price</th>
+            <th>Delete?</th>
         </tr>
 
-        <tr *ngFor = "let p of userCart">
+        <tr *ngFor="let p of userCart">
             <td>{{p.name}}</td>
             <td>{{p.description}}</td>
             <td>{{p.quantity}}</td>
-            <td>{{p.price}}</td>
-            <td><input type = "button" value = "Delete" (click) = "delete(p)"/></td>
+            <td>${{p.price}}</td>
+            <td><input type="button" value="Delete" (click)="delete(p)" /></td>
         </tr>
 
         <tfoot>
             <th colspan="3">Total:</th>
-            <td>{{total}}</td>
+            <td>${{total}}</td>
         </tfoot>
     </table>
-    <input type ="button" value ="Checkout" (click) = "checkout()"/>
+    <br />
+    <button mat-stroked-button color="primary" type="button" (click)="checkout()">Checkout</button>
+    <!-- <input type="button" value="Checkout" (click)="checkout()" /> -->
 </div>

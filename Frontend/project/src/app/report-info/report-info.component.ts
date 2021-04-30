@@ -14,6 +14,7 @@ import { ProductReq } from '../productReq.model';
   styleUrls: ['./report-info.component.css']
 })
 export class ReportInfoComponent implements OnInit {
+  public adminName = sessionStorage.getItem("empName");
   orderReport: Array<Order> = [];
   productReport: Array<Product> = [];
   allEmps: Array<Employee> = [];

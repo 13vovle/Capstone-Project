@@ -11,6 +11,7 @@ import { ProductReq } from '../productReq.model';
   styleUrls: ['./product-info.component.css']
 })
 export class ProductInfoComponent implements OnInit {
+  public adminName = sessionStorage.getItem("empName");
   allProducts: Array<Product> = [];
   allRequests: Array<ProductReq> = [];
   addProduct: boolean = false;
