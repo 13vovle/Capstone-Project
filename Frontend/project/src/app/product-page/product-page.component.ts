@@ -12,6 +12,7 @@ import { ProductService } from '../product.service';
 export class ProductPageComponent implements OnInit {
 
   userName = sessionStorage.getItem("userName");
+  cart:Array<Product> = JSON.parse(sessionStorage.getItem("cart")!);
   allProducts:Array<Product> =[];
   constructor(public ser:ProductService, public cart_ser:CartService, public router:Router) { }
 
@@ -21,8 +22,19 @@ export class ProductPageComponent implements OnInit {
   }
   
   pushToCart(product:any){
-    this.cart_ser.addToCart(this.cart_ser.getUserID(), product);
+    // this.cart_ser.addToCart(this.cart_ser.getUserID(), product);
+    if(this.cart.some(item => item.name === product.name)) {
+      let index = this.cart.findIndex(item => item.name === product.name);
+      this.cart[index].quantity++;
+      console.log(this.cart);
+    } else {
+      let newProduct = product;
+      newProduct.quantity = 1
+      this.cart.push(newProduct);
+      console.log(this.cart);
+    }
     this.updateStoreQuantity(product);
+    sessionStorage.setItem("cart", JSON.stringify(this.cart));
   }
 
   reroute_cart(){

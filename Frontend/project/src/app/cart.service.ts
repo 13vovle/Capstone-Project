@@ -10,7 +10,7 @@ import { User } from './user.model';
 })
 
 export class CartService {
-  id: any;
+  id = sessionStorage.getItem("user");
   user: any;
   u: any;
   userCart: Array<Product> = [];

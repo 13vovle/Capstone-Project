@@ -11,45 +11,59 @@ import { User } from '../user.model';
 })
 export class CartComponent implements OnInit {
   userName = sessionStorage.getItem("userName");
-  user?:User;
-  userCart?:Array<Product> =[];
-  newCart?:Array<Product> = [];
-  total:number = 0;
-  length:number = 0;
-  constructor(public cart_ser:CartService, public prod_ser:ProductService) { }
+  cart: Array<Product> = JSON.parse(sessionStorage.getItem("cart")!);
+  user?: User;
+  userCart?: Array<Product> = [];
+  newCart?: Array<Product> = [];
+  total: number = 0;
+  length: number = 0;
+  constructor(public cart_ser: CartService, public prod_ser: ProductService) { }
 
   ngOnInit(): void {
-    this.cart_ser.getUser(this.cart_ser.getUserID()).
-    subscribe(result => {
-      this.user = result;
-      this.userCart = this.user?.cart;
-      this.length = this.userCart.length;
-      for(let p of this.userCart){
-        this.total += (p.quantity) * (p.price);
-      }
-    }, error => console.log(error));
+    // this.cart_ser.getUser(this.cart_ser.getUserID()).
+    // subscribe(result => {
+    //   this.user = result;
+    //   this.userCart = this.user.cart;
+    //   this.length = this.userCart.length;
+    //   for(let p of this.userCart){
+    //     this.total += (p.quantity) * (p.price);
+    //   }
+    // }, error => console.log(error));
+    for (let p of this.cart) {
+      this.total += (p.quantity) * (p.price);
+    }
   }
 
-  delete(product:any){
-    this.cart_ser.delete(product, this.cart_ser.getUserID());
-    this.prod_ser.updateStoreQuantity(product,1);
+  delete(product: any) {
+    // this.cart_ser.delete(product, this.cart_ser.getUserID());
+    let index = this.cart.findIndex(item => item.name === product.name);
+    this.cart.splice(index, 1);
+    sessionStorage.setItem("cart", JSON.stringify(this.cart));
+    this.total = 0;
+    for (let p of this.cart) {
+      this.total += (p.quantity) * (p.price);
+    }
+    this.prod_ser.updateStoreQuantity(product, 1);
   }
 
-  updateFund(){
+  updateFund() {
 
   }
-  checkout(){
-   if(this.userCart?.length!=0){
-    alert("Order was placed!")
-     this.cart_ser.checkout(this.userCart);
-     this.cart_ser.decreaseFund(this.userCart).subscribe((result:string)=>{
-       console.log(result);
-     });
+  checkout() {
+    if (this.cart.length != 0) {
+      alert("Order was placed!")
+      this.cart_ser.checkout(this.cart);
+      this.cart_ser.decreaseFund(this.cart).subscribe((result: string) => {
+        console.log(result);
+      });
     }
     else alert("Your cart is empty! You cannot place an order.");
+    this.cart = [];
+    sessionStorage.setItem("cart", "[]");
+    this.total = 0;
   }
-  
-  reroute_login(){
+
+  reroute_login() {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("userName");
   }
