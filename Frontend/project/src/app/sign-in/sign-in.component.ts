@@ -36,6 +36,7 @@ export class SignInComponent implements OnInit {
           sessionStorage.setItem("user", user._id);
           console.log("successfully logged in");
           sessionStorage.setItem("userName", user.firstName);
+          sessionStorage.setItem("cart", "[]");
           this.ser.reset(user);
           this.cart_ser.setUserID(user);
           this.router.navigate(["\productPage"]);

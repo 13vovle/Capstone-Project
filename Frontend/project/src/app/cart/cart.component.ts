@@ -11,6 +11,7 @@ import { User } from '../user.model';
 })
 export class CartComponent implements OnInit {
   userName = sessionStorage.getItem("userName");
+  cart = JSON.parse(sessionStorage.getItem("cart")!);
   user?:User;
   userCart?:Array<Product> =[];
   newCart?:Array<Product> = [];
@@ -19,15 +20,18 @@ export class CartComponent implements OnInit {
   constructor(public cart_ser:CartService, public prod_ser:ProductService) { }
 
   ngOnInit(): void {
-    this.cart_ser.getUser(this.cart_ser.getUserID()).
-    subscribe(result => {
-      this.user = result;
-      this.userCart = this.user?.cart;
-      this.length = this.userCart.length;
-      for(let p of this.userCart){
-        this.total += (p.quantity) * (p.price);
-      }
-    }, error => console.log(error));
+    // this.cart_ser.getUser(this.cart_ser.getUserID()).
+    // subscribe(result => {
+    //   this.user = result;
+    //   this.userCart = this.user.cart;
+    //   this.length = this.userCart.length;
+    //   for(let p of this.userCart){
+    //     this.total += (p.quantity) * (p.price);
+    //   }
+    // }, error => console.log(error));
+    for(let p of this.cart){
+          this.total += (p.quantity) * (p.price);
+        }
   }
 
   delete(product:any){
@@ -39,14 +43,17 @@ export class CartComponent implements OnInit {
 
   }
   checkout(){
-   if(this.userCart?.length!=0){
+   if(this.cart.length!=0){
     alert("Order was placed!")
-     this.cart_ser.checkout(this.userCart);
-     this.cart_ser.decreaseFund(this.userCart).subscribe((result:string)=>{
+     this.cart_ser.checkout(this.cart);
+     this.cart_ser.decreaseFund(this.cart).subscribe((result:string)=>{
        console.log(result);
      });
     }
     else alert("Your cart is empty! You cannot place an order.");
+    this.cart = [];
+    sessionStorage.setItem("cart", "[]");
+    this.total = 0;
   }
   
   reroute_login(){
