@@ -1,152 +1,156 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Welcome Admin!</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand" href="#">Grocer App - Welcome {{adminName}}!</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link"  routerLink="/empInfo">Employees</a>
-        <a class="nav-item nav-link active" routerLink="/productInfo">Products <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link " routerLink="/generateReport">Generate Report</a>
-        <a class="nav-item nav-link" (click)='logout()'  routerLink="">Logout</a>
-      </div>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" routerLink="/empInfo">Employees</a>
+            <a class="nav-item nav-link active" routerLink="/productInfo">Products <span
+                    class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link " routerLink="/generateReport">Generate Report</a>
+            <a class="nav-item nav-link" (click)='logout()' routerLink="">Logout</a>
+        </div>
     </div>
-  </nav>
-  <div class="container pt-5">
+</nav>
+<div class="container pt-5">
     <h2>Edit Product Information</h2>
-  <div id="allProducts" class="section">
-    <h3>All Products</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Product Price</th>
-                <th>Product Quantity</th>
-                <th>Product Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let p of allProducts">
-                <td>{{p._id}}</td>
-                <td>{{p.name}}</td>
-                <td>{{p.price}}</td>
-                <td>{{p.quantity}}</td>
-                <td>{{p.description}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div id="allProducts" class="section">
+        <h3>All Products</h3>
+        <table class="table w-70">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Product Quantity</th>
+                    <th>Product Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of allProducts">
+                    <td>{{p._id}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.price}}</td>
+                    <td>{{p.quantity}}</td>
+                    <td>{{p.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<hr />
+    <hr />
 
-<div id="add Product" class="section">
-    <h3>
-        <input type="button" class="section-button" value="Add New Product" (click)="showHideSection('addProduct')">
-    </h3>
-    <form *ngIf="addProduct" #addProductRef="ngForm"
-        (ngSubmit)="addProductFunc(addProductRef.value); addProductRef.resetForm(); loadAllProducts()">
-        <mat-form-field>
-            <mat-label>Product Name:</mat-label>
-            <input matInput type="text" name="name" ngModel /><br />
-        </mat-form-field>
-<br>
-        <mat-form-field>
-            <mat-label>Product Price:</mat-label>
-            <input matInput type="number" name="price" ngModel /><br />
-        </mat-form-field>
-<br>
-        <mat-form-field>
-            <mat-label>Quantity:</mat-label>
-            <input matInput type="number" name="quantity" ngModel /><br />
-        </mat-form-field>
-<br>
-        <mat-form-field>
-        <mat-label>Description:</mat-label>
-        <input matInput type="text" name="description" ngModel /><br />
-        </mat-form-field>
-<br>
-        <button  mat-stroked-button color="primary" type="submit"> Add Product</button>
-        <button mat-stroked-button color="primary" type="reset">Reset</button>
-    </form>
-</div>
+    <div id="add Product" class="section">
+        <h3>
+            <input type="button" class="section-button" value="Add New Product" (click)="showHideSection('addProduct')">
+        </h3>
+        <form *ngIf="addProduct" #addProductRef="ngForm"
+            (ngSubmit)="addProductFunc(addProductRef.value); addProductRef.resetForm(); loadAllProducts()">
+            <mat-form-field>
+                <mat-label>Product Name:</mat-label>
+                <input matInput type="text" name="name" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Product Price:</mat-label>
+                <input matInput type="number" name="price" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Quantity:</mat-label>
+                <input matInput type="number" name="quantity" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Description:</mat-label>
+                <input matInput type="text" name="description" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <button mat-stroked-button color="primary" type="submit"> Add Product</button>
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
+        </form>
+    </div>
 
-<hr />
+    <hr />
 
-<div id="Update Product" class="section">
-    <h3>
-        <input type="button" class="section-button" value="Update Product"
-            (click)="showHideSection('updateProduct')">
-    </h3>
-    <form *ngIf="updateProduct" #updateProductRef="ngForm"
-        (ngSubmit)="updateProductFunc(updateProductRef.value); updateProductRef.resetForm(); loadAllProducts()">
-        
-        <mat-form-field>
-        <label>Product Id:</label>
-        <input matInput type="text" name="Id" ngModel /><br />
-        </mat-form-field>
-<br>
-        <mat-form-field>
-        <label>Product Name:</label>
-        <input matInput type="text" name="name" ngModel /><br />
-        </mat-form-field>
-<br>
-        <mat-form-field>
-        <label>Product Price:</label>
-        <input matInput matInput type="number" name="price" ngModel /><br />
-        </mat-form-field>
-<br>
-        <mat-form-field>
-        <label>Quantity:</label>
-        <input matInput type="number" name="quantity" ngModel /><br />
-        </mat-form-field>
-<br>
-        <mat-form-field>
-        <label>Description:</label>
-        <input matInput type="text" name="description" ngModel /><br />
-        </mat-form-field>
-<br>
-        <button mat-stroked-button color="primary" type="submit">Update Product</button>
-        <button mat-stroked-button color="primary" type="reset" value="Reset">Reset</button>
-    </form>
-</div>
+    <div id="Update Product" class="section">
+        <h3>
+            <input type="button" class="section-button" value="Update Product"
+                (click)="showHideSection('updateProduct')">
+        </h3>
+        <form *ngIf="updateProduct" #updateProductRef="ngForm"
+            (ngSubmit)="updateProductFunc(updateProductRef.value); updateProductRef.resetForm(); loadAllProducts()">
 
-<hr />
+            <mat-form-field>
+                <mat-label>Product Id:</mat-label>
+                <input matInput type="text" name="Id" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Product Name:</mat-label>
+                <input matInput type="text" name="name" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Product Price:</mat-label>
+                <input matInput matInput type="number" name="price" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Quantity:</mat-label>
+                <input matInput type="number" name="quantity" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Description:</mat-label>
+                <input matInput type="text" name="description" ngModel /><br />
+            </mat-form-field>
+            <br>
+            <button mat-stroked-button color="primary" type="submit">Update Product</button>
+            <button mat-stroked-button color="primary" type="reset" value="Reset">Reset</button>
+        </form>
+    </div>
 
-<div id="removeProduct" class="section">
-    <h3>
-        <input type="button" class="section-button" value="Remove Product"
-            (click)="showHideSection('removeProduct')">
-    </h3>
-    <form *ngIf="removeProduct" #delProdRef="ngForm"
-        (ngSubmit)="deleteProductFunc(delProdRef.value); delProdRef.resetForm()">
-        <label>Product ID:</label>
-        <input type="text" name="Id" ngModel /><br />
+    <hr />
 
-        <button mat-stroked-button color="primary" type="submit">Remove Product Record</button>
-        <button mat-stroked-button color="primary" type="reset" >Reset</button>
-    </form>
-</div>
-<hr />
-<div id="allRequests" class="section">
-    <h3>All Requests</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Request ID</th>
-                <th>Product Name</th>
-                <th>Update Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let r of allRequests">
-                <td>{{r._id}}</td>
-                <td>{{r.productName}}</td>
-                <td>{{r.quantity}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div id="removeProduct" class="section">
+        <h3>
+            <input type="button" class="section-button" value="Remove Product"
+                (click)="showHideSection('removeProduct')">
+        </h3>
+        <form *ngIf="removeProduct" #delProdRef="ngForm"
+            (ngSubmit)="deleteProductFunc(delProdRef.value); delProdRef.resetForm(); loadAllProducts()">
+            <mat-form-field>
+                <mat-label>Product ID:</mat-label>
+                <input matInput type="text" name="Id" ngModel /><br />
+            </mat-form-field>
+            <br />
+            <button mat-stroked-button color="primary" type="submit">Remove Product Record</button>
+            <button mat-stroked-button color="primary" type="reset">Reset</button>
+        </form>
+    </div>
+    <hr />
+    <div id="allRequests" class="section">
+        <h3>All Requests</h3>
+        <table class="table w-70">
+            <thead>
+                <tr>
+                    <th>Request ID</th>
+                    <th>Product Name</th>
+                    <th>Update Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of allRequests">
+                    <td>{{r._id}}</td>
+                    <td>{{r.productName}}</td>
+                    <td>{{r.quantity}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<hr />
+    <hr />
 </div>

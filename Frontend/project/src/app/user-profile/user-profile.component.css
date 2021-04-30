@@ -1,0 +1,12 @@
+.section {
+    padding: 10px;
+}
+
+.section-button {
+    background-color: white;
+    border: none;
+}
+
+.section-button:hover {
+    color: blue;
+}

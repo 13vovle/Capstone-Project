@@ -1,145 +1,161 @@
-<h3>Hello {{userDetail.firstName}},</h3>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Grocer App - Welcome {{userDetail.firstName}}!</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto">
+      <a class="nav-item nav-link" routerLink="/productPage">Product Page</a>
+      <a class="nav-item nav-link" routerLink="/cart">View Cart</a>
+      <a class="nav-item nav-link active" routerLink="/profilePage">User Profile<span
+          class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link " (click)='reroute_login()' routerLink="">Logout</a>
+    </div>
+  </div>
+</nav>
 
-<table style="width:100%">
-  <tr>
-    <th>First Name</th>
-    <td>{{userDetail.firstName}}</td>
-  </tr>
-  <tr>
-    <th>Last Name</th>
-    <td>{{userDetail.lastName}}</td>
-  </tr>
-  <tr>
-    <th>Address</th>
-    <td>{{userDetail.address.street1}}
-      {{userDetail.address.street2}}<br />
-      {{userDetail.address.city}} {{userDetail.address.state}} {{userDetail.address.zip}}
-    </td>
-  </tr>
-  <tr>
-    <th>Email</th>
-    <td>{{userDetail.email}}</td>
-  </tr>
-  <tr>
-    <th>Birthday</th>
-    <td>{{userDetail.birthday | date: "longDate"}}</td>
-  </tr>
-  <tr>
-    <th>Phone Number</th>
-    <td>{{userDetail.Phone}}</td>
-  </tr>
-  <tr>
-    <th>Funds</th>
-    <td>{{userDetail.funds}}</td>
-  </tr>
-  <tr>
-    <th>Linked Account</th>
-    <td>{{userDetail.account.accNum}}</td>
-  </tr>
-  <tr>
-    <th>Account Balance</th>
-    <td>{{userDetail.account.amount}}</td>
-  </tr>
-  <tr>
-    <th>Orders</th>
-    <table border="1">
-      <tr>
-        <th>Tracking Number</th>
-        <th>Status</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
+<div class="container pt-5">
+  <table class="table w-70">
+    <tr>
+      <th>First Name</th>
+      <td>{{userDetail.firstName}}</td>
+    </tr>
+    <tr>
+      <th>Last Name</th>
+      <td>{{userDetail.lastName}}</td>
+    </tr>
+    <tr>
+      <th>Address</th>
+      <td>{{userDetail.address.street1}}
+        {{userDetail.address.street2}}<br />
+        {{userDetail.address.city}} {{userDetail.address.state}} {{userDetail.address.zip}}
+      </td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td>{{userDetail.email}}</td>
+    </tr>
+    <tr>
+      <th>Birthday</th>
+      <td>{{userDetail.birthday | date: "longDate"}}</td>
+    </tr>
+    <tr>
+      <th>Phone Number</th>
+      <td>{{userDetail.Phone}}</td>
+    </tr>
+    <tr>
+      <th>Funds</th>
+      <td>{{userDetail.funds}}</td>
+    </tr>
+    <tr>
+      <th>Linked Account</th>
+      <td>{{userDetail.account.accNum}}</td>
+    </tr>
+    <tr>
+      <th>Account Balance</th>
+      <td>{{userDetail.account.amount}}</td>
+    </tr>
+    <tr>
+      <th>Orders</th>
+      <table class="table w-70">
+        <tr>
+          <th>Tracking Number</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
 
-      <tr *ngFor = "let o of userOrder">
+        <tr *ngFor="let o of userOrder">
           <td>{{o._id}}</td>
           <td>{{o.status}}</td>
           <td>{{o.total}}</td>
-          <td><input type = "button" value = "Delete" (click) = "delete(o)"/></td>
-      </tr>
-    </table>
-  </tr>
+          <td><input type="button" value="Delete" (click)="delete(o)" /></td>
+        </tr>
+      </table>
+    </tr>
 
-</table>
-<hr/>
-<div id="Update User" class="section">
-  <h3>
-    <input type="button" class="section-button" value="Update Profile" (click)="showHideSection('updateProfile')">
-  </h3>
-  <form *ngIf="updateProfile" #updateProfileRef="ngForm"
-    (ngSubmit)="updateProfileFunc(updateProfileRef.value); updateProfileRef.resetForm(); loadUserDetails()">
-    <mat-form-field>
-      <mat-label>First Name:</mat-label>
-      <input matInput type="text" name="firstName" ngModel /><br />
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-label>Last Name:</mat-label>
-      <input matInput type="text" name="lastName" ngModel /><br />
-    </mat-form-field>
-<br>
-    <mat-form-field>
-      <mat-label>Birthday:</mat-label>
-      <input matInput type="date" name="birthday" ngModel /><br />
-    </mat-form-field>
-<br>
-
-<mat-form-field>
-    <mat-label>Phone</mat-label>
-    <input matInput type="text" name="Phone" ngModel /><br />
-</mat-form-field>
-<br>
-
-<mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput type="text" name="email" ngModel /><br />
-</mat-form-field>
-<br>
-<mat-form-field>
-    <mat-label>Address line 1</mat-label>
-    <input matInput type="text" name="address1" ngModel /><br />
-</mat-form-field>
-<br>
-<mat-form-field>
-    <mat-label>Address line 2</mat-label>
-    <input matInput type="text" name="address2" ngModel /><br />
-</mat-form-field>
-<br>
-<mat-form-field>
-
-    <mat-label>City</mat-label>
-    <input matInput type="text" name="city" ngModel /><br />
-</mat-form-field>
-<br>
-<mat-form-field>
-    <mat-label>State</mat-label>
-    <input matInput type="text" name="state" ngModel /><br />
-</mat-form-field>
-<br>
-<mat-form-field>
-    <mat-label>Zip Code</mat-label>
-    <input matInput type="text" name="zip" ngModel /><br />
-</mat-form-field>
-<br>
-    <button mat-stroked-button color="primary" type="submit" >Update Profile</button>
-    <button  mat-stroked-button color="primary" type="reset" >Reset</button>
-  </form>
-</div>
-<br><br>
-<div id="updateFunds">
-  <h3>
-    <input type="button" class="section-button" value="Update Funds" (click)="showHideSection('updateFunds')">
-  </h3>
-  <form *ngIf="updateFunds" #updateFundsRef="ngForm"
-    (ngSubmit)="updateFundsFunc(updateFundsRef.value); updateFundsRef.resetForm(); loadUserDetails()">
-    <span>How much money would you like to transfer into your store funds?</span><br />
-    <mat-form-field>
-      <mat-label>Amount:</mat-label>
-      <input matInput type="number" name="transfer" ngModel required />
-    </mat-form-field>
-    <br />
-    <button mat-stroked-button color="primary" type="submit" [disabled]="!updateFundsRef.valid">Transfer Amount</button>
-    &nbsp;
-    <button mat-stroked-button color="primary" type="reset">Reset</button>
-  </form>
-  {{updateFundsMsg}}
+  </table>
+  <hr />
+  <div id="Update User" class="section">
+    <h3>
+      <input type="button" class="section-button" value="Update Profile" (click)="showHideSection('updateProfile')">
+    </h3>
+    <form *ngIf="updateProfile" #updateProfileRef="ngForm"
+      (ngSubmit)="updateProfileFunc(updateProfileRef.value); updateProfileRef.resetForm(); loadUserDetails()">
+      <mat-form-field>
+        <mat-label>First Name:</mat-label>
+        <input matInput type="text" name="firstName" ngModel /><br />
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Last Name:</mat-label>
+        <input matInput type="text" name="lastName" ngModel /><br />
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Birthday:</mat-label>
+        <input matInput type="date" name="birthday" ngModel /><br />
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input matInput type="text" name="Phone" ngModel /><br />
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="text" name="email" ngModel /><br />
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Address line 1</mat-label>
+        <input matInput type="text" name="address1" ngModel /><br />
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Address line 2</mat-label>
+        <input matInput type="text" name="address2" ngModel /><br />
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input matInput type="text" name="city" ngModel /><br />
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <input matInput type="text" name="state" ngModel /><br />
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Zip Code</mat-label>
+        <input matInput type="text" name="zip" ngModel /><br />
+      </mat-form-field>
+      <br>
+      <button mat-stroked-button color="primary" type="submit">Update Profile</button>
+      &nbsp;
+      <button mat-stroked-button color="primary" type="reset">Reset</button>
+    </form>
+  </div>
+  <hr />
+  <div id="updateFunds" class="section">
+    <h3>
+      <input type="button" class="section-button" value="Update Funds" (click)="showHideSection('updateFunds')">
+    </h3>
+    <form *ngIf="updateFunds" #updateFundsRef="ngForm"
+      (ngSubmit)="updateFundsFunc(updateFundsRef.value); updateFundsRef.resetForm(); loadUserDetails()">
+      <span>How much money would you like to transfer into your store funds?</span><br />
+      <mat-form-field>
+        <mat-label>Amount:</mat-label>
+        <input matInput type="number" name="transfer" ngModel required />
+      </mat-form-field>
+      <br />
+      <button mat-stroked-button color="primary" type="submit" [disabled]="!updateFundsRef.valid">Transfer
+        Amount</button>
+      &nbsp;
+      <button mat-stroked-button color="primary" type="reset">Reset</button>
+    </form>
+    {{updateFundsMsg}}
+  </div>
 </div>

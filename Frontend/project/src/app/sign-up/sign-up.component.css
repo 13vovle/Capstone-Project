@@ -1,10 +1,7 @@
 .card {
     margin: auto;
-    border: 2px solid black;
     border-radius: 25px;
-    background: lightgrey;
     padding: 20px;
-    width: 50%;
 }
 
 mat-form-field {

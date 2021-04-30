@@ -10,6 +10,7 @@ import { User } from '../user.model';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  userName = sessionStorage.getItem("userName");
   user?:User;
   userCart?:Array<Product> =[];
   newCart?:Array<Product> = [];
@@ -48,5 +49,9 @@ export class CartComponent implements OnInit {
     else alert("Your cart is empty! You cannot place an order.");
   }
   
+  reroute_login(){
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("userName");
+  }
 
 }

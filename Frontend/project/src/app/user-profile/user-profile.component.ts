@@ -78,4 +78,9 @@ export class UserProfileComponent implements OnInit {
    
   }
 
+  reroute_login(){
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("userName");
+  }
+
 }

@@ -21,10 +21,8 @@ let getUserDetailById = async(userId)=>{
     }
 }
 
-// let id = 0;
 let storeUserDetails = async (req,res) =>{
     let user = new UserModel({
-    // _id: JSON.stringify(id),
     firstName:  req.body.fname,
     lastName:   req.body.lname,
     birthday:   req.body.dob,
@@ -32,13 +30,11 @@ let storeUserDetails = async (req,res) =>{
     address:    req.body.address,
     email:      req.body.email,
     hashedPassword:req.body.password,
-    funds: 0,
     cart:       [],
     orders:     [],
     isLockedOut: false,
     numberOfTries:0 
     });
-    // id ++;
     user.hashedPassword = await bcrypt.hash(user.hashedPassword, 10);
 
     const userOne = await user.save((err,result)=>{

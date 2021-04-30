@@ -29,7 +29,7 @@ export class OrderUpdateComponent implements OnInit {
           let pname = "";
           for(let prod of order.product)
           {
-            pname += prod + ', '
+            pname += prod.name + ', '
           }
           order["productsList"] = pname.slice(0, -2);
         }

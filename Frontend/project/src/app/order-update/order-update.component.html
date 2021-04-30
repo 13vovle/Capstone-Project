@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Welcome {{uname}}</a>
+    <a class="navbar-brand" href="#">Grocer App - Welcome {{uname}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,7 +31,7 @@
                 <td >{{order.userId}}</td>
                 <td> <span>{{order.productsList}}</span>  </td>
                 <td >{{order.status}}</td>
-                <td > {{order.total}}   </td>
+                <td >${{order.total}}   </td>
                 <td> <select class="form-control" name="orderstat" ngModel #orderstat required>
                     <option value="Shipped">Shipped</option>
                     <option value="Out for Delivery">Out for Delivery</option>
